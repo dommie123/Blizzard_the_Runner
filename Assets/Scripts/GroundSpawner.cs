@@ -1,0 +1,50 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class GroundSpawner : MonoBehaviour
+{
+    [SerializeField] public GameObject groundPiece;
+    [SerializeField] private Vector3 spawnOffset;
+    [SerializeField] private int tilesToSpawn;
+    [SerializeField] private float destroyInSeconds;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    private void OnTriggerEnter2D(Collider2D other) 
+    {
+        for (int i = 0; i < tilesToSpawn; i++)
+        {
+            if (other.gameObject.tag == "Player") 
+            {
+                SpawnGround();
+            } else if (other.gameObject.tag == "Fatal")
+            {
+                // Debug.Log("Golem has touched the ground!");
+                Destroy(this.transform.parent.gameObject, destroyInSeconds);
+            }
+        }
+    }
+
+    private void SpawnGround()
+    {   
+        // Spawn position is only ahead of the tile, not in the air or any deeper or shallower than before.
+        Vector3 spawnPos = new Vector3(
+            this.transform.parent.transform.position.x + spawnOffset.x, 
+            this.transform.parent.transform.position.y, 
+            this.transform.parent.transform.position.z
+        );
+        GameObject temp = Instantiate(groundPiece, spawnPos, Quaternion.identity);
+        //nextSpawnPoint = temp.transform.GetChild(1).transform.position;
+    }
+}
