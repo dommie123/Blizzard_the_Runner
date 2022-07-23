@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class GroundSpawner : MonoBehaviour
 {
-    [SerializeField] public GameObject groundPiece;
+    private GameObject groundPiece;
+    public List<GameObject> groundPieces;
     [SerializeField] private Vector3 spawnOffset;
     [SerializeField] private int tilesToSpawn;
     [SerializeField] private float destroyInSeconds;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        
+        int rng = Random.Range(0, groundPieces.Count);
+        groundPiece = groundPieces[rng];
+        Debug.Log($"Selected number: {rng} out of {groundPieces.Count}");
     }
 
     // Update is called once per frame
@@ -45,6 +48,6 @@ public class GroundSpawner : MonoBehaviour
             this.transform.parent.transform.position.z
         );
         GameObject temp = Instantiate(groundPiece, spawnPos, Quaternion.identity);
-        //nextSpawnPoint = temp.transform.GetChild(1).transform.position;
+
     }
 }

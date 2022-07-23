@@ -64,6 +64,11 @@ public class PlayerController : MonoBehaviour
         return !jumped;
     }
 
+    public bool IsDead()
+    {
+        return isDead;
+    }
+
     private void OnCollisionEnter2D(Collision2D other) 
     {
         if (other.gameObject.tag == "Ground")
@@ -73,6 +78,7 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.tag == "Fatal")
         {
             isDead = true;
+            UpdateScore();
         } 
 
     }

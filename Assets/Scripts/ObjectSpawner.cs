@@ -42,7 +42,7 @@ public class ObjectSpawner : MonoBehaviour
         Vector3 groundPosition = this.transform.parent.transform.position;
 
         float spawnX = (playerPosition.x + golemPosition.x) / 2;
-        float spawnY = hasFixedYPos ? groundPosition.y : Random.Range(groundPosition.y, groundPosition.y + 3);
+        float spawnY = hasFixedYPos ? groundPosition.y : Random.Range(groundPosition.y + minYRange, groundPosition.y + maxYRange);
 
         Vector3 spawnPos = new Vector3(
             spawnX + spawnOffset.x, 
