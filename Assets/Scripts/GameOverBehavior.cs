@@ -10,6 +10,7 @@ public class GameOverBehavior : MonoBehaviour
     public TMP_Text finalScoreText;
     public Button btnRetry;
     public Button btnMainMenu;
+    public GameBehavior game;
     // Start is called before the first frame update
     void Awake()
     {
@@ -24,11 +25,11 @@ public class GameOverBehavior : MonoBehaviour
 
     private void Retry()
     {
-        SceneManager.LoadSceneAsync("SampleScene");
+        SceneManager.LoadSceneAsync("Main (Retry)");
     }
 
     private void GoToMainMenu()
     {
-        // TODO go to main menu.
+        SceneManager.LoadSceneAsync("Main");
     }
 }

@@ -30,7 +30,13 @@ public class GolemController : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D other) {
+    public void SetMoving(bool isMoving) 
+    {
+        this.isMoving = isMoving;
+    }
+
+    private void OnCollisionEnter2D(Collision2D other) 
+    {
         if (other.gameObject.tag == "Player")
         {
             isMoving = false;
