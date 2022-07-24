@@ -9,12 +9,15 @@ public class GameBehavior : MonoBehaviour
     public GameObject gameOverScreen;
     public GameObject hud;
     public GameObject titleScreen;
+    public GameObject pauseMenu;
     public bool gameStarted;
+    public bool gamePaused;
     // Start is called before the first frame update
     void Start()
     {
         gameStarted = SceneManager.GetActiveScene().name == "Main (Retry)";
         gameOverScreen.SetActive(false);
+        pauseMenu.SetActive(false);
     }
 
     // Update is called once per frame
@@ -22,6 +25,7 @@ public class GameBehavior : MonoBehaviour
     {
         CheckGameStarted();
         CheckPlayerDied();
+        CheckGamePaused();
     }
 
     private void CheckGameStarted() 
@@ -48,6 +52,22 @@ public class GameBehavior : MonoBehaviour
         {
             gameOverScreen.SetActive(true);
             hud.SetActive(false);
+        }
+    }
+
+    private void CheckGamePaused()
+    {
+        gamePaused = player.playerPausedGame;
+
+        if (gamePaused && gameStarted)
+        {
+            Time.timeScale = 0;
+            pauseMenu.SetActive(true);
+        }    
+        else if (gameStarted)
+        {
+            Time.timeScale = 1;
+            pauseMenu.SetActive(false);
         }
     }
 }

@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     public float Speed {get; set;}
     public float JumpHeight {get; set;}
     public int Coins {get; set;}
+    public bool playerPausedGame;
     private Rigidbody2D body;
     [SerializeField] private float initialSpeed;
     [SerializeField] private float initialJumpHeight;
@@ -36,6 +37,7 @@ public class PlayerController : MonoBehaviour
         isDead = false;        
         distanceTravelled = 0;
         hitCounter = 0;
+        playerPausedGame = false;
     }
 
     // Update is called once per frame
@@ -46,14 +48,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        body.velocity = new Vector2(Input.GetAxis("Horizontal") * Speed, body.velocity.y);
-
-        if (Input.GetKey(KeyCode.Space) && !jumped)
-        {
-            body.velocity = new Vector2(body.velocity.x, JumpHeight);
-            jumped = true;
-        }
-
+        UpdatePlayerInputs();
         UpdateScore();
         UpdatePowerupTimer();
         UpdateHitTimer();
@@ -152,6 +147,22 @@ public class PlayerController : MonoBehaviour
         ScoreManager.instance.SetScore(distanceTravelled);
     }
 
+    private void UpdatePlayerInputs() 
+    {
+        body.velocity = new Vector2(Input.GetAxis("Horizontal") * Speed, body.velocity.y);
+
+        if (Input.GetKey(KeyCode.Space) && !jumped)
+        {
+            body.velocity = new Vector2(body.velocity.x, JumpHeight);
+            jumped = true;
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            PauseGame();
+        }
+    }
+
     private void BuffPlayer()
     {
         Speed += 2;
@@ -169,5 +180,10 @@ public class PlayerController : MonoBehaviour
     {
         Speed = initialSpeed;
         JumpHeight = initialJumpHeight;
+    }
+
+    private void PauseGame() 
+    {
+        playerPausedGame = !playerPausedGame;
     }
 }
