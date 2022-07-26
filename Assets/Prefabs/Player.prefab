@@ -123,8 +123,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f91e7f2e89082974cb4ff899bdc66a87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerPausedGame: 0
   initialSpeed: 10
   initialJumpHeight: 7.5
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!120 &4666930937655974361
 LineRenderer:
   m_ObjectHideFlags: 0

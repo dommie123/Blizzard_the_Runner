@@ -89,7 +89,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7682854284124461788}
   - component: {fileID: 4062149565853375060}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: CoinSpawner (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -141,7 +141,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8146635061912958397}
   - component: {fileID: 1221224027072471168}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ObstacleSpawner
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -193,7 +193,7 @@ GameObject:
   m_Component:
   - component: {fileID: 963031934524400504}
   - component: {fileID: 3324250449715755784}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: PowerupSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -245,7 +245,7 @@ GameObject:
   m_Component:
   - component: {fileID: 718648486662535044}
   - component: {fileID: 4149415947043010236}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: CoinSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -297,7 +297,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4499500373142352167}
   - component: {fileID: 9060465704042890823}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ground 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -349,7 +349,7 @@ GameObject:
   - component: {fileID: 8614641049955200155}
   - component: {fileID: 8614641049955200154}
   - component: {fileID: 8614641049955200157}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: GroundPlatform
   m_TagString: Ground
   m_Icon: {fileID: 0}

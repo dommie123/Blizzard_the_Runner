@@ -10,14 +10,15 @@ TagManager:
   - Powerup
   - Obstacle
   - Grapple Point
+  - Wall
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ground
   - Water
   - UI
-  - 
+  - Wall
   - 
   - 
   - 

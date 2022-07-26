@@ -12,16 +12,20 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D body;
     [SerializeField] private float initialSpeed;
     [SerializeField] private float initialJumpHeight;
+    [SerializeField] private LayerMask groundMask;
+    [SerializeField] private LayerMask wallMask;
     private float powerupDuration;      // How long the boost is when the player collects a powerup
     private float powerdownDuration;    // How long the slowdown is when the player hits an obstacle
+    private float wallJumpCooldown;
     private bool jumped;
     private bool isDead;
     private bool isHit;
     private bool pwrupTimerIsSet;
     private bool hitTimerIsSet;
+    private bool isTouchingWall;
     private int distanceTravelled;
     private int hitCounter;
-    private Collider2D collider;
+    private CircleCollider2D collider;
 
     void Awake()
     {
@@ -32,9 +36,11 @@ public class PlayerController : MonoBehaviour
         instance = this;
         pwrupTimerIsSet = false;
         body = GetComponent<Rigidbody2D>();
-        collider = GetComponent<Collider2D>();
+        collider = GetComponent<CircleCollider2D>();
         jumped = false;
-        isDead = false;        
+        wallJumpCooldown = 0.2f;
+        isDead = false; 
+        isTouchingWall = false;       
         distanceTravelled = 0;
         hitCounter = 0;
         playerPausedGame = false;
@@ -56,12 +62,19 @@ public class PlayerController : MonoBehaviour
 
     public bool IsGrounded()
     {
-        return !jumped;
+        RaycastHit2D raycastHit = Physics2D.CircleCast(collider.bounds.center, collider.radius, Vector2.down, 0.1f, groundMask);
+        return raycastHit.collider != null;
     }
 
     public bool IsDead()
     {
         return isDead;
+    }
+
+    private bool IsTouchingWall()
+    {
+        RaycastHit2D raycastHit = Physics2D.CircleCast(collider.bounds.center, collider.radius, Vector3.right, 0.1f, wallMask);
+        return raycastHit.collider != null;
     }
 
     private void OnCollisionEnter2D(Collision2D other) 
@@ -75,7 +88,6 @@ public class PlayerController : MonoBehaviour
             isDead = true;
             UpdateScore();
         } 
-
     }
     private void OnTriggerEnter2D(Collider2D other) 
     {
@@ -83,11 +95,9 @@ public class PlayerController : MonoBehaviour
         {
             Coins++;
             CoinManager.instance.UpdateCoins();
-            // Debug.Log($"Coins: {Coins}");
         }
         if (other.gameObject.tag == "Powerup")
         {
-            // TODO set a timer. When it expires, remove the effect (unless powerup gives coins)
             pwrupTimerIsSet = true;
             powerupDuration = 10.0f;
         }
@@ -149,17 +159,42 @@ public class PlayerController : MonoBehaviour
 
     private void UpdatePlayerInputs() 
     {
-        body.velocity = new Vector2(Input.GetAxis("Horizontal") * Speed, body.velocity.y);
+        float direction = Input.GetAxis("Horizontal");
 
-        if (Input.GetKey(KeyCode.Space) && !jumped)
+        UpdateWallJumpPhysics(direction);
+
+        if (wallJumpCooldown >= 0.2f)
+        {
+            body.velocity = new Vector2(direction * Speed, body.velocity.y);
+        }
+
+        if (Input.GetKey(KeyCode.Space) && IsGrounded())
         {
             body.velocity = new Vector2(body.velocity.x, JumpHeight);
+            
             jumped = true;
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             PauseGame();
+        }
+    }
+
+    private void UpdateWallJumpPhysics(float direction)
+    {
+        if (wallJumpCooldown <= 0.2f)
+        {
+            wallJumpCooldown += Time.deltaTime;
+        }
+        if (Input.GetKey(KeyCode.Space) && IsTouchingWall())
+        {
+            body.velocity = new Vector2(-Mathf.Sign(direction) * (JumpHeight / 2), JumpHeight);
+            wallJumpCooldown = 0f;
+        }
+        else if (IsTouchingWall())
+        {
+            body.velocity = new Vector2(0, -body.gravityScale);
         }
     }
 
