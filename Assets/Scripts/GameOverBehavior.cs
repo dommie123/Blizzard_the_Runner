@@ -25,11 +25,11 @@ public class GameOverBehavior : MonoBehaviour
 
     private void Retry()
     {
-        SceneManager.LoadSceneAsync("Main (Retry)");
+        SceneManager.LoadSceneAsync("Main");
     }
 
     private void GoToMainMenu()
     {
-        SceneManager.LoadSceneAsync("Main");
+        SceneManager.LoadSceneAsync("Title");
     }
 }

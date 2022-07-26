@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class TitleScreenBehavior : MonoBehaviour
 {
     public Button btnStart;
-    public GameBehavior game;
+    // public GameBehavior game;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +23,7 @@ public class TitleScreenBehavior : MonoBehaviour
 
     void StartGame()
     {
-        game.gameStarted = true;
+        SceneManager.LoadSceneAsync("Main");
+        // game.gameStarted = true;
     }
 }
