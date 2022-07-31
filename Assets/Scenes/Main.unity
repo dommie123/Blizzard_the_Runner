@@ -327,7 +327,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1960967692212615483, guid: 37d0aec2800f81847b0cc7ff0483b139, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 8
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1960967692212615483, guid: 37d0aec2800f81847b0cc7ff0483b139, type: 3}
       propertyPath: m_LocalPosition.y
@@ -688,6 +688,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 4666930937655974360, guid: d6c66a40546e31d4bb6ff596d9b3239b, type: 3}
+      propertyPath: m_Distance
+      value: 0.32
+      objectReference: {fileID: 0}
     - target: {fileID: 4666930937655974363, guid: d6c66a40546e31d4bb6ff596d9b3239b, type: 3}
       propertyPath: wallMask.m_Bits
       value: 64
@@ -710,7 +714,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4666930937655974372, guid: d6c66a40546e31d4bb6ff596d9b3239b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.23
+      value: 0.32
       objectReference: {fileID: 0}
     - target: {fileID: 4666930937655974372, guid: d6c66a40546e31d4bb6ff596d9b3239b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -748,7 +752,8 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -2413806693520163455, guid: 4adeaf2d2b1c7417e89f026626d8264f, type: 3}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3893597798902837116, guid: d6c66a40546e31d4bb6ff596d9b3239b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: d6c66a40546e31d4bb6ff596d9b3239b, type: 3}
 --- !u!1001 &5108483180016826513
 PrefabInstance:

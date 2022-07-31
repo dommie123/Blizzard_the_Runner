@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     private bool isTouchingWall;
     private int distanceTravelled;
     private int hitCounter;
-    private CircleCollider2D collider;
+    private CapsuleCollider2D collider;
 
     void Awake()
     {
@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
         instance = this;
         pwrupTimerIsSet = false;
         body = GetComponent<Rigidbody2D>();
-        collider = GetComponent<CircleCollider2D>();
+        collider = GetComponent<CapsuleCollider2D>();
         jumped = false;
         wallJumpCooldown = 0.2f;
         isDead = false; 
@@ -54,6 +54,8 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
+        Debug.Log(IsGrounded());
+
         UpdatePlayerInputs();
         UpdateScore();
         UpdatePowerupTimer();
@@ -62,7 +64,8 @@ public class PlayerController : MonoBehaviour
 
     public bool IsGrounded()
     {
-        RaycastHit2D raycastHit = Physics2D.CircleCast(collider.bounds.center, collider.radius, Vector2.down, 0.1f, groundMask);
+        float distanceToGround = collider.bounds.extents.y;
+        RaycastHit2D raycastHit = Physics2D.CapsuleCast(collider.bounds.center, collider.bounds.size, CapsuleDirection2D.Vertical, 0f, Vector2.down, distanceToGround + 0.1f, groundMask);
         return raycastHit.collider != null;
     }
 
@@ -73,7 +76,8 @@ public class PlayerController : MonoBehaviour
 
     private bool IsTouchingWall()
     {
-        RaycastHit2D raycastHit = Physics2D.CircleCast(collider.bounds.center, collider.radius, Vector3.right, 0.1f, wallMask);
+        float distanceToWall = collider.bounds.extents.x;
+        RaycastHit2D raycastHit = Physics2D.CapsuleCast(collider.bounds.center, collider.bounds.size, CapsuleDirection2D.Vertical, 0f, Vector2.right, distanceToWall + 0.1f, wallMask);
         return raycastHit.collider != null;
     }
 
