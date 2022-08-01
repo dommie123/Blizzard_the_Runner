@@ -60,4 +60,5 @@ crashlytics-build.properties
 
 # Miscellaneous
 *.aseprite
+*.aseprite.meta
 *.dwlt
