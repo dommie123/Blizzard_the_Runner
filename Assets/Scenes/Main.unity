@@ -814,5 +814,17 @@ PrefabInstance:
       propertyPath: isMoving
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5108483179837887431, guid: 0d1dd243364725446b7e206b60714131, type: 3}
+      propertyPath: jumpHeight
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5108483179837887431, guid: 0d1dd243364725446b7e206b60714131, type: 3}
+      propertyPath: wallMask.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 5108483179837887431, guid: 0d1dd243364725446b7e206b60714131, type: 3}
+      propertyPath: groundMask.m_Bits
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d1dd243364725446b7e206b60714131, type: 3}

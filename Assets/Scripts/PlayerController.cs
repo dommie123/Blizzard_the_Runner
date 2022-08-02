@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour
     public bool IsGrounded()
     {
         float distanceToGround = collider.bounds.extents.y;
-        RaycastHit2D raycastHit = Physics2D.CapsuleCast(collider.bounds.center, collider.bounds.size, CapsuleDirection2D.Vertical, 0f, Vector2.down, distanceToGround + 0.1f, groundMask);
+        RaycastHit2D raycastHit = Physics2D.CapsuleCast(collider.bounds.center, collider.bounds.size, CapsuleDirection2D.Vertical, 0f, Vector2.down, /*distanceToGround*/ 0.1f, groundMask);
         return raycastHit.collider != null;
     }
 
@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour
     private bool IsTouchingWall()
     {
         float distanceToWall = collider.bounds.extents.x;
-        RaycastHit2D raycastHit = Physics2D.CapsuleCast(collider.bounds.center, collider.bounds.size, CapsuleDirection2D.Vertical, 0f, Vector2.right, distanceToWall + 0.1f, wallMask);
+        RaycastHit2D raycastHit = Physics2D.CapsuleCast(collider.bounds.center, collider.bounds.size, CapsuleDirection2D.Vertical, 0f, Vector2.right, /*distanceToWall*/ 0.1f, wallMask);
         return raycastHit.collider != null;
     }
 
