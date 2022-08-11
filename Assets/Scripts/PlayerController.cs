@@ -211,7 +211,7 @@ public class PlayerController : MonoBehaviour
     private void NerfPlayer() 
     {
         Speed -= 2;
-        JumpHeight -= 2;
+        //JumpHeight -= 2;
         hitCounter++;
     }
 

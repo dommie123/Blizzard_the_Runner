@@ -233,7 +233,7 @@ Camera:
   m_GameObject: {fileID: 519420028}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
+  m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -766,6 +766,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Golem
       objectReference: {fileID: 0}
+    - target: {fileID: 5108483179837887427, guid: 0d1dd243364725446b7e206b60714131, type: 3}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 5108483179837887428, guid: 0d1dd243364725446b7e206b60714131, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -776,7 +780,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5108483179837887428, guid: 0d1dd243364725446b7e206b60714131, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.2900004
+      value: 9.33
       objectReference: {fileID: 0}
     - target: {fileID: 5108483179837887428, guid: 0d1dd243364725446b7e206b60714131, type: 3}
       propertyPath: m_LocalPosition.z
