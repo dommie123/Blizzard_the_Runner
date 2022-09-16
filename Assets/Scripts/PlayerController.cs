@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     public int Coins {get; set;}
     public bool playerPausedGame;
     private Rigidbody2D body;
+    private Animator anim;
+    private SpriteRenderer sprite;
     [SerializeField] private float initialSpeed;
     [SerializeField] private float initialJumpHeight;
     [SerializeField] private LayerMask groundMask;
@@ -37,6 +39,8 @@ public class PlayerController : MonoBehaviour
         pwrupTimerIsSet = false;
         body = GetComponent<Rigidbody2D>();
         collider = GetComponent<CapsuleCollider2D>();
+        anim = this.gameObject.transform.GetChild(0).GetComponent<Animator>();
+        sprite = this.gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>();
         jumped = false;
         wallJumpCooldown = 0.2f;
         isDead = false; 
@@ -56,6 +60,7 @@ public class PlayerController : MonoBehaviour
 
         Debug.Log(IsGrounded());
 
+        UpdateSpriteDirection();
         UpdatePlayerInputs();
         UpdateScore();
         UpdatePowerupTimer();
@@ -86,6 +91,8 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.tag == "Ground")
         {
             jumped = false;
+            anim.SetBool("Jumped", false);
+
         } 
         if (other.gameObject.tag == "Fatal")
         {
@@ -170,6 +177,7 @@ public class PlayerController : MonoBehaviour
         if (wallJumpCooldown >= 0.2f)
         {
             body.velocity = new Vector2(direction * Speed, body.velocity.y);
+            anim.SetFloat("Speed", Mathf.Abs(body.velocity.x));
         }
 
         if (Input.GetKey(KeyCode.Space) && IsGrounded())
@@ -177,6 +185,7 @@ public class PlayerController : MonoBehaviour
             body.velocity = new Vector2(body.velocity.x, JumpHeight);
             
             jumped = true;
+            anim.SetBool("Jumped", true);
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -195,10 +204,12 @@ public class PlayerController : MonoBehaviour
         {
             body.velocity = new Vector2(-Mathf.Sign(direction) * (JumpHeight / 2), JumpHeight);
             wallJumpCooldown = 0f;
+            anim.SetBool("Is Touching Wall", false);
         }
         else if (IsTouchingWall())
         {
             body.velocity = new Vector2(0, -body.gravityScale);
+            anim.SetBool("Is Touching Wall", true);
         }
     }
 
@@ -224,5 +235,15 @@ public class PlayerController : MonoBehaviour
     private void PauseGame() 
     {
         playerPausedGame = !playerPausedGame;
+    }
+
+    private void UpdateSpriteDirection()
+    {
+        if (IsTouchingWall() && Input.GetAxis("Horizontal") < 0)
+            sprite.flipX = false;
+        else if (IsTouchingWall() ^ Input.GetAxis("Horizontal") < 0)
+            sprite.flipX = true;
+        else
+            sprite.flipX = false;
     }
 }
