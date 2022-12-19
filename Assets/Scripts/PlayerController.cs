@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        Debug.Log(IsGrounded());
+        //Debug.Log(IsGrounded());
 
         UpdateSpriteDirection();
         UpdatePlayerInputs();

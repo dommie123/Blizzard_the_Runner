@@ -207,7 +207,6 @@ GameObject:
   - component: {fileID: 519420032}
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
-  - component: {fileID: 519420033}
   - component: {fileID: 519420034}
   m_Layer: 0
   m_Name: Main Camera
@@ -282,22 +281,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &519420033
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 519420028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73ad7bd15b3a1b241b814b86ab8cff51, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 2120956378}
-  offset: {x: 0, y: 0, z: 0}
-  delay: 0.5
-  speed: 7
 --- !u!114 &519420034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -548,11 +531,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17a186c2db0ee054bb137cd0e4bdaf88, type: 3}
---- !u!50 &2120956378 stripped
-Rigidbody2D:
-  m_CorrespondingSourceObject: {fileID: 4666930937655974367, guid: d6c66a40546e31d4bb6ff596d9b3239b, type: 3}
-  m_PrefabInstance: {fileID: 4666930938895720453}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2120956382 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4666930937655974363, guid: d6c66a40546e31d4bb6ff596d9b3239b, type: 3}
@@ -582,7 +560,7 @@ PrefabInstance:
     - target: {fileID: 4666930937655974366, guid: d6c66a40546e31d4bb6ff596d9b3239b, type: 3}
       propertyPath: cameraController
       value: 
-      objectReference: {fileID: 519420033}
+      objectReference: {fileID: 0}
     - target: {fileID: 4666930937655974372, guid: d6c66a40546e31d4bb6ff596d9b3239b, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -747,6 +725,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5108483179837887431, guid: 0d1dd243364725446b7e206b60714131, type: 3}
       propertyPath: isMoving
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8578274096748988017, guid: 0d1dd243364725446b7e206b60714131, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
