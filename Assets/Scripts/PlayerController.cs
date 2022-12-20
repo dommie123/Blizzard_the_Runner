@@ -5,9 +5,9 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public static PlayerController instance;
-    public float Speed {get; set;}
-    public float JumpHeight {get; set;}
-    public int Coins {get; set;}
+    public float Speed { get; set; }
+    public float JumpHeight { get; set; }
+    public int Coins { get; set; }
     public bool playerPausedGame;
     private Rigidbody2D body;
     private Animator anim;
@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float initialJumpHeight;
     [SerializeField] private LayerMask groundMask;
     [SerializeField] private LayerMask wallMask;
+    [SerializeField] private float debuffJump;
+    [SerializeField] private float debuffSpeed;
     private float powerupDuration;      // How long the boost is when the player collects a powerup
     private float powerdownDuration;    // How long the slowdown is when the player hits an obstacle
     private float wallJumpCooldown;
@@ -219,14 +221,14 @@ public class PlayerController : MonoBehaviour
  */
     private void BuffPlayer()
     {
-        //Speed += 2;
-        //JumpHeight += 2;
+        Speed = initialSpeed;
+        JumpHeight = initialJumpHeight;
     }
 
     private void NerfPlayer() 
     {
-        //Speed -= 2;
-        //JumpHeight -= 2;
+        Speed = debuffSpeed;
+        JumpHeight = debuffJump;
         hitCounter++;
     }
 

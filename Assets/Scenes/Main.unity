@@ -314,7 +314,7 @@ MonoBehaviour:
   offsetX: 1.85
   offsetY: 2
   lockX: 0
-  lockY: 0
+  lockY: 1
 --- !u!1 &715489943
 GameObject:
   m_ObjectHideFlags: 0
@@ -576,6 +576,14 @@ PrefabInstance:
       value: 0.32
       objectReference: {fileID: 0}
     - target: {fileID: 4666930937655974363, guid: d6c66a40546e31d4bb6ff596d9b3239b, type: 3}
+      propertyPath: debuffJump
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4666930937655974363, guid: d6c66a40546e31d4bb6ff596d9b3239b, type: 3}
+      propertyPath: debuffSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4666930937655974363, guid: d6c66a40546e31d4bb6ff596d9b3239b, type: 3}
       propertyPath: grappleScript
       value: 
       objectReference: {fileID: 4666930938895720456}
@@ -671,7 +679,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5108483179837887424, guid: 0d1dd243364725446b7e206b60714131, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5108483179837887427, guid: 0d1dd243364725446b7e206b60714131, type: 3}
       propertyPath: m_Constraints
