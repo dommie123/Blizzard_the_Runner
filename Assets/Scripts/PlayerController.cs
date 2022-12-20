@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D body;
     private Animator anim;
     private SpriteRenderer sprite;
+    public GrappleScript grappleScript;
     [SerializeField] private float initialSpeed;
     [SerializeField] private float initialJumpHeight;
     [SerializeField] private LayerMask groundMask;
@@ -41,6 +42,7 @@ public class PlayerController : MonoBehaviour
         collider = GetComponent<CapsuleCollider2D>();
         anim = this.gameObject.transform.GetChild(0).GetComponent<Animator>();
         sprite = this.gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>();
+        grappleScript = GetComponent<GrappleScript>();
         jumped = false;
         wallJumpCooldown = 0.2f;
         isDead = false; 
@@ -106,6 +108,7 @@ public class PlayerController : MonoBehaviour
         {
             Coins++;
             CoinManager.instance.UpdateCoins();
+            grappleScript.grappleCooldown -= .5f;
         }
         if (other.gameObject.tag == "Powerup")
         {
@@ -172,7 +175,7 @@ public class PlayerController : MonoBehaviour
     {
         float direction = Input.GetAxis("Horizontal");
 
-        UpdateWallJumpPhysics(direction);
+        //UpdateWallJumpPhysics(direction);
 
         if (wallJumpCooldown >= 0.2f)
         {
@@ -180,7 +183,7 @@ public class PlayerController : MonoBehaviour
             anim.SetFloat("Speed", Mathf.Abs(body.velocity.x));
         }
 
-        if (Input.GetKey(KeyCode.Space) && IsGrounded())
+        if (Input.GetKey(KeyCode.Space) && IsGrounded() && jumped == false)
         {
             body.velocity = new Vector2(body.velocity.x, JumpHeight);
             
@@ -194,6 +197,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+ /*
     private void UpdateWallJumpPhysics(float direction)
     {
         if (wallJumpCooldown <= 0.2f)
@@ -212,16 +216,16 @@ public class PlayerController : MonoBehaviour
             anim.SetBool("Is Touching Wall", true);
         }
     }
-
+ */
     private void BuffPlayer()
     {
-        Speed += 2;
-        JumpHeight += 2;
+        //Speed += 2;
+        //JumpHeight += 2;
     }
 
     private void NerfPlayer() 
     {
-        Speed -= 2;
+        //Speed -= 2;
         //JumpHeight -= 2;
         hitCounter++;
     }

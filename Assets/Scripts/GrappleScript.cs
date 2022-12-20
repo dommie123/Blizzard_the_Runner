@@ -10,7 +10,7 @@ public class GrappleScript : MonoBehaviour
     public LineRenderer lineRenderer;
     public DistanceJoint2D distanceJoint;
     public PlayerController player;
-    private float grappleCooldown;
+    public float grappleCooldown;
 
     // Start is called before the first frame update
     void Start()

@@ -314,7 +314,7 @@ MonoBehaviour:
   offsetX: 1.85
   offsetY: 2
   lockX: 0
-  lockY: 1
+  lockY: 0
 --- !u!1 &715489943
 GameObject:
   m_ObjectHideFlags: 0
@@ -440,7 +440,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9060465704042890823, guid: 17a186c2db0ee054bb137cd0e4bdaf88, type: 3}
       propertyPath: destroyInSeconds
-      value: 20
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17a186c2db0ee054bb137cd0e4bdaf88, type: 3}
@@ -576,6 +576,10 @@ PrefabInstance:
       value: 0.32
       objectReference: {fileID: 0}
     - target: {fileID: 4666930937655974363, guid: d6c66a40546e31d4bb6ff596d9b3239b, type: 3}
+      propertyPath: grappleScript
+      value: 
+      objectReference: {fileID: 4666930938895720456}
+    - target: {fileID: 4666930937655974363, guid: d6c66a40546e31d4bb6ff596d9b3239b, type: 3}
       propertyPath: wallMask.m_Bits
       value: 64
       objectReference: {fileID: 0}
@@ -643,6 +647,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4666930937336157830, guid: d6c66a40546e31d4bb6ff596d9b3239b, type: 3}
   m_PrefabInstance: {fileID: 4666930938895720453}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4666930938895720456 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4666930937655974366, guid: d6c66a40546e31d4bb6ff596d9b3239b, type: 3}
+  m_PrefabInstance: {fileID: 4666930938895720453}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4666930938895720454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1f5695626683c741be245a1400aa523, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &5108483180016826513
 PrefabInstance:
   m_ObjectHideFlags: 0

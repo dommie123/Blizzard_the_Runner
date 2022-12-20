@@ -27,14 +27,19 @@ public class NewCameraController : MonoBehaviour
     {
         offset = new Vector2(offsetX, offsetY);
         
-        if (!lockX)
+        if (!lockX && lockY)
         {
             transform.position = new Vector3(player.transform.position.x + offset.x, initialPosition.y + offset.y, -10);
         }
 
-        if (!lockY)
+        else if (!lockY && lockX)
         {
             transform.position = new Vector3(initialPosition.x + offset.x, player.transform.position.y + offset.y, -10);
+        }
+
+        else if (!lockX && !lockY)
+        {
+            transform.position = new Vector3(player.transform.position.x + offset.x, player.transform.position.y + offset.y, -10);
         }
     }
 }
