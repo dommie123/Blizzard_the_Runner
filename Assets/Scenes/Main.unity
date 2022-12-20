@@ -314,7 +314,11 @@ MonoBehaviour:
   offsetX: 1.85
   offsetY: 2
   lockX: 0
-  lockY: 1
+  lockY: 0
+  limitX: 0
+  limitY: 1
+  xMinMax: {x: 0, y: 0}
+  yMinMax: {x: -1.5, y: 2}
 --- !u!1 &715489943
 GameObject:
   m_ObjectHideFlags: 0
@@ -574,6 +578,10 @@ PrefabInstance:
     - target: {fileID: 4666930937655974360, guid: d6c66a40546e31d4bb6ff596d9b3239b, type: 3}
       propertyPath: m_Distance
       value: 0.32
+      objectReference: {fileID: 0}
+    - target: {fileID: 4666930937655974360, guid: d6c66a40546e31d4bb6ff596d9b3239b, type: 3}
+      propertyPath: m_EnableCollision
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4666930937655974363, guid: d6c66a40546e31d4bb6ff596d9b3239b, type: 3}
       propertyPath: debuffJump
