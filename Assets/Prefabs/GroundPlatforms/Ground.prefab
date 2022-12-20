@@ -104,7 +104,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1615224776070690017}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -37.52, y: -3.5, z: 0.3895788}
+  m_LocalPosition: {x: -38.21, y: -2.38, z: 0.3895788}
   m_LocalScale: {x: 26.549536, y: 0.9556978, z: 0.95581}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -174,8 +174,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnOffset: {x: 0, y: 0, z: 0}
   obj: {fileID: 2002452030678697104, guid: 03eff2d58ffc8ec4ca37c05e8d49fe8b, type: 3}
-  numToSpawn: 5
-  chanceToSpawn: 0.3
+  numToSpawn: 4
+  chanceToSpawn: 0.4
   distanceBetweenObjects: 1
 --- !u!1 &5234505059214986785
 GameObject:
@@ -251,7 +251,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6239329186156598397}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -33.74, y: 0.6, z: 0.3895788}
+  m_LocalPosition: {x: -34.77, y: -0.92, z: 0.3895788}
   m_LocalScale: {x: 26.549536, y: 0.9556978, z: 0.95581}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -272,7 +272,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnOffset: {x: 0, y: 0, z: 0}
   obj: {fileID: 6926805164214358001, guid: cc43cabffd225be4b8679d7c1973b8cb, type: 3}
-  numToSpawn: 1
+  numToSpawn: 2
   chanceToSpawn: 0.5
   distanceBetweenObjects: 4.5
 --- !u!1 &7075891053036926212

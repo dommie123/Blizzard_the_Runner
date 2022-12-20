@@ -125,8 +125,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnOffset: {x: 0, y: 0, z: 0}
   obj: {fileID: 2002452030678697104, guid: 03eff2d58ffc8ec4ca37c05e8d49fe8b, type: 3}
-  numToSpawn: 5
-  chanceToSpawn: 0.5
+  numToSpawn: 7
+  chanceToSpawn: 0.6
   distanceBetweenObjects: 1
 --- !u!1 &5234505059214986785
 GameObject:
@@ -202,7 +202,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6239329186156598397}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -29.36, y: -0.72, z: 0.3895788}
+  m_LocalPosition: {x: -29.88, y: -0.46, z: 0.3895788}
   m_LocalScale: {x: 26.549536, y: 0.9556978, z: 0.95581}
   m_ConstrainProportionsScale: 0
   m_Children: []
