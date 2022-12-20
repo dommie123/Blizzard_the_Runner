@@ -125,8 +125,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnOffset: {x: 0, y: 0, z: 0}
   obj: {fileID: 6836668954752948764, guid: 12c061b353c4f714abf415340fe56b6a, type: 3}
-  numToSpawn: 5
-  chanceToSpawn: 0.8
+  numToSpawn: 2
+  chanceToSpawn: 0.35
   distanceBetweenObjects: 4.5
 --- !u!1 &3308129374992854499
 GameObject:
@@ -175,7 +175,7 @@ MonoBehaviour:
   spawnOffset: {x: 0, y: 0, z: 0}
   obj: {fileID: 2002452030678697104, guid: 03eff2d58ffc8ec4ca37c05e8d49fe8b, type: 3}
   numToSpawn: 5
-  chanceToSpawn: 0.5
+  chanceToSpawn: 0.3
   distanceBetweenObjects: 1
 --- !u!1 &5234505059214986785
 GameObject:
@@ -272,7 +272,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnOffset: {x: 0, y: 0, z: 0}
   obj: {fileID: 6926805164214358001, guid: cc43cabffd225be4b8679d7c1973b8cb, type: 3}
-  numToSpawn: 2
+  numToSpawn: 1
   chanceToSpawn: 0.5
   distanceBetweenObjects: 4.5
 --- !u!1 &7075891053036926212

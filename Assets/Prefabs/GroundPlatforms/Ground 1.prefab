@@ -78,7 +78,7 @@ MonoBehaviour:
   - {fileID: 7075891053036926212, guid: 17a186c2db0ee054bb137cd0e4bdaf88, type: 3}
   spawnOffset: {x: 26.52, y: -4.55, z: 0}
   tilesToSpawn: 1
-  destroyInSeconds: 20
+  destroyInSeconds: 10
 --- !u!1 &1615224776070690017
 GameObject:
   m_ObjectHideFlags: 0
@@ -104,7 +104,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1615224776070690017}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -35.58, y: 0.65, z: 0.3895788}
+  m_LocalPosition: {x: -29.4, y: 0.65, z: 0.3895788}
   m_LocalScale: {x: 26.549536, y: 0.9556978, z: 0.95581}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -125,8 +125,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnOffset: {x: 0, y: 0, z: 0}
   obj: {fileID: 6836668954752948764, guid: 12c061b353c4f714abf415340fe56b6a, type: 3}
-  numToSpawn: 3
-  chanceToSpawn: 0.25
+  numToSpawn: 1
+  chanceToSpawn: 0.5
   distanceBetweenObjects: 4.5
 --- !u!1 &1785185361117953306
 GameObject:
@@ -251,7 +251,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6239329186156598397}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -33.7, y: 4.57, z: 0.3895788}
+  m_LocalPosition: {x: -29.3, y: 5.8, z: 0.3895788}
   m_LocalScale: {x: 26.549536, y: 0.9556978, z: 0.95581}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -272,7 +272,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnOffset: {x: 0, y: 0, z: 0}
   obj: {fileID: 6926805164214358001, guid: cc43cabffd225be4b8679d7c1973b8cb, type: 3}
-  numToSpawn: 2
+  numToSpawn: 1
   chanceToSpawn: 0.3
   distanceBetweenObjects: 4.5
 --- !u!1 &7075891053036926212

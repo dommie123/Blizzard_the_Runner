@@ -4,7 +4,14 @@ using UnityEngine;
 
 public class CoinBehavior : MonoBehaviour
 {
-    void OnTriggerEnter2D(Collider2D other) 
+    [SerializeField] private float destroyInSeconds;
+
+    private void Awake() 
+    {
+        Destroy(this, destroyInSeconds);
+    }
+
+    private void OnTriggerEnter2D(Collider2D other) 
     {
         if (other.gameObject.tag == "Player")
         {
