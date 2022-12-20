@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ObjectSpawner : MonoBehaviour
 {
-    // public static ObjectSpawner instance;
     [SerializeField] private Vector3 spawnOffset;
     [SerializeField] private GameObject obj;
     [SerializeField] private int numToSpawn;
@@ -13,7 +12,6 @@ public class ObjectSpawner : MonoBehaviour
 
     private void Awake() 
     {
-        // instance = this;
         if (!obj)
         {
             return;
@@ -29,23 +27,15 @@ public class ObjectSpawner : MonoBehaviour
                 // Prevent multiple objects from spawning on top of each other.
                 spawnOffset.x += distanceBetweenObjects;
             }
+            else 
+            {
+                break;
+            }
         }
     }
 
     private void SpawnObject()
     {   
-        // Vector3 golemPosition = GolemController.instance.transform.position;
-        // Vector3 playerPosition = PlayerController.instance.transform.position;
-        // Vector3 groundPosition = this.transform.parent.transform.position;
-
-        // float spawnX = (playerPosition.x + golemPosition.x) / 2;
-        // float spawnY = hasFixedYPos ? groundPosition.y : Random.Range(groundPosition.y + minYRange, groundPosition.y + maxYRange);
-
-        // Vector3 spawnPos = new Vector3(
-        //     spawnX + spawnOffset.x, 
-        //     spawnY + spawnOffset.y, 
-        //     groundPosition.z
-        // );
         Vector3 spawnPos = this.transform.position + spawnOffset;
 
         Instantiate(obj, spawnPos, Quaternion.identity);

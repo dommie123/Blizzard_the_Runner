@@ -130,10 +130,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 949377067564788676, guid: 17a186c2db0ee054bb137cd0e4bdaf88, type: 3}
-      propertyPath: groundPieces.Array.size
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 4149415947043010236, guid: 17a186c2db0ee054bb137cd0e4bdaf88, type: 3}
       propertyPath: maxYRange
       value: 1.5
@@ -189,10 +185,6 @@ PrefabInstance:
     - target: {fileID: 7075891053036926212, guid: 17a186c2db0ee054bb137cd0e4bdaf88, type: 3}
       propertyPath: m_Name
       value: Ground (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 9060465704042890823, guid: 17a186c2db0ee054bb137cd0e4bdaf88, type: 3}
-      propertyPath: destroyInSeconds
-      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17a186c2db0ee054bb137cd0e4bdaf88, type: 3}
