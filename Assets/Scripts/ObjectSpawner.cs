@@ -26,6 +26,7 @@ public class ObjectSpawner : MonoBehaviour
 
                 // Prevent multiple objects from spawning on top of each other.
                 spawnOffset.x += distanceBetweenObjects;
+                //spawnOffset.y += distanceBetweenObjects; // spawns them in diagonal lines, quick and dirty way to test verticallity
             }
             else 
             {

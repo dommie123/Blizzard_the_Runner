@@ -31,7 +31,7 @@ public class GrappleScript : MonoBehaviour
 
     void UpdateCooldown()
     {
-        Debug.Log($"Cooldown: {grappleCooldown}");
+        //Debug.Log($"Cooldown: {grappleCooldown}");
 
         if (grappleCooldown > 0)
         {
@@ -49,16 +49,16 @@ public class GrappleScript : MonoBehaviour
             distanceJoint.connectedAnchor = mousePos;
             distanceJoint.enabled = true;
             lineRenderer.enabled = true;
-        }
-        else if (Input.GetKeyUp(KeyCode.Mouse0))
-        {
-            distanceJoint.enabled = false;
-            lineRenderer.enabled = false;
 
             if (grappleCooldown <= 0f)
             {
                 grappleCooldown = 2f;
             }
+        }
+        else if (Input.GetKeyUp(KeyCode.Mouse0) || player.IsGrounded())
+        {
+            distanceJoint.enabled = false;
+            lineRenderer.enabled = false;
         }
 
         if (distanceJoint.enabled)

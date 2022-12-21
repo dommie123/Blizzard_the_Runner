@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float debuffSpeed;
     private float powerupDuration;      // How long the boost is when the player collects a powerup
     private float powerdownDuration;    // How long the slowdown is when the player hits an obstacle
-    private float wallJumpCooldown;
+    //private float wallJumpCooldown;
     private bool jumped;
     private bool isDead;
     private bool isHit;
@@ -46,9 +46,9 @@ public class PlayerController : MonoBehaviour
         sprite = this.gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>();
         grappleScript = GetComponent<GrappleScript>();
         jumped = false;
-        wallJumpCooldown = 0.2f;
+        //wallJumpCooldown = 0.2f;
         isDead = false; 
-        isTouchingWall = false;       
+        //isTouchingWall = false;       
         distanceTravelled = 0;
         hitCounter = 0;
         playerPausedGame = false;
@@ -178,12 +178,16 @@ public class PlayerController : MonoBehaviour
         float direction = Input.GetAxis("Horizontal");
 
         //UpdateWallJumpPhysics(direction);
-
+        /*
         if (wallJumpCooldown >= 0.2f)
         {
             body.velocity = new Vector2(direction * Speed, body.velocity.y);
             anim.SetFloat("Speed", Mathf.Abs(body.velocity.x));
         }
+        */
+
+        body.velocity = new Vector2(direction * Speed, body.velocity.y);
+        anim.SetFloat("Speed", Mathf.Abs(body.velocity.x));
 
         if (Input.GetKey(KeyCode.Space) && IsGrounded() && jumped == false)
         {
