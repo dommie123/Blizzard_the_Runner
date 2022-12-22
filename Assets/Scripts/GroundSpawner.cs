@@ -14,7 +14,7 @@ public class GroundSpawner : MonoBehaviour
     {
         int rng = Random.Range(0, groundPieces.Count);
         groundPiece = groundPieces[rng];
-        Debug.Log($"Selected number: {rng} out of {groundPieces.Count}");
+        //Debug.Log($"Selected number: {rng} out of {groundPieces.Count}");
     }
 
     // Update is called once per frame

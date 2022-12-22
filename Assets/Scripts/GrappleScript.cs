@@ -11,6 +11,7 @@ public class GrappleScript : MonoBehaviour
     public DistanceJoint2D distanceJoint;
     public PlayerController player;
     public float grappleCooldown;
+    public bool isGrappling;
 
     // Start is called before the first frame update
     void Start()
@@ -43,6 +44,9 @@ public class GrappleScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse0) && grappleCooldown <= 0f && !player.IsGrounded())
         {
+            isGrappling = true;
+            player.canCombo = true;
+
             Vector2 mousePos = (Vector2) mainCamera.ScreenToWorldPoint(Input.mousePosition);
             lineRenderer.SetPosition(0, mousePos);
             lineRenderer.SetPosition(1, transform.position);
@@ -57,6 +61,7 @@ public class GrappleScript : MonoBehaviour
         }
         else if (Input.GetKeyUp(KeyCode.Mouse0) || player.IsGrounded())
         {
+            isGrappling = false;
             distanceJoint.enabled = false;
             lineRenderer.enabled = false;
         }
