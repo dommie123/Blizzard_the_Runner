@@ -49,8 +49,10 @@ public class PlayerController : MonoBehaviour
         pwrupTimerIsSet = false;
         body = GetComponent<Rigidbody2D>();
         collider = GetComponent<CapsuleCollider2D>();
-        anim = this.gameObject.transform.GetChild(0).GetComponent<Animator>();
-        sprite = this.gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>();
+        // anim = this.gameObject.transform.GetChild(0).GetComponent<Animator>();
+        // sprite = this.gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
+        sprite = GetComponent<SpriteRenderer>();
         grappleScript = GetComponent<GrappleScript>();
         jumped = false;
         //wallJumpCooldown = 0.2f;
@@ -298,5 +300,7 @@ public class PlayerController : MonoBehaviour
             else
                 sprite.flipX = false;
         }
+
+        anim.SetFloat("Vertical Velocity", body.velocity.y);
     }
 }
