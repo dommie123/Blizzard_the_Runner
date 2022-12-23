@@ -77,6 +77,13 @@ public class PlayerController : MonoBehaviour
         UpdatePowerupTimer();
         UpdateHitTimer();
         UpdateCombo();
+
+        if (transform.position.y < -6f)
+        {
+            body.velocity = Vector2.zero;
+            isDead = true;
+        }
+
     }
 
     public bool IsGrounded()

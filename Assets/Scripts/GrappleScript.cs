@@ -26,8 +26,11 @@ public class GrappleScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateCooldown();
-        UpdatePlayerInputs();
+        if (!player.IsDead())
+        {
+            UpdateCooldown();
+            UpdatePlayerInputs();
+        }
     }
 
     void UpdateCooldown()

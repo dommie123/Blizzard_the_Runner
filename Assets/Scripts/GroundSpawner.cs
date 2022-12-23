@@ -5,6 +5,7 @@ using UnityEngine;
 public class GroundSpawner : MonoBehaviour
 {
     private GameObject groundPiece;
+    private Collider2D collider;
     public List<GameObject> groundPieces;
     [SerializeField] private Vector3 spawnOffset;
     [SerializeField] private int tilesToSpawn;
@@ -12,16 +13,13 @@ public class GroundSpawner : MonoBehaviour
 
     private void Awake()
     {
+        collider = GetComponent<Collider2D>();
         int rng = Random.Range(0, groundPieces.Count);
         groundPiece = groundPieces[rng];
         //Debug.Log($"Selected number: {rng} out of {groundPieces.Count}");
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 
     private void OnTriggerEnter2D(Collider2D other) 
     {
@@ -30,6 +28,7 @@ public class GroundSpawner : MonoBehaviour
             if (other.gameObject.tag == "Player") 
             {
                 SpawnGround();
+                collider.enabled = false;
             } 
             // else if (other.gameObject.tag == "Fatal")
             // {
