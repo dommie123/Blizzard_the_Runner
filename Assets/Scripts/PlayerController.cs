@@ -136,7 +136,7 @@ public class PlayerController : MonoBehaviour
         {
             Coins += (1 * Mathf.Clamp(combo,1,comboCap));
             CoinManager.instance.UpdateCoins();
-            grappleScript.grappleCooldown -= .5f;
+            grappleScript.grappleCooldown -= .25f;
         }
         if (other.gameObject.tag == "Powerup")
         {
