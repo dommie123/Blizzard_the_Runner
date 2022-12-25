@@ -940,9 +940,13 @@ PrefabInstance:
       propertyPath: m_Maskable
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4048310870187512262, guid: c72adb699037e0f488abd02cbe03d75f, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 4048310870187512263, guid: c72adb699037e0f488abd02cbe03d75f, type: 3}
       propertyPath: m_CullTransparentMesh
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4048310871021735558, guid: c72adb699037e0f488abd02cbe03d75f, type: 3}
       propertyPath: player
