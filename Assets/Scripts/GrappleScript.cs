@@ -11,6 +11,7 @@ public class GrappleScript : MonoBehaviour
     public DistanceJoint2D distanceJoint;
     public PlayerController player;
     public float grappleCooldown;
+    public bool isGrappling;
 
     // Start is called before the first frame update
     void Start()
@@ -25,13 +26,22 @@ public class GrappleScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateCooldown();
-        UpdatePlayerInputs();
+        if (!player.IsDead())
+        {
+            UpdateCooldown();
+            UpdatePlayerInputs();
+        }
+        else
+        {
+            isGrappling = false;
+            distanceJoint.enabled = false;
+            lineRenderer.enabled = false;
+        }
     }
 
     void UpdateCooldown()
     {
-        Debug.Log($"Cooldown: {grappleCooldown}");
+        //Debug.Log($"Cooldown: {grappleCooldown}");
 
         if (grappleCooldown > 0)
         {
@@ -43,22 +53,26 @@ public class GrappleScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse0) && grappleCooldown <= 0f && !player.IsGrounded())
         {
+            isGrappling = true;
+            player.canCombo = true;
+
             Vector2 mousePos = (Vector2) mainCamera.ScreenToWorldPoint(Input.mousePosition);
             lineRenderer.SetPosition(0, mousePos);
             lineRenderer.SetPosition(1, transform.position);
             distanceJoint.connectedAnchor = mousePos;
             distanceJoint.enabled = true;
             lineRenderer.enabled = true;
-        }
-        else if (Input.GetKeyUp(KeyCode.Mouse0))
-        {
-            distanceJoint.enabled = false;
-            lineRenderer.enabled = false;
 
             if (grappleCooldown <= 0f)
             {
                 grappleCooldown = 2f;
             }
+        }
+        else if (Input.GetKeyUp(KeyCode.Mouse0) || player.IsGrounded())
+        {
+            isGrappling = false;
+            distanceJoint.enabled = false;
+            lineRenderer.enabled = false;
         }
 
         if (distanceJoint.enabled)
