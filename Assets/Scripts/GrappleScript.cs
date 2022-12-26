@@ -31,6 +31,12 @@ public class GrappleScript : MonoBehaviour
             UpdateCooldown();
             UpdatePlayerInputs();
         }
+        else
+        {
+            isGrappling = false;
+            distanceJoint.enabled = false;
+            lineRenderer.enabled = false;
+        }
     }
 
     void UpdateCooldown()
