@@ -68,6 +68,7 @@ public class PlayerController : MonoBehaviour
     {
         if (isDead)
         {
+            anim.SetBool("Dead", true);
             return;
         }
 
