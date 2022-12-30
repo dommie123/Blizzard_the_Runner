@@ -81,6 +81,7 @@ MonoBehaviour:
   - {fileID: 7075891053036926212, guid: 6d9b4ff587f989f419aeddf0abe2f431, type: 3}
   - {fileID: 7075891053036926212, guid: 1f026416cc1448843a601ee8c953f09e, type: 3}
   - {fileID: 7075891053036926212, guid: 8239824694c5d544aaec844e86265deb, type: 3}
+  - {fileID: 7075891053036926212, guid: 49db317f7d077314abfc633638375748, type: 3}
   spawnOffset: {x: 41, y: 0, z: 0}
   tilesToSpawn: 1
   destroyInSeconds: 20
