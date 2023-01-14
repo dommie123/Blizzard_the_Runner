@@ -5,37 +5,37 @@ using UnityEngine;
 public class GolemController : MonoBehaviour
 {
     public static GolemController instance;
+
     [SerializeField] private bool isMoving;
     [SerializeField] private float speed;
     [SerializeField] private float extraSpeedMod;
+
     private float extraSpeed;
+
     [SerializeField] private float jumpHeight;
     [SerializeField] private LayerMask groundMask;
     [SerializeField] private LayerMask wallMask;
+
     private Rigidbody2D body;
     private CapsuleCollider2D collider;
+    private PlayerController pController;
+
     public GameObject player;
     public float minPlayerDistance;
-    
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    void Awake()
+    private void Awake()
     {
         instance = this;
         body = GetComponent<Rigidbody2D>();
         collider = GetComponent<CapsuleCollider2D>();
+        pController = player.gameObject.GetComponent<PlayerController>();
         //isMoving = true;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (PlayerController.instance.IsDead())
+        if (pController.IsDead())
         {
             return;
         }
@@ -104,8 +104,8 @@ public class GolemController : MonoBehaviour
 
     private bool WillHitPlayer()
     {
-        // float distance = Vector2.Distance(this.transform.position, PlayerController.instance.transform.position);
-        bool nextToPlayer = this.transform.position.x >= PlayerController.instance.transform.position.x - 1f;
+        // float distance = Vector2.Distance(this.transform.position, pController.transform.position);
+        bool nextToPlayer = this.transform.position.x >= pController.transform.position.x - 1f;
 
         return nextToPlayer;
     }

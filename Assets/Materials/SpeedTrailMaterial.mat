@@ -33,7 +33,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: LightTrailMaterial
+  m_Name: SpeedTrailMaterial
   m_Shader: {fileID: -6465566751694194690, guid: 36154711850a0b2468bfba56a33293bb, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -71,7 +71,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTexture:
-        m_Texture: {fileID: 2800000, guid: afb303ec7db785f4e9c78faec529f04b, type: 3}
+        m_Texture: {fileID: 2800000, guid: 9c63d2c9fe213994e9b13df9b6519300, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -111,7 +111,7 @@ Material:
     - _Cull: 2
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
-    - _DissolveScale: 50
+    - _DissolveScale: 35
     - _DistortionBlend: 0.5
     - _DistortionEnabled: 0
     - _DistortionStrength: 1
@@ -145,6 +145,6 @@ Material:
     - _ColorAddSubDiff: {r: 0, g: 0, b: 0, a: 0}
     - _DissolveSpeed: {r: -0.5, g: 0, b: 0, a: 0}
     - _EmissionColor: {r: 67.79352, g: 67.79352, b: 67.79352, a: 1}
-    - _MainTextureSpeed: {r: -0.1, g: 0, b: 0, a: 0}
+    - _MainTextureSpeed: {r: -0.5, g: 0, b: 0, a: 0}
     - _SoftParticleFadeParams: {r: 0, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []

@@ -5,24 +5,22 @@ using TMPro;
 
 public class CoinManager : MonoBehaviour
 {
-    // Start is called before the first frame update
     public static CoinManager instance;
+
+    [SerializeField] private PlayerController player;
+
     private int coins;
+
     public TMP_Text coinText;
-    void Awake()
+
+    private void Awake()
     {
         instance = this;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void UpdateCoins()
     {
-        coins = PlayerController.instance.Coins;
+        coins = player.Coins;
         coinText.text = $"x {coins}";
     }
 }
