@@ -8,35 +8,42 @@ public class PlayerController : MonoBehaviour
     public float Speed { get; set; }
     public float JumpHeight { get; set; }
     public int Coins { get; set; }
+
     public bool playerPausedGame;
+
     private Rigidbody2D body;
     private Animator anim;
     private SpriteRenderer sprite;
     private GrappleScript grappleScript;
+
     [SerializeField] private float initialSpeed;
     [SerializeField] private float initialJumpHeight;
     [SerializeField] private LayerMask groundMask;
     [SerializeField] private LayerMask wallMask;
     [SerializeField] private float debuffJump;
     [SerializeField] private float debuffSpeed;
+
     private float powerupDuration;      // How long the boost is when the player collects a powerup
     private float powerdownDuration;    // How long the slowdown is when the player hits an obstacle
     private float direction = 0f;
-    //private float wallJumpCooldown;
     private bool jumped;
     private bool isDead;
     private bool isHit;
     private bool pwrupTimerIsSet;
     private bool hitTimerIsSet;
     private bool isTouchingWall;
+    
     public bool canCombo = false;
 
     [SerializeField] private bool autoRun; //player will automaticallt run to the right and left key is ignored
 
     private int distanceTravelled;
     private int hitCounter;
+    private int activePowerupIndex;        // Tells which powerup is currently active, -1 for none
+
     public int combo = 0;
     public int comboCap = 10;
+
     private CapsuleCollider2D collider;
 
     void Awake()
@@ -49,18 +56,15 @@ public class PlayerController : MonoBehaviour
         pwrupTimerIsSet = false;
         body = GetComponent<Rigidbody2D>();
         collider = GetComponent<CapsuleCollider2D>();
-        // anim = this.gameObject.transform.GetChild(0).GetComponent<Animator>();
-        // sprite = this.gameObject.transform.GetChild(0).GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
         grappleScript = GetComponent<GrappleScript>();
         jumped = false;
-        //wallJumpCooldown = 0.2f;
         isDead = false; 
-        //isTouchingWall = false;       
         distanceTravelled = 0;
         hitCounter = 0;
         playerPausedGame = false;
+        activePowerupIndex = -1;
     }
 
     // Update is called once per frame
@@ -68,10 +72,9 @@ public class PlayerController : MonoBehaviour
     {
         if (isDead)
         {
+            anim.SetBool("Dead", true);
             return;
         }
-
-        //Debug.Log(IsGrounded());
 
         UpdateSpriteDirection();
         UpdatePlayerInputs();
@@ -107,6 +110,15 @@ public class PlayerController : MonoBehaviour
         return raycastHit.collider != null;
     }
 
+    public int GetActivePowerupIndex()
+    {
+        return activePowerupIndex;
+    }
+
+    public void SetActivePowerupIndex(int powerupIndex)
+    {
+        activePowerupIndex = powerupIndex;
+    }
 
     private void UpdateCombo()
     {
@@ -122,7 +134,6 @@ public class PlayerController : MonoBehaviour
             canCombo = false;
             combo = 0;
         }
-
     }
 
     private void OnCollisionEnter2D(Collision2D other) 
@@ -171,7 +182,6 @@ public class PlayerController : MonoBehaviour
 
         if (powerupDuration <= 0)
         {
-            //Debug.Log("Powerup has expired!");
             ResetStats();
             pwrupTimerIsSet = false;
         }
@@ -188,7 +198,6 @@ public class PlayerController : MonoBehaviour
 
         if (powerdownDuration <= 0)
         {
-            //Debug.Log("Player stats restored!");
             for (int i = 0; i < hitCounter; i++)
             {
                 BuffPlayer();
@@ -219,15 +228,6 @@ public class PlayerController : MonoBehaviour
             direction = Input.GetAxis("Horizontal");
         }
 
-        //UpdateWallJumpPhysics(direction);
-        /*
-        if (wallJumpCooldown >= 0.2f)
-        {
-            body.velocity = new Vector2(direction * Speed, body.velocity.y);
-            anim.SetFloat("Speed", Mathf.Abs(body.velocity.x));
-        }
-        */
-
         body.velocity = new Vector2(direction * Speed, body.velocity.y);
         anim.SetFloat("Speed", Mathf.Abs(body.velocity.x));
 
@@ -245,26 +245,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
- /*
-    private void UpdateWallJumpPhysics(float direction)
-    {
-        if (wallJumpCooldown <= 0.2f)
-        {
-            wallJumpCooldown += Time.deltaTime;
-        }
-        if (Input.GetKey(KeyCode.Space) && IsTouchingWall())
-        {
-            body.velocity = new Vector2(-Mathf.Sign(direction) * (JumpHeight / 2), JumpHeight);
-            wallJumpCooldown = 0f;
-            anim.SetBool("Is Touching Wall", false);
-        }
-        else if (IsTouchingWall())
-        {
-            body.velocity = new Vector2(0, -body.gravityScale);
-            anim.SetBool("Is Touching Wall", true);
-        }
-    }
- */
     private void BuffPlayer()
     {
         Speed = initialSpeed;
@@ -282,6 +262,7 @@ public class PlayerController : MonoBehaviour
     {
         Speed = initialSpeed;
         JumpHeight = initialJumpHeight;
+        activePowerupIndex = -1;
     }
 
     private void PauseGame() 

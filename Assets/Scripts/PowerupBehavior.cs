@@ -14,6 +14,7 @@ public class PowerupBehavior : MonoBehaviour
 
         Destroy(this.gameObject, 0);
         int effectIndex = Random.Range(0, 3);
+        PlayerController.instance.SetActivePowerupIndex(effectIndex);
 
         switch (effectIndex) {
             case 0:
@@ -24,6 +25,7 @@ public class PowerupBehavior : MonoBehaviour
                 break;
             case 2:
                 PlayerController.instance.Coins += 10;
+                CoinManager.instance.UpdateCoins();
                 break;
             default :
                 Debug.LogWarning("Need to implement more effects!");

@@ -72,8 +72,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groundPieces:
+  - {fileID: 7075891053036926212, guid: a3a47345d0f14b546946184bdc94679b, type: 3}
   - {fileID: 7075891053036926212, guid: 9c9e32bd24a5832419f745f7360867ad, type: 3}
   - {fileID: 7075891053036926212, guid: 77f52ff4cea1fdb42aa7ba63f8a753e2, type: 3}
+  - {fileID: 7075891053036926212, guid: 74eb78e60292a294e9b71ff8531fde9c, type: 3}
+  - {fileID: 7075891053036926212, guid: e35f78877daab3e4c834290321173b7c, type: 3}
+  - {fileID: 7075891053036926212, guid: 5de6bef4fe7476f4497913c5c09307b9, type: 3}
+  - {fileID: 7075891053036926212, guid: 6d9b4ff587f989f419aeddf0abe2f431, type: 3}
+  - {fileID: 7075891053036926212, guid: 1f026416cc1448843a601ee8c953f09e, type: 3}
+  - {fileID: 7075891053036926212, guid: 8239824694c5d544aaec844e86265deb, type: 3}
+  - {fileID: 7075891053036926212, guid: 49db317f7d077314abfc633638375748, type: 3}
   spawnOffset: {x: 41, y: 0, z: 0}
   tilesToSpawn: 1
   destroyInSeconds: 20
