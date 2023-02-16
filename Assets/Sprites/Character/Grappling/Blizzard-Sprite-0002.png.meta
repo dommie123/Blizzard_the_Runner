@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 386a56f3fcfbf4a419c3c342dc4d62c2
+guid: 41fdc76d6a0499546b661752e388905c
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -131,8 +131,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dfe601c6a3d652247acfafc391d225b2
-      internalID: 120185017
+      spriteID: d4bb9ea4646bb3b41aea7df8ce559f0d
+      internalID: -1897430602
       vertices: []
       indices: 
       edges: []
@@ -152,8 +152,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 02dfa6fe04268774f943c9f1c1893c78
-      internalID: 1483452015
+      spriteID: d3f65ef5230849e4daf89cc63c49f4f7
+      internalID: 1255283289
       vertices: []
       indices: 
       edges: []
@@ -173,8 +173,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 46ac16231c48ad841b84b34bd3aada00
-      internalID: -1683645347
+      spriteID: 0df437bac156d8f44aaf7722800a4c34
+      internalID: 1188389968
       vertices: []
       indices: 
       edges: []
@@ -194,8 +194,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3a2e0b3ef077244499381f11a408b4aa
-      internalID: 1413337655
+      spriteID: 6b488773a95975c4eb76cc96bc95f228
+      internalID: -1590835927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blizzard-Sprite-0002_4
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aecbeafef7949db4ea4963160b1166ce
+      internalID: -1178253605
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Blizzard-Sprite-0002_5
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c72fef7f186a0184dae92b7665edb1e2
+      internalID: 1059912226
       vertices: []
       indices: 
       edges: []
@@ -211,10 +253,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Blizzard-Sprite-0002_2: -1683645347
-      Blizzard-Sprite-0002_3: 1413337655
-      Blizzard-Sprite-0002_0: 120185017
-      Blizzard-Sprite-0002_1: 1483452015
+      Blizzard-Sprite-0002_2: 1188389968
+      Blizzard-Sprite-0002_3: -1590835927
+      Blizzard-Sprite-0002_4: -1178253605
+      Blizzard-Sprite-0002_0: -1897430602
+      Blizzard-Sprite-0002_1: 1255283289
+      Blizzard-Sprite-0002_5: 1059912226
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

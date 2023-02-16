@@ -70,6 +70,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        anim.SetBool("Is Grounded", IsGrounded());
+
         if (isDead)
         {
             anim.SetBool("Dead", true);
