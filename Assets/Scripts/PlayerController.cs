@@ -70,6 +70,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        anim.SetBool("Is Grounded", IsGrounded());
+
         if (isDead)
         {
             anim.SetBool("Dead", true);
@@ -168,6 +170,7 @@ public class PlayerController : MonoBehaviour
             hitTimerIsSet = true;
             powerdownDuration = 0.5f;
             NerfPlayer();
+            anim.SetBool("Hit Obstacle", true);
         }
     }
 
@@ -193,7 +196,7 @@ public class PlayerController : MonoBehaviour
         {
             return;
         }
-
+ 
         powerdownDuration -= Time.deltaTime;
 
         if (powerdownDuration <= 0)
@@ -204,6 +207,7 @@ public class PlayerController : MonoBehaviour
             }
             hitTimerIsSet = false;
             hitCounter = 0;
+            anim.SetBool("Hit Obstacle", false);
         }
     }
 
