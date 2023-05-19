@@ -2894,6 +2894,38 @@ PrefabInstance:
       propertyPath: groundPieces.Array.data[0]
       value: 
       objectReference: {fileID: 7075891053036926212}
+    - target: {fileID: 1642342943784921627, guid: 3d267bbeb991bde4baa326595814df8e, type: 3}
+      propertyPath: groundPieces.Array.data[1]
+      value: 
+      objectReference: {fileID: 7075891053036926212, guid: 18a8e65bf147090479b59f2092946703, type: 3}
+    - target: {fileID: 1642342943784921627, guid: 3d267bbeb991bde4baa326595814df8e, type: 3}
+      propertyPath: groundPieces.Array.data[2]
+      value: 
+      objectReference: {fileID: 7075891053036926212, guid: 94c6bb00ce166b54a945c120e7ce3387, type: 3}
+    - target: {fileID: 1642342943784921627, guid: 3d267bbeb991bde4baa326595814df8e, type: 3}
+      propertyPath: groundPieces.Array.data[3]
+      value: 
+      objectReference: {fileID: 7075891053036926212, guid: a7850a0b00db15e4d8498dd100ff210a, type: 3}
+    - target: {fileID: 1642342943784921627, guid: 3d267bbeb991bde4baa326595814df8e, type: 3}
+      propertyPath: groundPieces.Array.data[4]
+      value: 
+      objectReference: {fileID: 7075891053036926212, guid: cbf73184d9b106849bb4ae8664e3017b, type: 3}
+    - target: {fileID: 1642342943784921627, guid: 3d267bbeb991bde4baa326595814df8e, type: 3}
+      propertyPath: groundPieces.Array.data[5]
+      value: 
+      objectReference: {fileID: 7075891053036926212, guid: c24da01bb2e656e4890852e649e14af8, type: 3}
+    - target: {fileID: 1642342943784921627, guid: 3d267bbeb991bde4baa326595814df8e, type: 3}
+      propertyPath: groundPieces.Array.data[6]
+      value: 
+      objectReference: {fileID: 7075891053036926212, guid: 56104ec5b87adb84498f975ee97782c1, type: 3}
+    - target: {fileID: 1642342943784921627, guid: 3d267bbeb991bde4baa326595814df8e, type: 3}
+      propertyPath: groundPieces.Array.data[8]
+      value: 
+      objectReference: {fileID: 7075891053036926212, guid: efa7d1088e6d30c42bde0b554f8a3a41, type: 3}
+    - target: {fileID: 1642342943784921627, guid: 3d267bbeb991bde4baa326595814df8e, type: 3}
+      propertyPath: groundPieces.Array.data[9]
+      value: 
+      objectReference: {fileID: 7075891053036926212, guid: abe740338b591fa4597d1b93134ef101, type: 3}
     - target: {fileID: 1950802439411332910, guid: 3d267bbeb991bde4baa326595814df8e, type: 3}
       propertyPath: m_Name
       value: GroundSpawner

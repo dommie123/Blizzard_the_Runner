@@ -4856,9 +4856,13 @@ PrefabInstance:
     m_TransformParent: {fileID: 4499500373142352167}
     m_Modifications:
     - target: {fileID: 1642342943784921627, guid: 3d267bbeb991bde4baa326595814df8e, type: 3}
+      propertyPath: groundPieces.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1642342943784921627, guid: 3d267bbeb991bde4baa326595814df8e, type: 3}
       propertyPath: groundPieces.Array.data[0]
       value: 
-      objectReference: {fileID: 7075891053036926212, guid: a3a47345d0f14b546946184bdc94679b, type: 3}
+      objectReference: {fileID: 7075891053036926212, guid: ac0380f0c01689945a081781d5e5db5d, type: 3}
     - target: {fileID: 1642342943784921627, guid: 3d267bbeb991bde4baa326595814df8e, type: 3}
       propertyPath: groundPieces.Array.data[1]
       value: 
@@ -4866,7 +4870,19 @@ PrefabInstance:
     - target: {fileID: 1642342943784921627, guid: 3d267bbeb991bde4baa326595814df8e, type: 3}
       propertyPath: groundPieces.Array.data[2]
       value: 
-      objectReference: {fileID: 7075891053036926212}
+      objectReference: {fileID: 7075891053036926212, guid: e34d4edf7c579df4a8fd451c6b010e39, type: 3}
+    - target: {fileID: 1642342943784921627, guid: 3d267bbeb991bde4baa326595814df8e, type: 3}
+      propertyPath: groundPieces.Array.data[3]
+      value: 
+      objectReference: {fileID: 7075891053036926212, guid: efa7d1088e6d30c42bde0b554f8a3a41, type: 3}
+    - target: {fileID: 1642342943784921627, guid: 3d267bbeb991bde4baa326595814df8e, type: 3}
+      propertyPath: groundPieces.Array.data[4]
+      value: 
+      objectReference: {fileID: 7075891053036926212, guid: 1c43e9c39ed81f54e91ce27e1d1b94da, type: 3}
+    - target: {fileID: 1642342943784921627, guid: 3d267bbeb991bde4baa326595814df8e, type: 3}
+      propertyPath: groundPieces.Array.data[5]
+      value: 
+      objectReference: {fileID: 7075891053036926212, guid: 454e46c00f785ff40a1ea81ac4974142, type: 3}
     - target: {fileID: 1950802439411332910, guid: 3d267bbeb991bde4baa326595814df8e, type: 3}
       propertyPath: m_Name
       value: GroundSpawner

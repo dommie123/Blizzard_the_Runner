@@ -3539,9 +3539,13 @@ PrefabInstance:
     m_TransformParent: {fileID: 4499500373142352167}
     m_Modifications:
     - target: {fileID: 1642342943784921627, guid: 3d267bbeb991bde4baa326595814df8e, type: 3}
+      propertyPath: groundPieces.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1642342943784921627, guid: 3d267bbeb991bde4baa326595814df8e, type: 3}
       propertyPath: groundPieces.Array.data[0]
       value: 
-      objectReference: {fileID: 7075891053036926212}
+      objectReference: {fileID: 7075891053036926212, guid: 077cd1383840b44409d92c296e8db1b5, type: 3}
     - target: {fileID: 1950802439411332910, guid: 3d267bbeb991bde4baa326595814df8e, type: 3}
       propertyPath: m_Name
       value: GroundSpawner
