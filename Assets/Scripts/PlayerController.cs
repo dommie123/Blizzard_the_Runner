@@ -122,6 +122,11 @@ public class PlayerController : MonoBehaviour
         activePowerupIndex = powerupIndex;
     }
 
+    public void KillPlayer()
+    {
+        isDead = true;
+    }
+
     private void UpdateCombo()
     {
         if (grappleScript.isGrappling && !IsGrounded() && canCombo)

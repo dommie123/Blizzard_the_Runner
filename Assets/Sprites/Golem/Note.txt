@@ -1,0 +1,15 @@
+Golem Sprite Dimensions are 112x128 pixels
+each one animated at a consistent 100ms per frame (10fps)
+Intro animation is 64 total frames.
+Jump animation is 9 total frames.
+Land animation is 12 total frames.
+Runcycle animation is 16 total frames and loops.
+Sprintcycle animation is 20 total frames and loops.
+Walkcycle animation is 22 total frames and loops.  
+
+
+-The pedestal sprite is at the start of the intro animation.
+
+-the Standing sprite is at the end of the intro animation, end of the land animation, and the start of the jump animation. (it's also a frame in the walkcycle)
+
+-the midair sprite is the end of the jump animation and start of the land animation.
