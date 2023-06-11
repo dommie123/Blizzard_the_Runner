@@ -5,6 +5,7 @@ using UnityEngine;
 public class WallDetector : MonoBehaviour
 {
     [SerializeField] private LayerMask wall;
+    [SerializeField] private Rigidbody2D body;
 
     private PlayerController player;
 
@@ -15,7 +16,14 @@ public class WallDetector : MonoBehaviour
 
     private void FixedUpdate() 
     {
-        if (Physics2D.Raycast(transform.position, transform.right, 0.75f, wall))
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, 0.75f, wall);
+
+        if (!hit) 
+        {
+            return;
+        }
+
+        if (hit && body.velocity.x == 0 && body.velocity.y == 0)
         {
             Debug.Log("Hit a wall");
             player.KillPlayer();
