@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3146391663363188667}
   - component: {fileID: 7528641761702999505}
   - component: {fileID: 704942507515379242}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Sand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4117,20 +4117,12 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1940927451182664007, guid: 339518b77c911e947a6c1fc6b602af8d, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1940927451182664007, guid: 339518b77c911e947a6c1fc6b602af8d, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.625
-      objectReference: {fileID: 0}
-    - target: {fileID: 1940927451182664007, guid: 339518b77c911e947a6c1fc6b602af8d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 28.098063
+      value: 42.2
       objectReference: {fileID: 0}
     - target: {fileID: 1940927451182664007, guid: 339518b77c911e947a6c1fc6b602af8d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.866118
+      value: 4.75
       objectReference: {fileID: 0}
     - target: {fileID: 1940927451182664007, guid: 339518b77c911e947a6c1fc6b602af8d, type: 3}
       propertyPath: m_LocalPosition.z

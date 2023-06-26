@@ -31,7 +31,6 @@ public class PlayerController : MonoBehaviour
     private bool isHit;
     private bool pwrupTimerIsSet;
     private bool hitTimerIsSet;
-    private bool isTouchingWall;
     
     public bool canCombo = false;
 
@@ -78,6 +77,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
+        CheckForWall();
         UpdateSpriteDirection();
         UpdatePlayerInputs();
         UpdateScore();
@@ -105,13 +105,6 @@ public class PlayerController : MonoBehaviour
         return isDead;
     }
 
-    private bool IsTouchingWall()
-    {
-        float distanceToWall = collider.bounds.extents.x;
-        RaycastHit2D raycastHit = Physics2D.CapsuleCast(collider.bounds.center, collider.bounds.size, CapsuleDirection2D.Vertical, 0f, Vector2.right, /*distanceToWall*/ 0.1f, wallMask);
-        return raycastHit.collider != null;
-    }
-
     public int GetActivePowerupIndex()
     {
         return activePowerupIndex;
@@ -120,6 +113,27 @@ public class PlayerController : MonoBehaviour
     public void SetActivePowerupIndex(int powerupIndex)
     {
         activePowerupIndex = powerupIndex;
+    }
+
+    public void KillPlayer()
+    {
+        isDead = true;
+    }
+
+    private void CheckForWall()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, 1.5f, wallMask);
+
+        if (!hit) 
+        {
+            return;
+        }
+
+        if (hit && body.velocity.x == 0 && body.velocity.y == 0)
+        {
+            Debug.Log("Hit a wall");
+            isDead = true;
+        }    
     }
 
     private void UpdateCombo()
@@ -276,16 +290,6 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateSpriteDirection()
     {
-        if (!autoRun)
-        {
-            if (IsTouchingWall() && Input.GetAxis("Horizontal") < 0)
-                sprite.flipX = false;
-            else if (IsTouchingWall() ^ Input.GetAxis("Horizontal") < 0)
-                sprite.flipX = true;
-            else
-                sprite.flipX = false;
-        }
-
         anim.SetFloat("Vertical Velocity", body.velocity.y);
     }
 }
