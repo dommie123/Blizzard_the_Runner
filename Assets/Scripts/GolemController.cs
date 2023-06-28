@@ -9,6 +9,7 @@ public class GolemController : MonoBehaviour
     [SerializeField] private bool isMoving;
     [SerializeField] private float speed;
     [SerializeField] private float extraSpeedMod;
+    [SerializeField] private bool isInCutscene;
 
     private float extraSpeed;
 
@@ -17,6 +18,7 @@ public class GolemController : MonoBehaviour
     [SerializeField] private LayerMask wallMask;
 
     private Rigidbody2D body;
+    private Animator anim;
     private CapsuleCollider2D collider;
     private PlayerController pController;
 
@@ -27,6 +29,7 @@ public class GolemController : MonoBehaviour
     {
         instance = this;
         body = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
         collider = GetComponent<CapsuleCollider2D>();
         pController = player.gameObject.GetComponent<PlayerController>();
         //isMoving = true;
@@ -35,6 +38,12 @@ public class GolemController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (isInCutscene && pController.PlayerHasStartedGame() && !isMoving)
+        {
+            PlayOpeningSequence();
+            return;
+        }
+
         if (pController.IsDead())
         {
             return;
@@ -82,6 +91,12 @@ public class GolemController : MonoBehaviour
     public void SetMoving(bool isMoving) 
     {
         this.isMoving = isMoving;
+        anim.SetBool("Is Moving", isMoving);
+    }
+
+    private void PlayOpeningSequence()
+    {
+        anim.SetTrigger("Start Intro Sequence");
     }
 
     private void OnCollisionEnter2D(Collision2D other) 

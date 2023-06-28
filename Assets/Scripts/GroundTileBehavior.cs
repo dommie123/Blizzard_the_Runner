@@ -5,9 +5,12 @@ using UnityEngine;
 public class GroundTileBehavior : MonoBehaviour
 {
     [SerializeField] private float destroyInSeconds;
+    [SerializeField] private bool dontDestroy;
 
     private void Awake()
     {
-        Destroy(this.gameObject, destroyInSeconds);
+        if (!dontDestroy) {
+            Destroy(this.gameObject, destroyInSeconds);
+        }
     }
 }

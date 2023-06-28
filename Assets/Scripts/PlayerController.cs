@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -31,7 +32,7 @@ public class PlayerController : MonoBehaviour
     private bool isHit;
     private bool pwrupTimerIsSet;
     private bool hitTimerIsSet;
-    
+
     public bool canCombo = false;
 
     [SerializeField] private bool autoRun; //player will automaticallt run to the right and left key is ignored
@@ -44,6 +45,18 @@ public class PlayerController : MonoBehaviour
     public int comboCap = 10;
 
     private CapsuleCollider2D collider;
+
+    // Opening Cutscene Variables
+    [SerializeField] private bool isInCutscene;
+    [SerializeField] private bool hasHitCutsceneTrigger;
+    [SerializeField] private float startAfterSeconds;
+    [SerializeField] private float runAfterSeconds;
+    [SerializeField] private float lookUpAfterSeconds;
+    [SerializeField] private float lookUpForSeconds;
+
+    private bool playerStartedGame;
+    private float runTimer;        // How much time has passed since player hit the trigger
+    private float transitionTimer;
 
     void Awake()
     {
@@ -64,11 +77,33 @@ public class PlayerController : MonoBehaviour
         hitCounter = 0;
         playerPausedGame = false;
         activePowerupIndex = -1;
+
+        // Opening Cutscene Variables
+        playerStartedGame = false;
+        runTimer = 0f;
+        transitionTimer = 0f;
+
+        if (isInCutscene)
+        {
+            anim.SetLayerWeight(1, 1f);
+
+        }
+        else
+        {
+            anim.SetLayerWeight(1, 0f);
+        }
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (isInCutscene)
+        {
+            PlayOpeningSequence();
+            return;
+        }
+
         anim.SetBool("Is Grounded", IsGrounded());
 
         if (isDead)
@@ -115,9 +150,70 @@ public class PlayerController : MonoBehaviour
         activePowerupIndex = powerupIndex;
     }
 
+    public void SetAutoRun(bool autoRun)
+    {
+        this.autoRun = autoRun;
+    }
+
     public void KillPlayer()
     {
         isDead = true;
+    }
+
+    public void PlayerStartedGame()
+    {
+        playerStartedGame = true;
+    }
+
+    public bool PlayerHasStartedGame()
+    {
+        return playerStartedGame;
+    }
+
+    private void PlayOpeningSequence()
+    {
+
+        // Debug.Log(anim.runtimeAnimatorController.animationClips.Length);
+
+        if (playerStartedGame && !hasHitCutsceneTrigger && transitionTimer < startAfterSeconds)
+        {
+            transitionTimer += Time.deltaTime;
+        }
+        
+        if (playerStartedGame && !hasHitCutsceneTrigger && transitionTimer >= startAfterSeconds)
+        {
+            anim.SetBool("Game Started", playerStartedGame);    // This bool will only be used for opening cutscene, as using it elsewhere seems redundant.
+            transitionTimer = 0f;
+            body.velocity = new Vector2(Speed / 2, body.velocity.y);
+        }
+
+        else if (playerStartedGame && hasHitCutsceneTrigger && runTimer < runAfterSeconds)
+        {
+            body.velocity = new Vector2(0, body.velocity.y);
+            transitionTimer += Time.deltaTime;
+            runTimer += Time.deltaTime;
+        }
+
+        else if (playerStartedGame && hasHitCutsceneTrigger && runTimer >= runAfterSeconds)
+        {
+            body.velocity = new Vector2(Speed, body.velocity.y);
+            sprite.flipX = false;
+        }
+
+        if (transitionTimer >= lookUpAfterSeconds && lookUpAfterSeconds > 0f)
+        {
+            anim.SetTrigger("Cutscene Trigger 2");
+            transitionTimer = 0f;
+            lookUpAfterSeconds = -1f;
+        }
+
+        if (transitionTimer >= lookUpForSeconds && lookUpForSeconds > 0f)
+        {
+            anim.SetTrigger("Cutscene Trigger 3");
+            transitionTimer = 0f;
+            lookUpForSeconds = -1f;
+        }
+
     }
 
     private void CheckForWall()
@@ -174,17 +270,25 @@ public class PlayerController : MonoBehaviour
             CoinManager.instance.UpdateCoins();
             grappleScript.grappleCooldown -= .25f;
         }
+
         if (other.gameObject.tag == "Powerup")
         {
             pwrupTimerIsSet = true;
             powerupDuration = 10.0f;
         }
+
         if (other.gameObject.tag == "Obstacle")
         {
             hitTimerIsSet = true;
             powerdownDuration = 0.5f;
             NerfPlayer();
             anim.SetBool("Hit Obstacle", true);
+        }
+
+        if (other.gameObject.tag == "Cutscene Trigger 1")
+        {
+            anim.SetTrigger("Cutscene Trigger 1");
+            hasHitCutsceneTrigger = true;
         }
     }
 

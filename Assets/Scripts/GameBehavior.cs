@@ -12,38 +12,88 @@ public class GameBehavior : MonoBehaviour
     public GameObject pauseMenu;
     public bool gameStarted;
     public bool gamePaused;
+
+    [SerializeField] private float cutsceneTimer;
+    [SerializeField] private float golemTimer;
+    [SerializeField] private float playerTimer;
+
+    [SerializeField] private GolemController golem;
+    [SerializeField] private GameObject invisibleBox;
+
+    private float cutsceneTime;
+    private float golemTime;
+    private float playerTime;
+    private Rigidbody2D playerBody;
+
     // Start is called before the first frame update
     void Start()
     {
-        gameStarted = SceneManager.GetActiveScene().name == "Main";
+        gameStarted = MainSceneIsActive();
         gameOverScreen.SetActive(false);
         pauseMenu.SetActive(false);
+
+        cutsceneTime = 0f;
+        golemTime = 0f;
+        playerTime = 0f;
+
+        playerBody = (player != null) ? player.GetComponent<Rigidbody2D>() : null;
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         CheckGameStarted();
+
+        if (gameStarted)
+        {
+            UpdateTimers();
+        }
+
         CheckPlayerDied();
         CheckGamePaused();
     }
 
+    public void StartGame()
+    {
+        gameStarted = true;
+
+        if (invisibleBox)
+        {
+            Destroy(invisibleBox, 0.5f);
+        }
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
     private void CheckGameStarted() 
     {
+        Time.timeScale = 1;
+
         if (gameStarted)
-        {
-            Time.timeScale = 1;
+        {   
+            player.PlayerStartedGame();  
+            player.SetAutoRun(MainSceneIsActive());
+            golem.SetMoving(MainSceneIsActive());
             hud.SetActive(true);
             titleScreen.SetActive(false);
-            GolemController.instance.SetMoving(true);
         }
         else
         {
-            Time.timeScale = 0;
+            // Time.timeScale = 0;
+            player.SetAutoRun(false);
+            golem.SetMoving(false);
             hud.SetActive(false);
             titleScreen.SetActive(true);
-            GolemController.instance.SetMoving(false);
         }
+    }
+
+    public void SkipCutscene()
+    {
+        SceneManager.LoadScene("Main");
     }
 
     private void CheckPlayerDied() 
@@ -69,5 +119,32 @@ public class GameBehavior : MonoBehaviour
             Time.timeScale = 1;
             pauseMenu.SetActive(false);
         }
+    }
+
+    private void UpdateTimers()
+    {
+        cutsceneTime += Time.deltaTime;
+        golemTime += Time.deltaTime;
+        playerTime += Time.deltaTime;
+
+        if (cutsceneTime >= cutsceneTimer && !MainSceneIsActive())
+        {
+            SceneManager.LoadScene("Main");
+        }
+
+        if (golemTime >= golemTimer && !MainSceneIsActive()) 
+        {
+            golem.SetMoving(true);
+        }
+
+        if (playerTime >= playerTimer && !MainSceneIsActive())
+        {
+            player.SetAutoRun(true);
+        }
+    }
+
+    private bool MainSceneIsActive()
+    {
+        return SceneManager.GetActiveScene().name == "Main";
     }
 }
