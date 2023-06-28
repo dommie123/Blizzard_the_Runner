@@ -109,7 +109,7 @@ Transform:
   m_GameObject: {fileID: 4666930937336157830}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -3.55, z: 0}
-  m_LocalScale: {x: 4.3075957, y: 4.3075957, z: 4.3075957}
+  m_LocalScale: {x: 4.706645, y: 5.146817, z: 25.14814}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4396498476038916311}
@@ -281,7 +281,7 @@ DistanceJoint2D:
   m_Anchor: {x: 0, y: 0}
   m_ConnectedAnchor: {x: 0, y: 0}
   m_AutoConfigureDistance: 1
-  m_Distance: 0.6708204
+  m_Distance: 0.13038406
   m_MaxDistanceOnly: 0
 --- !u!114 &4666930937655974366
 MonoBehaviour:

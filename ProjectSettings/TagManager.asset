@@ -11,6 +11,7 @@ TagManager:
   - Obstacle
   - Grapple Point
   - Wall
+  - Cutscene Trigger 1
   layers:
   - Default
   - TransparentFX
