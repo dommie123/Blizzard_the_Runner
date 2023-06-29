@@ -33,7 +33,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -736,7 +736,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Blizzard-Sprite-0001_10: -433776820
+      Blizzard-Sprite-0001_24: -1670145938
       Blizzard-Sprite-0001_14: -752985158
       Blizzard-Sprite-0001_7: 1927574638
       Blizzard-Sprite-0001_2: -140758496
@@ -764,7 +764,7 @@ TextureImporter:
       Blizzard-Sprite-0001_15: 565330022
       Blizzard-Sprite-0001_17: -231729301
       Blizzard-Sprite-0001_18: 1019676646
-      Blizzard-Sprite-0001_24: -1670145938
+      Blizzard-Sprite-0001_10: -433776820
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
