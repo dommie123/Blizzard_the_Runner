@@ -21,12 +21,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float initialJumpHeight;
     [SerializeField] private LayerMask groundMask;
     [SerializeField] private LayerMask wallMask;
+    [SerializeField] private Camera mainCamera;
     [SerializeField] private float debuffJump;
     [SerializeField] private float debuffSpeed;
 
     private float powerupDuration;      // How long the boost is when the player collects a powerup
     private float powerdownDuration;    // How long the slowdown is when the player hits an obstacle
     private float direction = 0f;
+
     private bool jumped;
     private bool isDead;
     private bool isHit;
@@ -40,6 +42,7 @@ public class PlayerController : MonoBehaviour
     private int distanceTravelled;
     private int hitCounter;
     private int activePowerupIndex;        // Tells which powerup is currently active, -1 for none
+    private int scorePenalty;              // Added when player goes off-screen
 
     public int combo = 0;
     public int comboCap = 10;
@@ -77,6 +80,7 @@ public class PlayerController : MonoBehaviour
         hitCounter = 0;
         playerPausedGame = false;
         activePowerupIndex = -1;
+        scorePenalty = 0;
 
         // Opening Cutscene Variables
         playerStartedGame = false;
@@ -331,12 +335,19 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateScore()
     {
-        if (distanceTravelled < gameObject.transform.position.x)
+        if (distanceTravelled < transform.position.x && mainCamera != null)
         {
-            distanceTravelled = (int) gameObject.transform.position.x;
+            Vector3 objectViewportPosition = mainCamera.WorldToViewportPoint(transform.position);
+
+            if (objectViewportPosition.y > 1f)
+            {
+                scorePenalty += (int) transform.position.x - distanceTravelled;
+            }
+
+            distanceTravelled = (int) transform.position.x;
         }
 
-        ScoreManager.instance.SetScore(distanceTravelled);
+        ScoreManager.instance.SetScore(distanceTravelled - scorePenalty);
     }
 
     private void UpdatePlayerInputs() 
