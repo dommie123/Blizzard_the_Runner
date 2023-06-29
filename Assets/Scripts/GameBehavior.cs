@@ -20,6 +20,7 @@ public class GameBehavior : MonoBehaviour
     [SerializeField] private GolemController golem;
     [SerializeField] private GameObject invisibleBox;
 
+    private bool gameOverSequenceStarted;
     private float cutsceneTime;
     private float golemTime;
     private float playerTime;
@@ -32,6 +33,7 @@ public class GameBehavior : MonoBehaviour
         gameOverScreen.SetActive(false);
         pauseMenu.SetActive(false);
 
+        gameOverSequenceStarted = false;
         cutsceneTime = 0f;
         golemTime = 0f;
         playerTime = 0f;
@@ -52,6 +54,11 @@ public class GameBehavior : MonoBehaviour
 
         CheckPlayerDied();
         CheckGamePaused();
+
+        if (gameOverSequenceStarted)
+        {
+            GameOverSequence();
+        }
     }
 
     public void StartGame()
@@ -71,7 +78,10 @@ public class GameBehavior : MonoBehaviour
 
     private void CheckGameStarted() 
     {
-        Time.timeScale = 1;
+        if (!gameOverSequenceStarted)
+        {
+            Time.timeScale = 1;
+        }
 
         if (gameStarted)
         {   
@@ -102,6 +112,7 @@ public class GameBehavior : MonoBehaviour
         {
             gameOverScreen.SetActive(true);
             hud.SetActive(false);
+            gameOverSequenceStarted = true;
         }
     }
 
@@ -114,7 +125,7 @@ public class GameBehavior : MonoBehaviour
             Time.timeScale = 0;
             pauseMenu.SetActive(true);
         }    
-        else if (gameStarted)
+        else if (gameStarted && !gameOverSequenceStarted)
         {
             Time.timeScale = 1;
             pauseMenu.SetActive(false);
@@ -146,5 +157,32 @@ public class GameBehavior : MonoBehaviour
     private bool MainSceneIsActive()
     {
         return SceneManager.GetActiveScene().name == "Main";
+    }
+
+    private void GameOverSequence()
+    {  
+        // Slow time down gradually until it eventually stops.
+        float slowTimeInterval;
+
+        if (Time.timeScale > 0.5)
+        {
+            slowTimeInterval = 0.001f;
+        }
+        else if (Time.timeScale <= 0.5 && Time.timeScale > 0.25)
+        {
+            slowTimeInterval = 0.0005f;
+        }
+        else if (Time.timeScale <= 0.25 && Time.timeScale > 0.125)
+        {
+            slowTimeInterval = 0.00025f;
+        }
+        else
+        {
+            slowTimeInterval = 0.000125f;
+        }
+
+        float newTimeScale = Time.timeScale - slowTimeInterval;
+        Time.timeScale = (newTimeScale >= 0) ? newTimeScale : 0; 
+        Debug.Log($"New Time Scale: {Time.timeScale}");
     }
 }
