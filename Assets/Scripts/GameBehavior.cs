@@ -183,6 +183,5 @@ public class GameBehavior : MonoBehaviour
 
         float newTimeScale = Time.timeScale - slowTimeInterval;
         Time.timeScale = (newTimeScale >= 0) ? newTimeScale : 0; 
-        Debug.Log($"New Time Scale: {Time.timeScale}");
     }
 }
