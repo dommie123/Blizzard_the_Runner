@@ -25,7 +25,7 @@ public class WallDetector : MonoBehaviour
 
         if (hit && body.velocity.x == 0 && body.velocity.y == 0)
         {
-            player.KillPlayer();
+            player.KillPlayer(false);
         }    
     }
 }

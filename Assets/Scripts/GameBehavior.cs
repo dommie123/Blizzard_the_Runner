@@ -27,6 +27,7 @@ public class GameBehavior : MonoBehaviour
     [SerializeField] private GolemController golem;
     [SerializeField] private GameObject invisibleBox;
     [SerializeField] private CameraShakeSystem cameraShake;
+    [SerializeField] private BGMBehavior bgm;
 
     private bool gameOverSequenceStarted;
     private bool cameraShakeStarted;
@@ -41,6 +42,11 @@ public class GameBehavior : MonoBehaviour
     private float golemFootstepTime;
 
     private Rigidbody2D playerBody;
+    private AudioSource footstepSFX;
+    private AudioSource landingSFX;
+    private AudioSource golemRisingSFX;
+    private AudioSource golemRoarSFX;
+    private AudioSource menuSFX;
 
     // Start is called before the first frame update
     void Start()
@@ -62,7 +68,13 @@ public class GameBehavior : MonoBehaviour
         golemFootstepTime = 0f;
 
         playerBody = (player != null) ? player.GetComponent<Rigidbody2D>() : null;
-        
+        footstepSFX = GameObject.Find("Footsteps").GetComponent<AudioSource>();
+        landingSFX = GameObject.Find("Landing").GetComponent<AudioSource>();
+        menuSFX = GameObject.Find("Menu SFX").GetComponent<AudioSource>();
+        golemRisingSFX = GameObject.Find("Rising").GetComponent<AudioSource>();
+        golemRoarSFX = GameObject.Find("Roar").GetComponent<AudioSource>();
+
+        bgm = GameObject.Find("BGM").GetComponent<BGMBehavior>();
     }
 
     // Update is called once per frame
@@ -91,6 +103,8 @@ public class GameBehavior : MonoBehaviour
 
     public void StartGame()
     {
+        menuSFX.Play();
+        bgm.StopPlaying();
         gameStarted = true;
 
         if (invisibleBox)
@@ -101,6 +115,7 @@ public class GameBehavior : MonoBehaviour
 
     public void QuitGame()
     {
+        menuSFX.Play();
         Application.Quit();
     }
 
@@ -121,7 +136,6 @@ public class GameBehavior : MonoBehaviour
         }
         else
         {
-            // Time.timeScale = 0;
             player.SetAutoRun(false);
             golem.SetMoving(false);
             hud.SetActive(false);
@@ -131,6 +145,7 @@ public class GameBehavior : MonoBehaviour
 
     public void SkipCutscene()
     {
+        menuSFX.Play();
         SceneManager.LoadScene("Main");
     }
 
@@ -141,6 +156,7 @@ public class GameBehavior : MonoBehaviour
             gameOverScreen.SetActive(true);
             hud.SetActive(false);
             gameOverSequenceStarted = true;
+            bgm.StopPlaying();
         }
     }
 
@@ -197,6 +213,7 @@ public class GameBehavior : MonoBehaviour
             cameraShake.StartShaking();
             cameraShakeStarted = true;
             cameraShakeTime = 0f;
+            golemRisingSFX.Play();
         }
 
         if (cameraShakeTime >= cameraShakeTimer1 && cameraShakeStarted && !firstCameraShakeTriggered)
@@ -212,6 +229,7 @@ public class GameBehavior : MonoBehaviour
             cameraShake.StartShaking();
             cameraShakeStartedAgain = true;
             cameraShakeTime = 0f;
+            golemRoarSFX.Play();
         }
 
         if (cameraShakeTime >= cameraShakeTimer2 && cameraShakeStarted && firstCameraShakeTriggered && cameraShakeStartedAgain && !secondCameraShakeTriggered)
@@ -230,13 +248,16 @@ public class GameBehavior : MonoBehaviour
             return;
         }
 
-        cameraShake.SetAmplitude(1 / (golem.DistanceToPlayer() / 2));
+        float perceivedDistanceValue = 1 / (golem.DistanceToPlayer() / 2);
+        cameraShake.SetAmplitude(perceivedDistanceValue);
+        footstepSFX.volume = perceivedDistanceValue;
         golemFootstepTime += Time.deltaTime;
 
         if (golemFootstepTime >= golemFootStepInterval)
         {
             golemFootstepTime = 0f;
             cameraShake.StartShaking();
+            footstepSFX.Play();
         }
     }
 

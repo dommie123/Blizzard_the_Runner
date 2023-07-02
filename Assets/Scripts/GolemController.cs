@@ -22,6 +22,7 @@ public class GolemController : MonoBehaviour
     private CapsuleCollider2D collider;
     private PlayerController pController;
 
+
     public GameObject player;
     public float minPlayerDistance;
 
@@ -32,6 +33,7 @@ public class GolemController : MonoBehaviour
         anim = GetComponent<Animator>();
         collider = GetComponent<CapsuleCollider2D>();
         pController = player.gameObject.GetComponent<PlayerController>();
+
     }
 
     // Update is called once per frame

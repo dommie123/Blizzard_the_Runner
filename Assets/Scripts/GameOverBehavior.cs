@@ -11,9 +11,14 @@ public class GameOverBehavior : MonoBehaviour
     public Button btnRetry;
     public Button btnMainMenu;
     public GameBehavior game;
+
+    private AudioSource menuSFX;
+
     // Start is called before the first frame update
     void Awake()
     {
+        menuSFX = GameObject.Find("Menu SFX").GetComponent<AudioSource>();
+
         // Give buttons event listeners and add methods to each.
         btnRetry.onClick.AddListener(Retry);
         btnMainMenu.onClick.AddListener(GoToMainMenu);
@@ -25,11 +30,13 @@ public class GameOverBehavior : MonoBehaviour
 
     private void Retry()
     {
+        menuSFX.Play();
         SceneManager.LoadSceneAsync("Main");
     }
 
     private void GoToMainMenu()
     {
+        menuSFX.Play();
         SceneManager.LoadSceneAsync("Title");
     }
 }

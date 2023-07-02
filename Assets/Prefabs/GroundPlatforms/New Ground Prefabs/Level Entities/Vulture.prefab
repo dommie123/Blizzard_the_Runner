@@ -35,6 +35,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Vulture
       objectReference: {fileID: 0}
+    - target: {fileID: 2002452030678697104, guid: 03eff2d58ffc8ec4ca37c05e8d49fe8b, type: 3}
+      propertyPath: m_TagString
+      value: Vulture
+      objectReference: {fileID: 0}
     - target: {fileID: 2002452030678697105, guid: 03eff2d58ffc8ec4ca37c05e8d49fe8b, type: 3}
       propertyPath: m_Sprite
       value: 

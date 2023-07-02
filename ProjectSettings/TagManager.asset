@@ -12,6 +12,8 @@ TagManager:
   - Grapple Point
   - Wall
   - Cutscene Trigger 1
+  - Cactus
+  - Vulture
   layers:
   - Default
   - TransparentFX
