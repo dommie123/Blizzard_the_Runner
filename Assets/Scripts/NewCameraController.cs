@@ -8,6 +8,8 @@ public class NewCameraController : MonoBehaviour
 
     private Vector2 offset;
     private Vector3 initialPosition;
+    private CameraShakeSystem cameraShake;
+    private float cameraShakeOffset;
 
     [Tooltip("How far left/right the camera is set from the player")]
     public float offsetX;
@@ -33,13 +35,27 @@ public class NewCameraController : MonoBehaviour
     private void Awake()
     {
         // offset = new Vector2(offsetX, offsetY);
+        cameraShake = GameObject.Find("Camera Shake System").GetComponent<CameraShakeSystem>();
         initialPosition = transform.position;
     }
 
     // Update is called once per frame
     private void Update()
     {
-        offset = new Vector2(offsetX, offsetY);
+        float cameraShakeOffset = cameraShake.GetCameraShakeOffset();
+        string cameraShakeMode = cameraShake.GetCameraShakeMode();
+
+        switch(cameraShakeMode)
+        {
+            case "vibrate x":
+                offset = new Vector2(offsetX + cameraShakeOffset, offsetY);
+                break;
+            case "vibrate y":
+                offset = new Vector2(offsetX, offsetY + cameraShakeOffset);
+                break;
+        }
+
+        // offset = new Vector2(offsetX, offsetY);
         
         if (lockX || lockY)
         {

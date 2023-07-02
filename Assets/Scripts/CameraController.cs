@@ -53,7 +53,6 @@ public class CameraController : MonoBehaviour
             
             if (Physics.Raycast(ray, out hit, 100))
             {
-                Debug.Log(hit.transform.gameObject.tag);
                 objectClicked = hit.transform.gameObject.tag;
             }
         }

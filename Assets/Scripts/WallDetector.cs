@@ -25,20 +25,7 @@ public class WallDetector : MonoBehaviour
 
         if (hit && body.velocity.x == 0 && body.velocity.y == 0)
         {
-            Debug.Log("Hit a wall");
             player.KillPlayer();
         }    
     }
-
-    // private void OnTriggerEnter2D(Collider2D other) 
-    // {   
-    //     string targetLayerName = LayerMask.LayerToName(other.gameObject.layer);
-    //     string sourceLayerName = LayerMask.LayerToName(wall);
-
-    //     if (other.gameObject.tag == sourceLayerName || targetLayerName == sourceLayerName) 
-    //     {
-    //         Debug.Log("Hit a wall");
-    //         player.KillPlayer();
-    //     }
-    // }
 }

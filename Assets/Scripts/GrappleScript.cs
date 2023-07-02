@@ -41,8 +41,6 @@ public class GrappleScript : MonoBehaviour
 
     void UpdateCooldown()
     {
-        //Debug.Log($"Cooldown: {grappleCooldown}");
-
         if (grappleCooldown > 0)
         {
             grappleCooldown -= Time.deltaTime;

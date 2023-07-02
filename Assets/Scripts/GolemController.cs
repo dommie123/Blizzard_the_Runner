@@ -7,13 +7,13 @@ public class GolemController : MonoBehaviour
     public static GolemController instance;
 
     [SerializeField] private bool isMoving;
+    [SerializeField] private float jumpHeight;
     [SerializeField] private float speed;
     [SerializeField] private float extraSpeedMod;
     [SerializeField] private bool isInCutscene;
 
     private float extraSpeed;
 
-    [SerializeField] private float jumpHeight;
     [SerializeField] private LayerMask groundMask;
     [SerializeField] private LayerMask wallMask;
 
@@ -32,7 +32,6 @@ public class GolemController : MonoBehaviour
         anim = GetComponent<Animator>();
         collider = GetComponent<CapsuleCollider2D>();
         pController = player.gameObject.GetComponent<PlayerController>();
-        //isMoving = true;
     }
 
     // Update is called once per frame
@@ -85,13 +84,17 @@ public class GolemController : MonoBehaviour
         {
             transform.position = new Vector3(player.transform.position.x - 20f, transform.position.y, transform.position.z);
         }
-
     }
 
     public void SetMoving(bool isMoving) 
     {
         this.isMoving = isMoving;
         anim.SetBool("Is Moving", isMoving);
+    }
+
+    public float DistanceToPlayer()
+    {
+        return Vector3.Distance(player.transform.position, transform.position);
     }
 
     private void PlayOpeningSequence()
@@ -129,4 +132,6 @@ public class GolemController : MonoBehaviour
     {
         body.velocity = new Vector2(body.velocity.x, jumpHeight);
     }
+
+
 }

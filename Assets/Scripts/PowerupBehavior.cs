@@ -27,9 +27,6 @@ public class PowerupBehavior : MonoBehaviour
                 PlayerController.instance.Coins += 10;
                 CoinManager.instance.UpdateCoins();
                 break;
-            default :
-                Debug.LogWarning("Need to implement more effects!");
-                break;
         }
     }
 }

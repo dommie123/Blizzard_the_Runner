@@ -10,20 +10,36 @@ public class GameBehavior : MonoBehaviour
     public GameObject hud;
     public GameObject titleScreen;
     public GameObject pauseMenu;
+
     public bool gameStarted;
     public bool gamePaused;
 
     [SerializeField] private float cutsceneTimer;
     [SerializeField] private float golemTimer;
     [SerializeField] private float playerTimer;
+    [SerializeField] private float shakeCameraAfterSeconds;
+    [SerializeField] private float cameraShakeTimer1;
+    [SerializeField] private float shakeCameraAgainAfterSeconds;
+    [SerializeField] private float cameraShakeTimer2;
+    [SerializeField] private float golemFootStepInterval;
+    [SerializeField] private float maxGolemDistanceFromPlayer;
 
     [SerializeField] private GolemController golem;
     [SerializeField] private GameObject invisibleBox;
+    [SerializeField] private CameraShakeSystem cameraShake;
 
     private bool gameOverSequenceStarted;
+    private bool cameraShakeStarted;
+    private bool firstCameraShakeTriggered;
+    private bool cameraShakeStartedAgain;
+    private bool secondCameraShakeTriggered;
+
     private float cutsceneTime;
     private float golemTime;
     private float playerTime;
+    private float cameraShakeTime;
+    private float golemFootstepTime;
+
     private Rigidbody2D playerBody;
 
     // Start is called before the first frame update
@@ -34,9 +50,16 @@ public class GameBehavior : MonoBehaviour
         pauseMenu.SetActive(false);
 
         gameOverSequenceStarted = false;
+        cameraShakeStarted = false;
+        firstCameraShakeTriggered = false;
+        cameraShakeStartedAgain = false;
+        secondCameraShakeTriggered = false;
+
         cutsceneTime = 0f;
         golemTime = 0f;
         playerTime = 0f;
+        cameraShakeTime = 0f;
+        golemFootstepTime = 0f;
 
         playerBody = (player != null) ? player.GetComponent<Rigidbody2D>() : null;
         
@@ -50,6 +73,11 @@ public class GameBehavior : MonoBehaviour
         if (gameStarted)
         {
             UpdateTimers();
+        }
+
+        if (MainSceneIsActive())
+        {
+            UpdateGolemFootsteps();
         }
 
         CheckPlayerDied();
@@ -137,6 +165,7 @@ public class GameBehavior : MonoBehaviour
         cutsceneTime += Time.deltaTime;
         golemTime += Time.deltaTime;
         playerTime += Time.deltaTime;
+        cameraShakeTime += Time.deltaTime;
 
         if (cutsceneTime >= cutsceneTimer && !MainSceneIsActive())
         {
@@ -151,6 +180,63 @@ public class GameBehavior : MonoBehaviour
         if (playerTime >= playerTimer && !MainSceneIsActive())
         {
             player.SetAutoRun(true);
+        }
+
+        ManageCameraShakeSystem();
+    }
+
+    private void ManageCameraShakeSystem()
+    {
+        if (MainSceneIsActive())
+        {
+            return;
+        }
+
+        if (cameraShakeTime >= shakeCameraAfterSeconds && !cameraShakeStarted)
+        {
+            cameraShake.StartShaking();
+            cameraShakeStarted = true;
+            cameraShakeTime = 0f;
+        }
+
+        if (cameraShakeTime >= cameraShakeTimer1 && cameraShakeStarted && !firstCameraShakeTriggered)
+        {
+            cameraShake.StopShaking();
+            firstCameraShakeTriggered = true;
+            cameraShakeTime = 0f;
+            cameraShake.ChangeShakeMode("rumble");
+        }
+
+        if (cameraShakeTime >= shakeCameraAgainAfterSeconds && cameraShakeStarted && firstCameraShakeTriggered && !cameraShakeStartedAgain)
+        {
+            cameraShake.StartShaking();
+            cameraShakeStartedAgain = true;
+            cameraShakeTime = 0f;
+        }
+
+        if (cameraShakeTime >= cameraShakeTimer2 && cameraShakeStarted && firstCameraShakeTriggered && cameraShakeStartedAgain && !secondCameraShakeTriggered)
+        {
+            cameraShake.StopShaking();
+            secondCameraShakeTriggered = true;
+            cameraShakeTime = 0f;
+        }
+    }
+
+    private void UpdateGolemFootsteps()
+    {
+        if (golem.DistanceToPlayer() > maxGolemDistanceFromPlayer)
+        {
+            cameraShake.StopShaking();
+            return;
+        }
+
+        cameraShake.SetAmplitude(1 / (golem.DistanceToPlayer() / 2));
+        golemFootstepTime += Time.deltaTime;
+
+        if (golemFootstepTime >= golemFootStepInterval)
+        {
+            golemFootstepTime = 0f;
+            cameraShake.StartShaking();
         }
     }
 

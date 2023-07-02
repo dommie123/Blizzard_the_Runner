@@ -176,9 +176,6 @@ public class PlayerController : MonoBehaviour
 
     private void PlayOpeningSequence()
     {
-
-        // Debug.Log(anim.runtimeAnimatorController.animationClips.Length);
-
         if (playerStartedGame && !hasHitCutsceneTrigger && transitionTimer < startAfterSeconds)
         {
             transitionTimer += Time.deltaTime;
@@ -231,7 +228,6 @@ public class PlayerController : MonoBehaviour
 
         if (hit && body.velocity.x == 0 && body.velocity.y == 0)
         {
-            Debug.Log("Hit a wall");
             isDead = true;
         }    
     }
