@@ -73,6 +73,8 @@ public class GameBehavior : MonoBehaviour
         menuSFX = GameObject.Find("Menu SFX").GetComponent<AudioSource>();
         golemRisingSFX = GameObject.Find("Rising").GetComponent<AudioSource>();
         golemRoarSFX = GameObject.Find("Roar").GetComponent<AudioSource>();
+
+        bgm = GameObject.Find("BGM").GetComponent<BGMBehavior>();
     }
 
     // Update is called once per frame
@@ -102,6 +104,7 @@ public class GameBehavior : MonoBehaviour
     public void StartGame()
     {
         menuSFX.Play();
+        bgm.StopPlaying();
         gameStarted = true;
 
         if (invisibleBox)
