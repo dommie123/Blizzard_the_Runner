@@ -27,6 +27,7 @@ public class GameBehavior : MonoBehaviour
     [SerializeField] private GolemController golem;
     [SerializeField] private GameObject invisibleBox;
     [SerializeField] private CameraShakeSystem cameraShake;
+    [SerializeField] private BGMBehavior bgm;
 
     private bool gameOverSequenceStarted;
     private bool cameraShakeStarted;
@@ -141,6 +142,7 @@ public class GameBehavior : MonoBehaviour
             gameOverScreen.SetActive(true);
             hud.SetActive(false);
             gameOverSequenceStarted = true;
+            bgm.StopPlaying();
         }
     }
 
