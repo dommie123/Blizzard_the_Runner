@@ -13,6 +13,9 @@ public class GrappleScript : MonoBehaviour
     public float grappleCooldown;
     public bool isGrappling;
 
+    private AudioSource grappleSFX;
+    private ClipSwapper grappleSwapper;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +24,9 @@ public class GrappleScript : MonoBehaviour
         lineRenderer.enabled = false;   
 
         grappleCooldown = 0f;
+
+        grappleSFX = GameObject.Find("Grapple").GetComponent<AudioSource>();
+        grappleSwapper = GameObject.Find("Grapple").GetComponent<ClipSwapper>();
     }
 
     // Update is called once per frame
@@ -51,6 +57,9 @@ public class GrappleScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse0) && grappleCooldown <= 0f && !player.IsGrounded())
         {
+            grappleSwapper.SwitchToClip(0);
+            grappleSFX.Play();
+
             isGrappling = true;
             player.canCombo = true;
 
@@ -68,6 +77,12 @@ public class GrappleScript : MonoBehaviour
         }
         else if (Input.GetKeyUp(KeyCode.Mouse0) || player.IsGrounded())
         {
+            if (isGrappling)
+            {
+                grappleSwapper.SwitchToClip(1);
+                grappleSFX.Play();
+            }
+
             isGrappling = false;
             distanceJoint.enabled = false;
             lineRenderer.enabled = false;

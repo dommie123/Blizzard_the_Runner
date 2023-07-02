@@ -17,6 +17,17 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer sprite;
     private GrappleScript grappleScript;
 
+    private AudioSource coinSFX;
+    private AudioSource powerupSFX;
+    private AudioSource comboSFX;
+    private AudioSource hitCactusSFX;
+    private AudioSource hitVultureSFX;
+    private AudioSource dieSFX;
+    private AudioSource menuSFX;
+    private AudioSource fellSFX;
+
+    private ClipSwapper comboSwapper;
+
     [SerializeField] private float initialSpeed;
     [SerializeField] private float initialJumpHeight;
     [SerializeField] private LayerMask groundMask;
@@ -74,6 +85,18 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
         grappleScript = GetComponent<GrappleScript>();
+
+        coinSFX = GameObject.Find("Coin SFX").GetComponent<AudioSource>();
+        powerupSFX = GameObject.Find("Powerup SFX").GetComponent<AudioSource>();
+        hitCactusSFX = GameObject.Find("Cactus SFX").GetComponent<AudioSource>();
+        hitVultureSFX = GameObject.Find("Vulture SFX").GetComponent<AudioSource>();
+        comboSFX = GameObject.Find("Combo").GetComponent<AudioSource>();
+        dieSFX = GameObject.Find("Die").GetComponent<AudioSource>();
+        menuSFX = GameObject.Find("Menu SFX").GetComponent<AudioSource>();
+        fellSFX = GameObject.Find("Fell Into Pit").GetComponent<AudioSource>();
+
+        comboSwapper = GameObject.Find("Combo").GetComponent<ClipSwapper>();
+
         jumped = false;
         isDead = false; 
         distanceTravelled = 0;
@@ -127,7 +150,7 @@ public class PlayerController : MonoBehaviour
         if (transform.position.y < -6f)
         {
             body.velocity = Vector2.zero;
-            isDead = true;
+            KillPlayer(true);
         }
 
     }
@@ -159,9 +182,23 @@ public class PlayerController : MonoBehaviour
         this.autoRun = autoRun;
     }
 
-    public void KillPlayer()
+    public void KillPlayer(bool hasFallenIntoPit)
     {
+        if (isDead)
+        {
+            return;
+        }
+
         isDead = true;
+        if (hasFallenIntoPit)
+        {
+            fellSFX.Play();
+        }
+        else
+        {
+            dieSFX.Play();
+        }
+        UpdateScore();
     }
 
     public void PlayerStartedGame()
@@ -228,7 +265,7 @@ public class PlayerController : MonoBehaviour
 
         if (hit && body.velocity.x == 0 && body.velocity.y == 0)
         {
-            isDead = true;
+            KillPlayer(false);
         }    
     }
 
@@ -237,14 +274,16 @@ public class PlayerController : MonoBehaviour
         if (grappleScript.isGrappling && !IsGrounded() && canCombo)
         {
             canCombo = false;
+            comboSwapper.SwitchToClip((combo >= comboCap - 1) ? comboCap - 1 : combo);
 
+            comboSFX.Play();
             combo++;
-
         }
         else if (IsGrounded())
         {
             canCombo = false;
             combo = 0;
+            comboSwapper.SwitchToClip(0);
         }
     }
 
@@ -258,8 +297,7 @@ public class PlayerController : MonoBehaviour
         } 
         if (other.gameObject.tag == "Fatal")
         {
-            isDead = true;
-            UpdateScore();
+            KillPlayer(false);
         } 
     }
     private void OnTriggerEnter2D(Collider2D other) 
@@ -269,20 +307,26 @@ public class PlayerController : MonoBehaviour
             Coins += (1 * Mathf.Clamp(combo,1,comboCap));
             CoinManager.instance.UpdateCoins();
             grappleScript.grappleCooldown -= .25f;
+            coinSFX.Play();
         }
 
         if (other.gameObject.tag == "Powerup")
         {
             pwrupTimerIsSet = true;
             powerupDuration = 10.0f;
+            powerupSFX.Play();
         }
 
-        if (other.gameObject.tag == "Obstacle")
+        if (other.gameObject.tag == "Cactus")
         {
-            hitTimerIsSet = true;
-            powerdownDuration = 0.5f;
-            NerfPlayer();
-            anim.SetBool("Hit Obstacle", true);
+            HitObstacle();
+            hitCactusSFX.Play();
+        }
+
+        if (other.gameObject.tag == "Vulture")
+        {
+            HitObstacle();
+            hitVultureSFX.Play();
         }
 
         if (other.gameObject.tag == "Cutscene Trigger 1")
@@ -396,11 +440,20 @@ public class PlayerController : MonoBehaviour
 
     private void PauseGame() 
     {
+        menuSFX.Play();
         playerPausedGame = !playerPausedGame;
     }
 
     private void UpdateSpriteDirection()
     {
         anim.SetFloat("Vertical Velocity", body.velocity.y);
+    }
+
+    private void HitObstacle()
+    {
+        hitTimerIsSet = true;
+        powerdownDuration = 0.5f;
+        NerfPlayer();
+        anim.SetBool("Hit Obstacle", true);
     }
 }
