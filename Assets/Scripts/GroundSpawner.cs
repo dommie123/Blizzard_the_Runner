@@ -16,7 +16,6 @@ public class GroundSpawner : MonoBehaviour
         collider = GetComponent<Collider2D>();
         int rng = Random.Range(0, groundPieces.Count);
         groundPiece = groundPieces[rng];
-        //Debug.Log($"Selected number: {rng} out of {groundPieces.Count}");
     }
 
 
@@ -30,11 +29,6 @@ public class GroundSpawner : MonoBehaviour
                 SpawnGround();
                 collider.enabled = false;
             } 
-            // else if (other.gameObject.tag == "Fatal")
-            // {
-            //     // Debug.Log("Golem has touched the ground!");
-            //     Destroy(this.transform.parent.gameObject, destroyInSeconds);
-            // }
         }
     }
 

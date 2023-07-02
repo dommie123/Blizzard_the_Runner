@@ -57,10 +57,6 @@ public class LightTrailBehavior : MonoBehaviour
             case 2: 
                 currentMaterial = coinTrailMaterial;
                 break;
-            default:    
-                currentMaterial = null;
-                Debug.LogWarning($"Warning: Invalid powerup index of {powerupIndex}. Please fix the issue!");
-                break;
         }
 
         lightTrailRenderer.material = currentMaterial;

@@ -1720,6 +1720,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3848684871311790664, guid: 376234e13c5807349aa160e355623c86, type: 3}
+      propertyPath: amplitude
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3848684871311790664, guid: 376234e13c5807349aa160e355623c86, type: 3}
+      propertyPath: frequency
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 3848684871311790664, guid: 376234e13c5807349aa160e355623c86, type: 3}
+      propertyPath: shakeMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3848684871311790664, guid: 376234e13c5807349aa160e355623c86, type: 3}
+      propertyPath: shakeRate
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3848684871311790665, guid: 376234e13c5807349aa160e355623c86, type: 3}
       propertyPath: m_Name
       value: Camera Shake System
@@ -1901,6 +1917,14 @@ PrefabInstance:
       propertyPath: cameraShake
       value: 
       objectReference: {fileID: 1276466928}
+    - target: {fileID: 4048310871021735558, guid: c72adb699037e0f488abd02cbe03d75f, type: 3}
+      propertyPath: golemFootStepInterval
+      value: 0.67
+      objectReference: {fileID: 0}
+    - target: {fileID: 4048310871021735558, guid: c72adb699037e0f488abd02cbe03d75f, type: 3}
+      propertyPath: maxGolemDistanceFromPlayer
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 4048310871021735611, guid: c72adb699037e0f488abd02cbe03d75f, type: 3}
       propertyPath: m_Pivot.x
       value: 0

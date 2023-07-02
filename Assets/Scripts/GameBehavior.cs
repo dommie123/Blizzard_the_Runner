@@ -21,6 +21,8 @@ public class GameBehavior : MonoBehaviour
     [SerializeField] private float cameraShakeTimer1;
     [SerializeField] private float shakeCameraAgainAfterSeconds;
     [SerializeField] private float cameraShakeTimer2;
+    [SerializeField] private float golemFootStepInterval;
+    [SerializeField] private float maxGolemDistanceFromPlayer;
 
     [SerializeField] private GolemController golem;
     [SerializeField] private GameObject invisibleBox;
@@ -36,6 +38,7 @@ public class GameBehavior : MonoBehaviour
     private float golemTime;
     private float playerTime;
     private float cameraShakeTime;
+    private float golemFootstepTime;
 
     private Rigidbody2D playerBody;
 
@@ -56,6 +59,7 @@ public class GameBehavior : MonoBehaviour
         golemTime = 0f;
         playerTime = 0f;
         cameraShakeTime = 0f;
+        golemFootstepTime = 0f;
 
         playerBody = (player != null) ? player.GetComponent<Rigidbody2D>() : null;
         
@@ -69,6 +73,11 @@ public class GameBehavior : MonoBehaviour
         if (gameStarted)
         {
             UpdateTimers();
+        }
+
+        if (MainSceneIsActive())
+        {
+            UpdateGolemFootsteps();
         }
 
         CheckPlayerDied();
@@ -178,6 +187,11 @@ public class GameBehavior : MonoBehaviour
 
     private void ManageCameraShakeSystem()
     {
+        if (MainSceneIsActive())
+        {
+            return;
+        }
+
         if (cameraShakeTime >= shakeCameraAfterSeconds && !cameraShakeStarted)
         {
             cameraShake.StartShaking();
@@ -205,6 +219,24 @@ public class GameBehavior : MonoBehaviour
             cameraShake.StopShaking();
             secondCameraShakeTriggered = true;
             cameraShakeTime = 0f;
+        }
+    }
+
+    private void UpdateGolemFootsteps()
+    {
+        if (golem.DistanceToPlayer() > maxGolemDistanceFromPlayer)
+        {
+            cameraShake.StopShaking();
+            return;
+        }
+
+        cameraShake.SetAmplitude(1 / (golem.DistanceToPlayer() / 2));
+        golemFootstepTime += Time.deltaTime;
+
+        if (golemFootstepTime >= golemFootStepInterval)
+        {
+            golemFootstepTime = 0f;
+            cameraShake.StartShaking();
         }
     }
 

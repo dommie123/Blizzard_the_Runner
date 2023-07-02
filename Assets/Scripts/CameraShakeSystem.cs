@@ -27,13 +27,11 @@ public class CameraShakeSystem : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        float xModded = x * frequency;
-
-        if (isShaking && (xModded < shakeTimer || shakeRate == ShakeRate.CONTINUOUS))
+        if (isShaking && (x < shakeTimer || shakeRate == ShakeRate.CONTINUOUS))
         {
             ShakeCamera();
         }
-        else if (xModded >= shakeTimer && shakeTimer > 0f)
+        else if (x >= shakeTimer && shakeTimer >= 0f)
         {
             StopShaking();
         }
@@ -46,13 +44,14 @@ public class CameraShakeSystem : MonoBehaviour
         switch(shakeRate)
         {
             case ShakeRate.IMPULSE:
-                shakeTimer = 2 * Mathf.PI;
+                shakeTimer = (2 * Mathf.PI) / frequency;
                 break;
             case ShakeRate.CONTINUOUS:
                 shakeTimer = -1f;
                 break;
-
         }
+
+        
     }
 
     public void StopShaking()
@@ -74,6 +73,37 @@ public class CameraShakeSystem : MonoBehaviour
             case "rumble":
                 shakeMode = ShakeMode.RUMBLE;
                 break;
+        }
+    }
+
+    public void SetAmplitude(float amplitude)
+    {
+        this.amplitude = amplitude;
+    }
+
+    public void SetFrequency(float frequency)
+    {
+        this.frequency = frequency;
+    }
+
+    public float GetCameraShakeOffset()
+    {
+        float cameraOffset = amplitude * Mathf.Sin(frequency * x);
+        return cameraOffset;
+    }
+
+    public string GetCameraShakeMode()
+    {
+        switch(shakeMode)
+        {
+            case ShakeMode.VIBRATE_X:
+                return "vibrate x";
+            case ShakeMode.VIBRATE_Y:
+                return "vibrate y";
+            case ShakeMode.RUMBLE:
+                return "rumble";
+            default: 
+                return "unknown";
         }
     }
 
