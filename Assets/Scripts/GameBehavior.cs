@@ -27,7 +27,8 @@ public class GameBehavior : MonoBehaviour
     [SerializeField] private GolemController golem;
     [SerializeField] private GameObject invisibleBox;
     [SerializeField] private CameraShakeSystem cameraShake;
-    [SerializeField] private BGMBehavior bgm;
+    [SerializeField] private AudioSource titleBGM;
+    [SerializeField] private AudioSource openingBGM;
 
     private bool gameOverSequenceStarted;
     private bool cameraShakeStarted;
@@ -47,6 +48,7 @@ public class GameBehavior : MonoBehaviour
     private AudioSource golemRisingSFX;
     private AudioSource golemRoarSFX;
     private AudioSource menuSFX;
+    private BGMBehavior bgm;
 
     // Start is called before the first frame update
     void Start()
@@ -87,6 +89,8 @@ public class GameBehavior : MonoBehaviour
             UpdateTimers();
         }
 
+        if (gameStarted && !MainSceneIsActive())
+
         if (MainSceneIsActive())
         {
             UpdateGolemFootsteps();
@@ -104,7 +108,8 @@ public class GameBehavior : MonoBehaviour
     public void StartGame()
     {
         menuSFX.Play();
-        bgm.StopPlaying();
+        titleBGM.Stop();
+        openingBGM.Play();
         gameStarted = true;
 
         if (invisibleBox)
