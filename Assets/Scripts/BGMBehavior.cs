@@ -24,7 +24,7 @@ public class BGMBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (AudioSettings.dspTime > goalTime - 0.673)
+        if (AudioSettings.dspTime > goalTime - 0.5)
         {
             PlayScheduledClip();
         }

@@ -152,12 +152,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b9f61f8a1e77294ba3096f9b4e81394, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goalTime: 0.5
+  goalTime: 0
   _audioSources:
   - {fileID: 1743196090}
   - {fileID: 538737951}
-  currentOpening: {fileID: 8300000, guid: 54c241bc42158c04b88c321e7d13ccc7, type: 3}
-  currentLoop: {fileID: 8300000, guid: 253ed917b3b67874fb9c2b0ef9e685c9, type: 3}
+  currentOpening: {fileID: 8300000, guid: bec6ba9fac5437146b0162d2e10385f1, type: 3}
+  currentLoop: {fileID: 8300000, guid: 959ea50b2e062154091734cd83338cdd, type: 3}
 --- !u!4 &73082713
 Transform:
   m_ObjectHideFlags: 0
@@ -2157,7 +2157,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4048310871021735610, guid: c72adb699037e0f488abd02cbe03d75f, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4048310871021735611, guid: c72adb699037e0f488abd02cbe03d75f, type: 3}
       propertyPath: m_Pivot.x
