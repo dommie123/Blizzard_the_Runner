@@ -40,6 +40,7 @@ public class GroundSpawner : MonoBehaviour
             this.transform.parent.transform.position.y, 
             this.transform.parent.transform.position.z
         );
+        Debug.Log(groundPiece);
         GameObject temp = Instantiate(groundPiece, spawnPos, Quaternion.identity);
 
     }
