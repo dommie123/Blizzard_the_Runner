@@ -54,11 +54,15 @@ public class PlayerController : MonoBehaviour
     private int hitCounter;
     private int activePowerupIndex;        // Tells which powerup is currently active, -1 for none
     private int scorePenalty;              // Added when player goes off-screen
+    private int hitFrames;                 // How many frames the player has been "hit" for
+    private int maxHitFrames;              // How many frames the player is allowed to stay "hit" before they die (this gives them a chance to recover from getting stuck on a wall)
 
     public int combo = 0;
     public int comboCap = 10;
 
     private CapsuleCollider2D collider;
+
+    private Vector3 lastPos;
 
     // Opening Cutscene Variables
     [SerializeField] private bool isInCutscene;
@@ -104,6 +108,9 @@ public class PlayerController : MonoBehaviour
         playerPausedGame = false;
         activePowerupIndex = -1;
         scorePenalty = 0;
+        lastPos = transform.position;
+        hitFrames = 0;
+        maxHitFrames = 4;
 
         // Opening Cutscene Variables
         playerStartedGame = false;
@@ -139,7 +146,6 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        CheckForWall();
         UpdateSpriteDirection();
         UpdatePlayerInputs();
         UpdateScore();
@@ -153,6 +159,11 @@ public class PlayerController : MonoBehaviour
             KillPlayer(true);
         }
 
+    }
+
+    private void FixedUpdate() 
+    {
+        CheckForWall();
     }
 
     public bool IsGrounded()
@@ -256,14 +267,30 @@ public class PlayerController : MonoBehaviour
 
     private void CheckForWall()
     {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, 1.5f, wallMask);
+        // RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, 1.5f, wallMask);
+        RaycastHit2D hit = Physics2D.CircleCast(transform.position, 0.5f, transform.right, 1.0f, wallMask);
+        // Debug.DrawLine(transform.position, transform.position + transform.right + new Vector3(1.5f, 0, 0), Color.red);
+        Vector3 currentSpeed = Vector3.zero;
 
-        if (!hit) 
+        if (lastPos != transform.position) 
         {
-            return;
+            currentSpeed = transform.position - lastPos;
+            currentSpeed /= Time.deltaTime;
+            lastPos = transform.position;
         }
 
-        if (hit && body.velocity.x == 0 && body.velocity.y == 0)
+        Debug.Log($"{hit.transform}, {currentSpeed.magnitude}units/s");
+
+        if (hit.transform && currentSpeed.magnitude < 0.5f)
+        {
+            hitFrames++;
+        }
+        else
+        {
+            hitFrames = 0;
+        }
+
+        if (hitFrames >= maxHitFrames)
         {
             KillPlayer(false);
         }    
