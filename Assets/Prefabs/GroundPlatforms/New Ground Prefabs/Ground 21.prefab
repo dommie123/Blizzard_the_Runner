@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1387603308353255486}
   - component: {fileID: 6830977856546876883}
   - component: {fileID: 4457295966090275869}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Hazards
   m_TagString: Fatal
   m_Icon: {fileID: 0}
@@ -2608,6 +2608,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   destroyInSeconds: 10
+  dontDestroy: 0
 --- !u!1 &7313844843028847599
 GameObject:
   m_ObjectHideFlags: 0
