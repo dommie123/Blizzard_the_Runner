@@ -279,7 +279,7 @@ public class PlayerController : MonoBehaviour
             lastPos = transform.position;
         }
 
-        Debug.Log($"{hit.transform}, {currentSpeed.magnitude}units/s");
+        // Debug.Log($"{hit.transform}, {currentSpeed.magnitude}units/s");
 
         if (hit.transform && currentSpeed.magnitude < 0.5f)
         {

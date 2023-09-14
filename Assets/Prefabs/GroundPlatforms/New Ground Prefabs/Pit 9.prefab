@@ -486,7 +486,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 14
-      m_TileSpriteIndex: 14
+      m_TileSpriteIndex: 19
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -526,7 +526,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 2
-      m_TileSpriteIndex: 2
+      m_TileSpriteIndex: 18
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -666,7 +666,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 11
-      m_TileSpriteIndex: 11
+      m_TileSpriteIndex: 14
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -929,8 +929,8 @@ Tilemap:
     m_Data: {fileID: 21300000, guid: ce730c188cd29dc4ba89790e55947c1d, type: 3}
   - m_RefCount: 3
     m_Data: {fileID: 21300000, guid: 64604dfa7f183224b909fb070d63f179, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: 21300000, guid: 6ec0a54363a0dac4ab1fd5bd203d34f8, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 8
     m_Data: {fileID: 21300000, guid: 3d44399d72f47014db04c4a70007362f, type: 3}
   - m_RefCount: 2
@@ -947,24 +947,24 @@ Tilemap:
     m_Data: {fileID: 21300000, guid: 030181ee11cbf4043b5639babbcf2cf7, type: 3}
   - m_RefCount: 13
     m_Data: {fileID: 21300000, guid: eeff28e5f30fb79458db61e22feb0a5c, type: 3}
-  - m_RefCount: 1
-    m_Data: {fileID: 21300000, guid: d7004724ec9181e468d83a89cbab442c, type: 3}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 2
     m_Data: {fileID: 21300000, guid: 83f5b9bc823fcf448a893e2f8d3f5b03, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 21300000, guid: fe64315ec50ed27418e925513ee557ee, type: 3}
   - m_RefCount: 1
-    m_Data: {fileID: 21300000, guid: b7a26fd5c527fce4a90acc70bbc7fbc2, type: 3}
+    m_Data: {fileID: 21300000, guid: d7004724ec9181e468d83a89cbab442c, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 21300000, guid: 92cb9303ae3ed5849b29ad3631c934c3, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 21300000, guid: b6927561fcadd6749bc85651e28f9ca3, type: 3}
   - m_RefCount: 2
     m_Data: {fileID: 21300000, guid: c09429b7e886faa40a4481ed23dffddc, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 21300000, guid: 6ec0a54363a0dac4ab1fd5bd203d34f8, type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: 21300000, guid: b7a26fd5c527fce4a90acc70bbc7fbc2, type: 3}
   m_TileMatrixArray:
   - m_RefCount: 84
     m_Data:
@@ -2078,9 +2078,9 @@ GameObject:
   - component: {fileID: 6403406113853264882}
   - component: {fileID: 7561642882095259657}
   - component: {fileID: 8181639957143846739}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Sand
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
