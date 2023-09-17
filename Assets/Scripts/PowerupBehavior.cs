@@ -24,8 +24,7 @@ public class PowerupBehavior : MonoBehaviour
                 PlayerController.instance.JumpHeight *= 2;
                 break;
             case 2:
-                PlayerController.instance.Coins += 10;
-                CoinManager.instance.UpdateCoins();
+                PlayerController.instance.ActivateCoinTimer();
                 break;
         }
     }

@@ -75,6 +75,9 @@ public class PlayerController : MonoBehaviour
     private bool playerStartedGame;
     private float runTimer;        // How much time has passed since player hit the trigger
     private float transitionTimer;
+    private bool coinTimerActive;
+    private Vector3 coinPowerupPosition;
+    private int lastCoinDistanceTravelled;
 
     void Awake()
     {
@@ -111,6 +114,9 @@ public class PlayerController : MonoBehaviour
         lastPos = transform.position;
         hitFrames = 0;
         maxHitFrames = 4;
+        coinTimerActive = false;
+        coinPowerupPosition = Vector3.zero;
+        lastCoinDistanceTravelled = 0;
 
         // Opening Cutscene Variables
         playerStartedGame = false;
@@ -220,6 +226,11 @@ public class PlayerController : MonoBehaviour
     public bool PlayerHasStartedGame()
     {
         return playerStartedGame;
+    }
+
+    public void ActivateCoinTimer()
+    {
+        coinTimerActive = true;
     }
 
     private void PlayOpeningSequence()
@@ -341,6 +352,7 @@ public class PlayerController : MonoBehaviour
         {
             pwrupTimerIsSet = true;
             powerupDuration = 10.0f;
+            coinPowerupPosition = transform.position;
             powerupSFX.Play();
         }
 
@@ -372,10 +384,23 @@ public class PlayerController : MonoBehaviour
 
         powerupDuration -= Time.deltaTime;
 
+        if (coinTimerActive)
+        {
+            int coinDistanceTravelled = ((int) transform.position.x) - ((int) coinPowerupPosition.x);
+
+            if (coinDistanceTravelled > lastCoinDistanceTravelled) {
+                Coins += (coinDistanceTravelled - lastCoinDistanceTravelled) * (int) Mathf.Round(1 * Mathf.Clamp(combo,1,comboCap));
+                CoinManager.instance.UpdateCoins();
+                lastCoinDistanceTravelled = coinDistanceTravelled;
+            }
+        }
+
         if (powerupDuration <= 0)
         {
             ResetStats();
             pwrupTimerIsSet = false;
+            coinTimerActive = false;
+            lastCoinDistanceTravelled = 0;
         }
     }
 
