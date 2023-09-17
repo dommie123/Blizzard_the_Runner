@@ -13,7 +13,8 @@ public class PowerupBehavior : MonoBehaviour
         }
 
         Destroy(this.gameObject, 0);
-        int effectIndex = Random.Range(0, 3);
+        // int effectIndex = Random.Range(0, 3);
+        int effectIndex = 2;
         PlayerController.instance.SetActivePowerupIndex(effectIndex);
 
         switch (effectIndex) {
@@ -24,8 +25,7 @@ public class PowerupBehavior : MonoBehaviour
                 PlayerController.instance.JumpHeight *= 2;
                 break;
             case 2:
-                PlayerController.instance.Coins += 10;
-                CoinManager.instance.UpdateCoins();
+                PlayerController.instance.ActivateCoinTimer();
                 break;
         }
     }
