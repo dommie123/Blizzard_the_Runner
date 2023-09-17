@@ -13,8 +13,7 @@ public class PowerupBehavior : MonoBehaviour
         }
 
         Destroy(this.gameObject, 0);
-        // int effectIndex = Random.Range(0, 3);
-        int effectIndex = 2;
+        int effectIndex = Random.Range(0, 3);
         PlayerController.instance.SetActivePowerupIndex(effectIndex);
 
         switch (effectIndex) {
