@@ -152,7 +152,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        UpdateSpriteDirection();
+        UpdateOtherAnimVariables();
         UpdatePlayerInputs();
         UpdateScore();
         UpdatePowerupTimer();
@@ -496,9 +496,10 @@ public class PlayerController : MonoBehaviour
         playerPausedGame = !playerPausedGame;
     }
 
-    private void UpdateSpriteDirection()
+    private void UpdateOtherAnimVariables()
     {
         anim.SetFloat("Vertical Velocity", body.velocity.y);
+        anim.SetBool("Is Grappling", grappleScript.isGrappling);
     }
 
     private void HitObstacle()
