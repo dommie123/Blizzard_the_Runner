@@ -40,8 +40,10 @@ public class GolemController : MonoBehaviour
 
     // Animation Variables
     [SerializeField] private float jumpPrepTime;
-
+    [SerializeField] private float runAfterSeconds;
     private float jumpPrepTimer;
+    private float runSecondsPassed;
+    private bool openingSequenceStarted;
 
     private void Awake()
     {
@@ -55,6 +57,8 @@ public class GolemController : MonoBehaviour
         // currentHeight = transform.position.y;
 
         jumpPrepTimer = 0f;
+        runSecondsPassed = 0f;
+        openingSequenceStarted = false;
     }
 
     // Update is called once per frame
@@ -112,15 +116,30 @@ public class GolemController : MonoBehaviour
         switch(state) 
         {
             case GolemState.INTRO:
+                anim.SetBool("Is In Intro", true);
                 if (pController.PlayerHasStartedGame()) 
-                    PlayOpeningSequence();
+                { 
+                    if (!openingSequenceStarted) { 
+                        Debug.Log("Opening sequence started");
+                        PlayOpeningSequence(); 
+                    }
+
+                    runSecondsPassed += Time.deltaTime;
+
+                    if (runSecondsPassed >= runAfterSeconds) {
+                        state = GolemState.RUNNING;
+                    }
+                }
+                else
+                {
+                    runSecondsPassed = 0f;
+                }
 
                 break;
 
             case GolemState.RUNNING:
                 groundAheadHit = Physics2D.Raycast(groundAheadDetector.transform.position, Vector2.down, 50f, groundMask);
                 groundHit = Physics2D.Raycast(groundDetector.transform.position, Vector2.down, 0.1f, groundMask);
-                // currentHeight = transform.position.y;
 
                 anim.SetBool("Is Grounded", groundHit);
                 anim.SetBool("Is Running", true);
@@ -141,15 +160,6 @@ public class GolemController : MonoBehaviour
                 {
                     state = GolemState.JUMPING;
                 }
-
-                // if ((player.transform.position.x - transform.position.x) > minPlayerDistance)
-                // {
-                //     extraSpeed = extraSpeedMod;
-                // }
-                // else
-                // {
-                //     extraSpeed = 0;
-                // }
 
                 extraSpeed = ((player.transform.position.x - transform.position.x) > minPlayerDistance) ? extraSpeedMod : 0;
 
@@ -184,7 +194,7 @@ public class GolemController : MonoBehaviour
                         : speed;
 
                     float yVelocity = (groundHit) 
-                        ? Mathf.Abs(jumpHeight * Mathf.Log10(jumpSeconds)) //+ body.velocity.y 
+                        ? Mathf.Abs(jumpHeight * Mathf.Log10(jumpSeconds)) 
                         : body.velocity.y;
                     
                     Debug.Log($"Y Velocity: {yVelocity}, Hit Ground? ${(groundHit ? 'Y' : 'N')}!");
@@ -225,6 +235,7 @@ public class GolemController : MonoBehaviour
     private void PlayOpeningSequence()
     {
         anim.SetTrigger("Start Intro Sequence");
+        openingSequenceStarted = true;
     }
 
     private void OnCollisionEnter2D(Collision2D other) 
@@ -238,16 +249,14 @@ public class GolemController : MonoBehaviour
     private bool WillBeStopped()
     {
         float distanceToObstacle = collider.bounds.extents.x;
-        //RaycastHit2D hitGround = Physics2D.BoxCast(collider.bounds.center, collider.bounds.size, 0f, Vector2.right, distanceToObstacle + 3f, groundMask);
         RaycastHit2D hitWall = Physics2D.CapsuleCast(collider.bounds.center, collider.bounds.size, CapsuleDirection2D.Vertical, 0f, Vector2.right, distanceToObstacle + 3f, wallMask);
 
-        bool result = hitWall.collider != null; //|| hitGround.collider != null;
+        bool result = hitWall.collider != null; 
         return result;
     }
 
     private bool WillHitPlayer()
     {
-        // float distance = Vector2.Distance(this.transform.position, pController.transform.position);
         bool nextToPlayer = this.transform.position.x >= pController.transform.position.x - 1f;
 
         return nextToPlayer;

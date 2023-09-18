@@ -1505,12 +1505,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 6375b32c31e349b46b1d1b8d5abf8751, type: 3}
     - target: {fileID: 5108483179837887431, guid: 0d1dd243364725446b7e206b60714131, type: 3}
+      propertyPath: state
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5108483179837887431, guid: 0d1dd243364725446b7e206b60714131, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 4666930938895720454}
     - target: {fileID: 5108483179837887431, guid: 0d1dd243364725446b7e206b60714131, type: 3}
       propertyPath: isInCutscene
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5108483179837887431, guid: 0d1dd243364725446b7e206b60714131, type: 3}
+      propertyPath: runAfterSeconds
+      value: 5.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d1dd243364725446b7e206b60714131, type: 3}
