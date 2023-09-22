@@ -99,11 +99,6 @@ public class GolemController : MonoBehaviour
         // }
 
 
-        // if (transform.position.y <= -10)
-        // {
-        //     transform.position = new Vector3(transform.position.x, 15f, transform.position.z);
-        // }
-
         // if ((player.transform.position.x - transform.position.x) > minPlayerDistance)
         // {
         //     extraSpeed = extraSpeedMod;
@@ -121,9 +116,9 @@ public class GolemController : MonoBehaviour
         footstepTimer += Time.deltaTime;
 
         // If golem is unable to recover somehow, put it back above ground.
-        if (transform.position.y < -10f)
+        if (transform.position.y <= -10)
         {
-            transform.position = new Vector3(transform.position.x, 10f, transform.position.z);
+            transform.position = new Vector3(transform.position.x, 15f, transform.position.z);
         }
 
         switch(state) 
