@@ -18,10 +18,12 @@ public class GolemController : MonoBehaviour
     [SerializeField] private float speed;
     [SerializeField] private float extraSpeedMod;
     [SerializeField] private float extraJumpSpeed;
+    [SerializeField] private float footstepInterval;
     [SerializeField] private bool isInCutscene;
     [SerializeField] private GolemState state;
 
     private float extraSpeed;
+    private float footstepTimer;
     // private float currentHeight;
 
     [SerializeField] private LayerMask groundMask;
@@ -33,7 +35,8 @@ public class GolemController : MonoBehaviour
     private PlayerController pController;
     private GameObject groundAheadDetector;
     private GameObject groundDetector;
-
+    private CameraShakeSystem cameraShake;
+    private AudioSource sfx;
 
     public GameObject player;
     public float minPlayerDistance;
@@ -54,6 +57,9 @@ public class GolemController : MonoBehaviour
         pController = player.gameObject.GetComponent<PlayerController>();
         groundAheadDetector = GameObject.Find("Ground Ahead Detector");
         groundDetector = GameObject.Find("Floor Detector");
+        cameraShake = GameObject.Find("Camera Shake System").GetComponent<CameraShakeSystem>();
+        sfx = GetComponent<AudioSource>();
+        footstepTimer = 0f;
         // currentHeight = transform.position.y;
 
         jumpPrepTimer = 0f;
@@ -93,11 +99,6 @@ public class GolemController : MonoBehaviour
         // }
 
 
-        // if (transform.position.y <= -10)
-        // {
-        //     transform.position = new Vector3(transform.position.x, 15f, transform.position.z);
-        // }
-
         // if ((player.transform.position.x - transform.position.x) > minPlayerDistance)
         // {
         //     extraSpeed = extraSpeedMod;
@@ -112,6 +113,13 @@ public class GolemController : MonoBehaviour
         //     transform.position = new Vector3(player.transform.position.x - 20f, transform.position.y, transform.position.z);
         // }
         RaycastHit2D groundAheadHit, groundHit;
+        footstepTimer += Time.deltaTime;
+
+        // If golem is unable to recover somehow, put it back above ground.
+        if (transform.position.y <= -10)
+        {
+            transform.position = new Vector3(transform.position.x, 15f, transform.position.z);
+        }
 
         switch(state) 
         {
@@ -141,6 +149,7 @@ public class GolemController : MonoBehaviour
                 groundAheadHit = Physics2D.Raycast(groundAheadDetector.transform.position, Vector2.down, 50f, groundMask);
                 groundHit = Physics2D.Raycast(groundDetector.transform.position, Vector2.down, 0.1f, groundMask);
 
+                anim.SetBool("Is In Intro", false);
                 anim.SetBool("Is Grounded", groundHit);
                 anim.SetBool("Is Running", true);
 
@@ -153,6 +162,12 @@ public class GolemController : MonoBehaviour
                     else
                     {
                         body.velocity = new Vector2((speed + extraSpeed), body.velocity.y);
+
+                        if (footstepTimer >= footstepInterval && groundHit)
+                        {
+                            TakeStep();
+                            footstepTimer = 0f;
+                        }
                     }
                 }
 
@@ -176,6 +191,7 @@ public class GolemController : MonoBehaviour
                 groundHit = Physics2D.Raycast(groundDetector.transform.position, Vector2.down, 0.1f, groundMask);
 
                 // Set animation variables
+                anim.SetBool("Is In Intro", false);
                 anim.SetBool("Is Grounded", groundHit);
                 anim.SetBool("Is Running", false);
 
@@ -197,7 +213,6 @@ public class GolemController : MonoBehaviour
                         ? Mathf.Abs(jumpHeight * Mathf.Log10(jumpSeconds)) 
                         : body.velocity.y;
                     
-                    Debug.Log($"Y Velocity: {yVelocity}, Hit Ground? ${(groundHit ? 'Y' : 'N')}!");
                     body.velocity = new Vector2((xVelocity * extraJumpSpeed), yVelocity);
 
                     // If the golem lands after leaving the ground, switch back to Running state
@@ -265,5 +280,17 @@ public class GolemController : MonoBehaviour
     private void Jump()
     {
         body.velocity = new Vector2(body.velocity.x, jumpHeight);
+    }
+
+    private void TakeStep()
+    {
+        float xDistanceToPlayer = Mathf.Abs(player.transform.position.x - transform.position.x);
+        float effectAmplitude = (15 - xDistanceToPlayer < 0) ? 0f : (15 - xDistanceToPlayer) / 4;
+
+        cameraShake.SetAmplitude(effectAmplitude);
+        sfx.volume = effectAmplitude * 3;
+
+        cameraShake.StartShaking();
+        sfx.Play();
     }
 }
