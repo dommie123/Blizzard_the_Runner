@@ -25,8 +25,9 @@ public class PlayerController : MonoBehaviour
     private AudioSource dieSFX;
     private AudioSource menuSFX;
     private AudioSource fellSFX;
-
     private ClipSwapper comboSwapper;
+    private ParticleSystem runParticles;
+    private ParticleSystem landingParticles;
 
     [SerializeField] private float initialSpeed;
     [SerializeField] private float initialJumpHeight;
@@ -45,6 +46,7 @@ public class PlayerController : MonoBehaviour
     private bool isHit;
     private bool pwrupTimerIsSet;
     private bool hitTimerIsSet;
+    private bool canLand;
 
     public bool canCombo = false;
 
@@ -101,6 +103,8 @@ public class PlayerController : MonoBehaviour
         dieSFX = GameObject.Find("Die").GetComponent<AudioSource>();
         menuSFX = GameObject.Find("Menu SFX").GetComponent<AudioSource>();
         fellSFX = GameObject.Find("Fell Into Pit").GetComponent<AudioSource>();
+        runParticles = GameObject.Find("Run Particles").GetComponent<ParticleSystem>();
+        landingParticles = GameObject.Find("Landing Particles").GetComponent<ParticleSystem>();
 
         comboSwapper = GameObject.Find("Combo").GetComponent<ClipSwapper>();
 
@@ -117,6 +121,7 @@ public class PlayerController : MonoBehaviour
         coinTimerActive = false;
         coinPowerupPosition = Vector3.zero;
         lastCoinDistanceTravelled = 0;
+        canLand = false;
 
         // Opening Cutscene Variables
         playerStartedGame = false;
@@ -158,6 +163,7 @@ public class PlayerController : MonoBehaviour
         UpdatePowerupTimer();
         UpdateHitTimer();
         UpdateCombo();
+        UpdateParticles();
 
         if (transform.position.y < -6f)
         {
@@ -508,5 +514,31 @@ public class PlayerController : MonoBehaviour
         powerdownDuration = 0.5f;
         NerfPlayer();
         anim.SetBool("Hit Obstacle", true);
+    }
+
+    private void UpdateParticles()
+    {
+        if (IsGrounded() && !runParticles.isPlaying)
+        {
+            runParticles.Play();
+        }
+        else if (runParticles.isPlaying && !IsGrounded())
+        {
+            runParticles.Stop();
+        }
+
+        var lpem = landingParticles.emission;
+        lpem.rateOverTime = Mathf.Abs(body.velocity.y * 20);
+
+        if (IsGrounded() && canLand)
+        {
+            Debug.Log($"Y Velocity: {body.velocity.y}");
+            landingParticles.Play();
+            canLand = false;
+        }
+        else if (!IsGrounded() && !canLand)
+        {
+            canLand = true;
+        }
     }
 }

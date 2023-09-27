@@ -37,7 +37,6 @@ public class GolemController : MonoBehaviour
     private GameObject groundDetector;
     private CameraShakeSystem cameraShake;
     private AudioSource sfx;
-
     public GameObject player;
     public float minPlayerDistance;
 
