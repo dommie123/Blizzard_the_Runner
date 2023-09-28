@@ -37,6 +37,7 @@ public class GolemController : MonoBehaviour
     private GameObject groundDetector;
     private CameraShakeSystem cameraShake;
     private AudioSource sfx;
+    private ParticleSystem dustParticles;
     public GameObject player;
     public float minPlayerDistance;
 
@@ -58,6 +59,7 @@ public class GolemController : MonoBehaviour
         groundDetector = GameObject.Find("Floor Detector");
         cameraShake = GameObject.Find("Camera Shake System").GetComponent<CameraShakeSystem>();
         sfx = GetComponent<AudioSource>();
+        dustParticles = GameObject.Find("Dust Particles").GetComponent<ParticleSystem>();
         footstepTimer = 0f;
         // currentHeight = transform.position.y;
 
@@ -291,5 +293,11 @@ public class GolemController : MonoBehaviour
 
         cameraShake.StartShaking();
         sfx.Play();
+
+        if (dustParticles.isPlaying)
+        {
+            dustParticles.Stop();
+        }
+        dustParticles.Play();
     }
 }
