@@ -28,6 +28,7 @@ public class PlayerController : MonoBehaviour
     private ClipSwapper comboSwapper;
     private ParticleSystem runParticles;
     private ParticleSystem landingParticles;
+    private ParticleSystem smokeParticles;
 
     [SerializeField] private float initialSpeed;
     [SerializeField] private float initialJumpHeight;
@@ -105,6 +106,7 @@ public class PlayerController : MonoBehaviour
         fellSFX = GameObject.Find("Fell Into Pit").GetComponent<AudioSource>();
         runParticles = GameObject.Find("Run Particles").GetComponent<ParticleSystem>();
         landingParticles = GameObject.Find("Landing Particles").GetComponent<ParticleSystem>();
+        smokeParticles = GameObject.Find("Smoke Particles").GetComponent<ParticleSystem>();     // Activate these when the player dies.
 
         comboSwapper = GameObject.Find("Combo").GetComponent<ClipSwapper>();
 
@@ -149,6 +151,8 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
+        UpdateParticles();
+
         anim.SetBool("Is Grounded", IsGrounded());
 
         if (isDead)
@@ -163,7 +167,6 @@ public class PlayerController : MonoBehaviour
         UpdatePowerupTimer();
         UpdateHitTimer();
         UpdateCombo();
-        UpdateParticles();
 
         if (transform.position.y < -6f)
         {
@@ -518,11 +521,29 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateParticles()
     {
-        if (IsGrounded() && !runParticles.isPlaying)
+        if (isDead && !smokeParticles.isPlaying)
+        {
+            smokeParticles.Play();
+        }
+        else if (isDead)
+        {
+            // Rotate particles behind player's current trajectory
+            float smokeXRotation = Mathf.Clamp((body.velocity.y * 10), -90, 90);
+            float smokeYRotation = Mathf.Clamp((body.velocity.x * 15), 0, 90);
+            smokeParticles.transform.rotation = Quaternion.Euler(smokeXRotation, -smokeYRotation, smokeParticles.transform.position.z);
+
+            // Match speed of particles with character's current velocity (sort of)
+            var spMain = smokeParticles.main;
+            spMain.startSpeed = Mathf.Clamp(body.velocity.magnitude, 3, 20);
+            return;
+        }
+
+
+        if (IsGrounded() && !isDead && !runParticles.isPlaying)
         {
             runParticles.Play();
         }
-        else if (runParticles.isPlaying && !IsGrounded())
+        else if (runParticles.isPlaying && (!IsGrounded() || isDead))
         {
             runParticles.Stop();
         }
@@ -532,7 +553,6 @@ public class PlayerController : MonoBehaviour
 
         if (IsGrounded() && canLand)
         {
-            Debug.Log($"Y Velocity: {body.velocity.y}");
             landingParticles.Play();
             canLand = false;
         }

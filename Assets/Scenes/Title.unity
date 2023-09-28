@@ -1794,6 +1794,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3918723805576481045, guid: d6c66a40546e31d4bb6ff596d9b3239b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4129956016325055135, guid: d6c66a40546e31d4bb6ff596d9b3239b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4666930937336157830, guid: d6c66a40546e31d4bb6ff596d9b3239b, type: 3}
       propertyPath: m_Name
       value: Player
@@ -1906,6 +1914,14 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -2413806693520163455, guid: 4adeaf2d2b1c7417e89f026626d8264f, type: 3}
+    - target: {fileID: 7007553937280256823, guid: d6c66a40546e31d4bb6ff596d9b3239b, type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8743347938493620668, guid: d6c66a40546e31d4bb6ff596d9b3239b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d6c66a40546e31d4bb6ff596d9b3239b, type: 3}
 --- !u!1 &4666930938895720454 stripped
