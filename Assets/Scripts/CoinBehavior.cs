@@ -5,9 +5,12 @@ using UnityEngine;
 public class CoinBehavior : MonoBehaviour
 {
     [SerializeField] private float destroyInSeconds;
+    [SerializeField] private ParticleSystem collectParticles;
+    private SpriteRenderer sprite;
 
     private void Awake() 
     {
+        sprite = GetComponent<SpriteRenderer>();
         Destroy(this, destroyInSeconds);
     }
 
@@ -15,8 +18,9 @@ public class CoinBehavior : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            // TODO special effects here
-            Destroy(this.gameObject, 0);
+            sprite.enabled = false;
+            collectParticles.Play();
+            Destroy(this.gameObject, 0.5f);
         }
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectBehavior : MonoBehaviour
+public abstract class ObjectBehavior : MonoBehaviour
 {
     [SerializeField] private float destroyInSeconds;
 
@@ -10,10 +10,15 @@ public class ObjectBehavior : MonoBehaviour
     {
         Destroy(this.gameObject, destroyInSeconds);
     }
+    
+    protected abstract void OnCollectItem();
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter2D(Collider2D other) 
     {
-        
+        // Check whether the object that entered the trigger was a Player.
+        if (other.gameObject.tag == "Player")
+        {
+            OnCollectItem();
+        }
     }
 }

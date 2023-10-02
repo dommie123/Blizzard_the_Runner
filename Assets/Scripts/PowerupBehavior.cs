@@ -2,17 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PowerupBehavior : MonoBehaviour
+public class PowerupBehavior : ObjectBehavior
 {
-    private void OnTriggerEnter2D(Collider2D other) 
-    {
-        // Check whether the object that entered the trigger was a Player.
-        if (other.gameObject.tag != "Player")
-        {
-            return;
-        }
+    // Component Variables
+    [SerializeField] private ParticleSystem collectParticles;
+    private SpriteRenderer sprite;
 
-        Destroy(this.gameObject, 0);
+    // Other Variables
+    [SerializeField] private Sprite openChestSprite;
+
+    private void Start() 
+    {
+        sprite = GetComponent<SpriteRenderer>();
+    }
+
+    protected override void OnCollectItem()
+    {        
+        sprite.sprite = openChestSprite;
+
+        collectParticles.Play();
+        Destroy(this.gameObject, 0.5f);
         int effectIndex = Random.Range(0, 3);
         PlayerController.instance.SetActivePowerupIndex(effectIndex);
 

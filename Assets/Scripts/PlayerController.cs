@@ -219,9 +219,11 @@ public class PlayerController : MonoBehaviour
         if (hasFallenIntoPit)
         {
             fellSFX.Play();
+            smokeParticles.Stop();
         }
         else
         {
+            sprite.color = Color.red;   // Change sprite color to red to reflect player death
             dieSFX.Play();
         }
         UpdateScore();
