@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum GolemState {
     INTRO,
@@ -38,6 +39,7 @@ public class GolemController : MonoBehaviour
     private CameraShakeSystem cameraShake;
     private AudioSource sfx;
     private ParticleSystem dustParticles;
+    private Scene currentScene;
     public GameObject player;
     public float minPlayerDistance;
 
@@ -61,6 +63,7 @@ public class GolemController : MonoBehaviour
         sfx = GetComponent<AudioSource>();
         dustParticles = GameObject.Find("Dust Particles").GetComponent<ParticleSystem>();
         footstepTimer = 0f;
+        currentScene = SceneManager.GetActiveScene();
         // currentHeight = transform.position.y;
 
         jumpPrepTimer = 0f;
@@ -285,6 +288,12 @@ public class GolemController : MonoBehaviour
 
     private void TakeStep()
     {
+        // Don't shake camera if you're not in the main scene.
+        if (currentScene.name != "Main")
+        {
+            return;
+        }
+
         float xDistanceToPlayer = Mathf.Abs(player.transform.position.x - transform.position.x);
         float effectAmplitude = (15 - xDistanceToPlayer < 0) ? 0f : (15 - xDistanceToPlayer) / 4;
 
