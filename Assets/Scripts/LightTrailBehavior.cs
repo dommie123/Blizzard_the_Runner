@@ -14,7 +14,7 @@ public class LightTrailBehavior : MonoBehaviour
     private PlayerController player;
     private Material currentMaterial;
     private ParticleSystem trailParticles;
-    private ParticleSystem.MinMaxGradient initTrailParticlesColor;
+    private Color initTrailParticlesColor;
 
     private void Awake()
     {
@@ -24,10 +24,8 @@ public class LightTrailBehavior : MonoBehaviour
         lightTrail.SetActive(false);
         lightTrailRenderer = lightTrail.GetComponent<TrailRenderer>();
 
-        trailParticles = GetComponent<ParticleSystem>();
-        ParticleSystem.MainModule tpMain = trailParticles.main;
-
-        initTrailParticlesColor = tpMain.startColor;
+        trailParticles =  transform.Find("Light Trail").GetComponent<ParticleSystem>();
+        initTrailParticlesColor = trailParticles.startColor;
 
         currentMaterial = speedTrailMaterial;   // Speed trail is default trail.
         lightTrailRenderer.material = currentMaterial;
@@ -35,6 +33,14 @@ public class LightTrailBehavior : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (player.IsDead())
+        {
+            lightTrail.SetActive(false);
+            trailIsActive = false;
+            trailParticles.Stop();
+            return;
+        }
+        
         int activePowerupIndex = player.GetActivePowerupIndex();
 
         if (activePowerupIndex >= 0 && !trailIsActive)
@@ -45,19 +51,19 @@ public class LightTrailBehavior : MonoBehaviour
             trailIsActive = true;
 
             lightTrailRenderer.emitting = true;
-            // trailParticles.Play();
+            trailParticles.Play();
 
         }
         else if (activePowerupIndex < 0 && trailIsActive)
         {
-            // trailParticles.Stop();
+            trailParticles.Stop();
             lightTrailRenderer.emitting = false;
 
             lightTrail.SetActive(false);
             trailIsActive = false;
         }
 
-        // UpdateParticles();
+        UpdateParticles();
     }
 
     private void SetCurrentTrailMaterial(int powerupIndex)
@@ -81,26 +87,16 @@ public class LightTrailBehavior : MonoBehaviour
     private void UpdateParticles()
     {
         int activePowerupIndex = player.GetActivePowerupIndex();
-        ParticleSystem.MainModule tpMain = trailParticles.main;
-                
-        AnimationCurve curve = new AnimationCurve();
-        curve.AddKey(0.0f, 0.1f);
-        curve.AddKey(0.75f, 1.0f);
-
-        ParticleSystem.ForceOverLifetimeModule fol = trailParticles.forceOverLifetime;        
-        fol.enabled = true;
-        fol.y = new ParticleSystem.MinMaxCurve(-player.GetBody().velocity.y, curve);
-
         switch (activePowerupIndex)
         {
             case 0:
-                tpMain.startColor = new ParticleSystem.MinMaxGradient(Color.red);
+                trailParticles.startColor = Color.red;
                 break;
             case 1: 
-                tpMain.startColor = new ParticleSystem.MinMaxGradient(Color.cyan);
+                trailParticles.startColor = Color.cyan;
                 break;
             default: 
-                tpMain.startColor = initTrailParticlesColor;
+                trailParticles.startColor = Color.white;
                 break;
         }
     }

@@ -539,9 +539,6 @@ public class PlayerController : MonoBehaviour
             float smokeYRotation = Mathf.Clamp((body.velocity.x * 15), 0, 90);
             smokeParticles.transform.rotation = Quaternion.Euler(smokeXRotation, -smokeYRotation, smokeParticles.transform.position.z);
 
-            // Match speed of particles with character's current velocity (sort of)
-            var spMain = smokeParticles.main;
-            spMain.startSpeed = Mathf.Clamp(body.velocity.magnitude, 3, 20);
             return;
         }
 
