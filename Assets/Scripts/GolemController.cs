@@ -64,7 +64,6 @@ public class GolemController : MonoBehaviour
         dustParticles = GameObject.Find("Dust Particles").GetComponent<ParticleSystem>();
         footstepTimer = 0f;
         currentScene = SceneManager.GetActiveScene();
-        // currentHeight = transform.position.y;
 
         jumpPrepTimer = 0f;
         runSecondsPassed = 0f;
@@ -74,48 +73,6 @@ public class GolemController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        // if (state = GolemState.INTRO && pController.PlayerHasStartedGame() && !isMoving)
-        // {
-        //     PlayOpeningSequence();
-        //     return;
-        // }
-
-        // if (pController.IsDead())
-        // {
-        //     return;
-        // }
-
-        // if (isMoving)
-        // {
-        //     if (WillBeStopped())
-        //     {
-        //         body.velocity = new Vector2((speed + extraSpeed) / 3, body.velocity.y);
-        //     }
-        //     else
-        //     {
-        //         body.velocity = new Vector2((speed + extraSpeed), body.velocity.y);
-        //     }
-        // }
-
-        // if (WillBeStopped())
-        // {
-        //     Jump();
-        // }
-
-
-        // if ((player.transform.position.x - transform.position.x) > minPlayerDistance)
-        // {
-        //     extraSpeed = extraSpeedMod;
-        // }
-        // else
-        // {
-        //     extraSpeed = 0;
-        // }
-
-        // if ((player.transform.position.x - transform.position.x) > 25)
-        // {
-        //     transform.position = new Vector3(player.transform.position.x - 20f, transform.position.y, transform.position.z);
-        // }
         RaycastHit2D groundAheadHit, groundHit;
         footstepTimer += Time.deltaTime;
 
@@ -235,6 +192,13 @@ public class GolemController : MonoBehaviour
                 break;
 
             case GolemState.IDLE:
+                if (pController.IsDead())
+                {
+                    cameraShake.ChangeShakeRate("continuous");
+                    cameraShake.StartShaking();
+                    cameraShake.SetAmplitude(1f);
+                }
+                break;
             default: 
                 break;
         }
@@ -289,7 +253,7 @@ public class GolemController : MonoBehaviour
     private void TakeStep()
     {
         // Don't shake camera if you're not in the main scene.
-        if (currentScene.name != "Main")
+        if (currentScene.name != "Main" || state == GolemState.IDLE)
         {
             return;
         }

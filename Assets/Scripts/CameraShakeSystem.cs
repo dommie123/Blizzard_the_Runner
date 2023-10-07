@@ -76,9 +76,26 @@ public class CameraShakeSystem : MonoBehaviour
         }
     }
 
+    public void ChangeShakeRate(string newRate)
+    {
+        switch(newRate)
+        {
+            case "impulse":
+                shakeRate = ShakeRate.IMPULSE;
+                break;
+            case "continuous":
+                shakeRate = ShakeRate.CONTINUOUS;
+                break;
+        }
+    }
     public void SetAmplitude(float amplitude)
     {
         this.amplitude = amplitude;
+    }
+
+    public float GetAmplitude()
+    {
+        return this.amplitude;
     }
 
     public void SetFrequency(float frequency)

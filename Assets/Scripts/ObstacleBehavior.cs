@@ -14,12 +14,17 @@ public class ObstacleBehavior : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) 
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player" && IsNonFatalObstacle())
         {
             hitParticles.Play();
             sprite.enabled = false;
             collider.enabled = false;
             Destroy(this.gameObject, 0.5f);  
         }
+    }
+
+    private bool IsNonFatalObstacle()
+    {
+        return hitParticles != null && sprite != null;
     }
 }
