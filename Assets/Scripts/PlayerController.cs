@@ -244,6 +244,11 @@ public class PlayerController : MonoBehaviour
         coinTimerActive = true;
     }
 
+    public Rigidbody2D GetBody()
+    {
+        return body;
+    }
+
     private void PlayOpeningSequence()
     {
         if (playerStartedGame && !hasHitCutsceneTrigger && transitionTimer < startAfterSeconds)
