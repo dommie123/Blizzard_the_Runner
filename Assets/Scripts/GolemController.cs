@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum GolemState {
     INTRO,
@@ -37,7 +38,8 @@ public class GolemController : MonoBehaviour
     private GameObject groundDetector;
     private CameraShakeSystem cameraShake;
     private AudioSource sfx;
-
+    private ParticleSystem dustParticles;
+    private Scene currentScene;
     public GameObject player;
     public float minPlayerDistance;
 
@@ -59,8 +61,9 @@ public class GolemController : MonoBehaviour
         groundDetector = GameObject.Find("Floor Detector");
         cameraShake = GameObject.Find("Camera Shake System").GetComponent<CameraShakeSystem>();
         sfx = GetComponent<AudioSource>();
+        dustParticles = GameObject.Find("Dust Particles").GetComponent<ParticleSystem>();
         footstepTimer = 0f;
-        // currentHeight = transform.position.y;
+        currentScene = SceneManager.GetActiveScene();
 
         jumpPrepTimer = 0f;
         runSecondsPassed = 0f;
@@ -70,48 +73,6 @@ public class GolemController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        // if (state = GolemState.INTRO && pController.PlayerHasStartedGame() && !isMoving)
-        // {
-        //     PlayOpeningSequence();
-        //     return;
-        // }
-
-        // if (pController.IsDead())
-        // {
-        //     return;
-        // }
-
-        // if (isMoving)
-        // {
-        //     if (WillBeStopped())
-        //     {
-        //         body.velocity = new Vector2((speed + extraSpeed) / 3, body.velocity.y);
-        //     }
-        //     else
-        //     {
-        //         body.velocity = new Vector2((speed + extraSpeed), body.velocity.y);
-        //     }
-        // }
-
-        // if (WillBeStopped())
-        // {
-        //     Jump();
-        // }
-
-
-        // if ((player.transform.position.x - transform.position.x) > minPlayerDistance)
-        // {
-        //     extraSpeed = extraSpeedMod;
-        // }
-        // else
-        // {
-        //     extraSpeed = 0;
-        // }
-
-        // if ((player.transform.position.x - transform.position.x) > 25)
-        // {
-        //     transform.position = new Vector3(player.transform.position.x - 20f, transform.position.y, transform.position.z);
-        // }
         RaycastHit2D groundAheadHit, groundHit;
         footstepTimer += Time.deltaTime;
 
@@ -231,6 +192,13 @@ public class GolemController : MonoBehaviour
                 break;
 
             case GolemState.IDLE:
+                if (pController.IsDead())
+                {
+                    cameraShake.ChangeShakeRate("continuous");
+                    cameraShake.StartShaking();
+                    cameraShake.SetAmplitude(1f);
+                }
+                break;
             default: 
                 break;
         }
@@ -284,6 +252,12 @@ public class GolemController : MonoBehaviour
 
     private void TakeStep()
     {
+        // Don't shake camera if you're not in the main scene.
+        if (currentScene.name != "Main" || state == GolemState.IDLE)
+        {
+            return;
+        }
+
         float xDistanceToPlayer = Mathf.Abs(player.transform.position.x - transform.position.x);
         float effectAmplitude = (15 - xDistanceToPlayer < 0) ? 0f : (15 - xDistanceToPlayer) / 4;
 
@@ -292,5 +266,11 @@ public class GolemController : MonoBehaviour
 
         cameraShake.StartShaking();
         sfx.Play();
+
+        if (dustParticles.isPlaying)
+        {
+            dustParticles.Stop();
+        }
+        dustParticles.Play();
     }
 }

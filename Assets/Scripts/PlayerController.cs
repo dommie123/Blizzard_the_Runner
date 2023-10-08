@@ -25,8 +25,10 @@ public class PlayerController : MonoBehaviour
     private AudioSource dieSFX;
     private AudioSource menuSFX;
     private AudioSource fellSFX;
-
     private ClipSwapper comboSwapper;
+    private ParticleSystem runParticles;
+    private ParticleSystem landingParticles;
+    private ParticleSystem smokeParticles;
 
     [SerializeField] private float initialSpeed;
     [SerializeField] private float initialJumpHeight;
@@ -45,6 +47,7 @@ public class PlayerController : MonoBehaviour
     private bool isHit;
     private bool pwrupTimerIsSet;
     private bool hitTimerIsSet;
+    private bool canLand;
 
     public bool canCombo = false;
 
@@ -101,6 +104,9 @@ public class PlayerController : MonoBehaviour
         dieSFX = GameObject.Find("Die").GetComponent<AudioSource>();
         menuSFX = GameObject.Find("Menu SFX").GetComponent<AudioSource>();
         fellSFX = GameObject.Find("Fell Into Pit").GetComponent<AudioSource>();
+        runParticles = GameObject.Find("Run Particles").GetComponent<ParticleSystem>();
+        landingParticles = GameObject.Find("Landing Particles").GetComponent<ParticleSystem>();
+        smokeParticles = GameObject.Find("Smoke Particles").GetComponent<ParticleSystem>();     // Activate these when the player dies.
 
         comboSwapper = GameObject.Find("Combo").GetComponent<ClipSwapper>();
 
@@ -117,6 +123,7 @@ public class PlayerController : MonoBehaviour
         coinTimerActive = false;
         coinPowerupPosition = Vector3.zero;
         lastCoinDistanceTravelled = 0;
+        canLand = false;
 
         // Opening Cutscene Variables
         playerStartedGame = false;
@@ -143,6 +150,8 @@ public class PlayerController : MonoBehaviour
             PlayOpeningSequence();
             return;
         }
+
+        UpdateParticles();
 
         anim.SetBool("Is Grounded", IsGrounded());
 
@@ -210,9 +219,11 @@ public class PlayerController : MonoBehaviour
         if (hasFallenIntoPit)
         {
             fellSFX.Play();
+            smokeParticles.Stop();
         }
         else
         {
+            sprite.color = Color.red;   // Change sprite color to red to reflect player death
             dieSFX.Play();
         }
         UpdateScore();
@@ -231,6 +242,11 @@ public class PlayerController : MonoBehaviour
     public void ActivateCoinTimer()
     {
         coinTimerActive = true;
+    }
+
+    public Rigidbody2D GetBody()
+    {
+        return body;
     }
 
     private void PlayOpeningSequence()
@@ -508,5 +524,45 @@ public class PlayerController : MonoBehaviour
         powerdownDuration = 0.5f;
         NerfPlayer();
         anim.SetBool("Hit Obstacle", true);
+    }
+
+    private void UpdateParticles()
+    {
+        if (isDead && !smokeParticles.isPlaying)
+        {
+            smokeParticles.Play();
+        }
+        else if (isDead)
+        {
+            // Rotate particles behind player's current trajectory
+            float smokeXRotation = Mathf.Clamp((body.velocity.y * 10), -90, 90);
+            float smokeYRotation = Mathf.Clamp((body.velocity.x * 15), 0, 90);
+            smokeParticles.transform.rotation = Quaternion.Euler(smokeXRotation, -smokeYRotation, smokeParticles.transform.position.z);
+
+            return;
+        }
+
+
+        if (IsGrounded() && !isDead && !runParticles.isPlaying)
+        {
+            runParticles.Play();
+        }
+        else if (runParticles.isPlaying && (!IsGrounded() || isDead))
+        {
+            runParticles.Stop();
+        }
+
+        var lpem = landingParticles.emission;
+        lpem.rateOverTime = Mathf.Abs(body.velocity.y * 20);
+
+        if (IsGrounded() && canLand)
+        {
+            landingParticles.Play();
+            canLand = false;
+        }
+        else if (!IsGrounded() && !canLand)
+        {
+            canLand = true;
+        }
     }
 }

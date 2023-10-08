@@ -7,6 +7,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2012793559331192103, guid: 03eff2d58ffc8ec4ca37c05e8d49fe8b, type: 3}
+      propertyPath: sprite
+      value: 
+      objectReference: {fileID: 1332083621323410383}
+    - target: {fileID: -2012793559331192103, guid: 03eff2d58ffc8ec4ca37c05e8d49fe8b, type: 3}
+      propertyPath: hitParticles
+      value: 
+      objectReference: {fileID: 9058487655452534769}
     - target: {fileID: 255005479252080870, guid: 03eff2d58ffc8ec4ca37c05e8d49fe8b, type: 3}
       propertyPath: m_Size.x
       value: 0.30193567
@@ -43,6 +51,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: -1916143344, guid: 4528e1f4db09c014185280a94da42302, type: 3}
+    - target: {fileID: 2002452030678697105, guid: 03eff2d58ffc8ec4ca37c05e8d49fe8b, type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2002452030678697106, guid: 03eff2d58ffc8ec4ca37c05e8d49fe8b, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -98,6 +110,10 @@ PrefabInstance:
     - target: {fileID: 2002452030678697106, guid: 03eff2d58ffc8ec4ca37c05e8d49fe8b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9122086059554726669, guid: 03eff2d58ffc8ec4ca37c05e8d49fe8b, type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03eff2d58ffc8ec4ca37c05e8d49fe8b, type: 3}
@@ -160,3 +176,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+--- !u!212 &1332083621323410383 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 2002452030678697105, guid: 03eff2d58ffc8ec4ca37c05e8d49fe8b, type: 3}
+  m_PrefabInstance: {fileID: 699924353638469470}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &9058487655452534769 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8358848011044284591, guid: 03eff2d58ffc8ec4ca37c05e8d49fe8b, type: 3}
+  m_PrefabInstance: {fileID: 699924353638469470}
+  m_PrefabAsset: {fileID: 0}
