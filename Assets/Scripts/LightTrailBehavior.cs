@@ -57,6 +57,7 @@ public class LightTrailBehavior : MonoBehaviour
         else if (activePowerupIndex < 0 && trailIsActive)
         {
             trailParticles.Stop();
+            lightTrailRenderer.Clear();
             lightTrailRenderer.emitting = false;
 
             lightTrail.SetActive(false);
@@ -66,7 +67,7 @@ public class LightTrailBehavior : MonoBehaviour
         UpdateParticles();
     }
 
-    private void SetCurrentTrailMaterial(int powerupIndex)
+    public void SetCurrentTrailMaterial(int powerupIndex)
     {
         switch (powerupIndex)
         {
