@@ -447,17 +447,17 @@ public class PlayerController : MonoBehaviour
     {
         if (distanceTravelled < transform.position.x && mainCamera != null)
         {
-            Vector3 objectViewportPosition = mainCamera.WorldToViewportPoint(transform.position);
+            // Vector3 objectViewportPosition = mainCamera.WorldToViewportPoint(transform.position);
 
-            if (objectViewportPosition.y > 1f)
-            {
-                scorePenalty += (int) transform.position.x - distanceTravelled;
-            }
+            // if (objectViewportPosition.y > 1f)
+            // {
+            //     scorePenalty += (int) transform.position.x - distanceTravelled;
+            // }
 
             distanceTravelled = (int) transform.position.x;
         }
 
-        ScoreManager.instance.SetScore(distanceTravelled - scorePenalty);
+        ScoreManager.instance.SetScore(distanceTravelled);
     }
 
     private void UpdatePlayerInputs() 
