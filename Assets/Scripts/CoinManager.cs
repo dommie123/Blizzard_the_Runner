@@ -23,4 +23,9 @@ public class CoinManager : MonoBehaviour
         coins = player.Coins;
         coinText.text = $"x {coins}";
     }
+
+    public int GetCoins()
+    {
+        return coins;
+    }
 }

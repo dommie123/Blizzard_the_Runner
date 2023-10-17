@@ -16,7 +16,6 @@ public class PlayerController : MonoBehaviour
     private Animator anim;
     private SpriteRenderer sprite;
     private GrappleScript grappleScript;
-
     private AudioSource coinSFX;
     private AudioSource powerupSFX;
     private AudioSource comboSFX;
@@ -29,6 +28,7 @@ public class PlayerController : MonoBehaviour
     private ParticleSystem runParticles;
     private ParticleSystem landingParticles;
     private ParticleSystem smokeParticles;
+    private LightTrailBehavior lightTrail;
 
     [SerializeField] private float initialSpeed;
     [SerializeField] private float initialJumpHeight;
@@ -95,6 +95,7 @@ public class PlayerController : MonoBehaviour
         anim = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
         grappleScript = GetComponent<GrappleScript>();
+        lightTrail = GetComponent<LightTrailBehavior>();
 
         coinSFX = GameObject.Find("Coin SFX").GetComponent<AudioSource>();
         powerupSFX = GameObject.Find("Powerup SFX").GetComponent<AudioSource>();
@@ -201,6 +202,7 @@ public class PlayerController : MonoBehaviour
     public void SetActivePowerupIndex(int powerupIndex)
     {
         activePowerupIndex = powerupIndex;
+        lightTrail.SetCurrentTrailMaterial(powerupIndex);
     }
 
     public void SetAutoRun(bool autoRun)
@@ -445,17 +447,17 @@ public class PlayerController : MonoBehaviour
     {
         if (distanceTravelled < transform.position.x && mainCamera != null)
         {
-            Vector3 objectViewportPosition = mainCamera.WorldToViewportPoint(transform.position);
+            // Vector3 objectViewportPosition = mainCamera.WorldToViewportPoint(transform.position);
 
-            if (objectViewportPosition.y > 1f)
-            {
-                scorePenalty += (int) transform.position.x - distanceTravelled;
-            }
+            // if (objectViewportPosition.y > 1f)
+            // {
+            //     scorePenalty += (int) transform.position.x - distanceTravelled;
+            // }
 
             distanceTravelled = (int) transform.position.x;
         }
 
-        ScoreManager.instance.SetScore(distanceTravelled - scorePenalty);
+        ScoreManager.instance.SetScore(distanceTravelled);
     }
 
     private void UpdatePlayerInputs() 

@@ -7,14 +7,14 @@ using TMPro;
 
 public class GameOverBehavior : MonoBehaviour
 {
-    public TMP_Text finalScoreText;
+    [SerializeField] private TMP_Text scoreAndCoinsText;
+    [SerializeField] private TMP_Text totalScoreText;
     public Button btnRetry;
     public Button btnMainMenu;
     public GameBehavior game;
 
     private AudioSource menuSFX;
 
-    // Start is called before the first frame update
     void Awake()
     {
         menuSFX = GameObject.Find("Menu SFX").GetComponent<AudioSource>();
@@ -24,8 +24,12 @@ public class GameOverBehavior : MonoBehaviour
         btnMainMenu.onClick.AddListener(GoToMainMenu);
 
         // Update final score
-        int finalScore = ScoreManager.instance.GetScore();
-        finalScoreText.text = $"Score: {finalScore}";
+        int distCovered = ScoreManager.instance.GetScore();
+        int coinsCollected = CoinManager.instance.GetCoins();
+        int finalScore = distCovered + coinsCollected;
+
+        scoreAndCoinsText.text = $"Distance Covered: {distCovered} m\nCoins Collected: {coinsCollected}";
+        totalScoreText.text = $"Total Score: {finalScore}";
     }
 
     private void Retry()

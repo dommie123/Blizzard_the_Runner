@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 
 public class ScoreManager : MonoBehaviour
-{
+{    
     public static ScoreManager instance;
     public TMP_Text scoreText;
 
