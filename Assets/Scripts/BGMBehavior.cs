@@ -54,4 +54,20 @@ public class BGMBehavior : MonoBehaviour
             source.Stop();
         }
     }
+
+    public void Pause()
+    {
+        foreach (AudioSource source in _audioSources)
+        {
+            source.Pause();
+        }
+    }
+
+    public void Resume()
+    {
+        foreach (AudioSource source in _audioSources)
+        {
+            source.UnPause(); 
+        }
+    }
 }

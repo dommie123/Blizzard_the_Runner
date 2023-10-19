@@ -8,6 +8,10 @@ public class PauseMenuBehavior : MonoBehaviour
 {
     private AudioSource menuSFX;
 
+    private void Awake()
+    {
+        menuSFX = GameObject.Find("Menu SFX").GetComponent<AudioSource>();
+    }
     public void GoToMainMenu()
     {
         menuSFX.Play();
