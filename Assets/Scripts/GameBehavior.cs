@@ -171,11 +171,13 @@ public class GameBehavior : MonoBehaviour
         {
             Time.timeScale = 0;
             pauseMenu.SetActive(true);
+            bgm.Pause();
         }    
         else if (gameStarted && !gameOverSequenceStarted)
         {
             Time.timeScale = 1;
             pauseMenu.SetActive(false);
+            bgm.Resume();
         }
     }
 
@@ -276,19 +278,19 @@ public class GameBehavior : MonoBehaviour
 
         if (Time.timeScale > 0.5)
         {
-            slowTimeInterval = 0.001f;
+            slowTimeInterval = 0.01f;
         }
         else if (Time.timeScale <= 0.5 && Time.timeScale > 0.25)
         {
-            slowTimeInterval = 0.0005f;
+            slowTimeInterval = 0.005f;
         }
         else if (Time.timeScale <= 0.25 && Time.timeScale > 0.125)
         {
-            slowTimeInterval = 0.00025f;
+            slowTimeInterval = 0.0025f;
         }
         else
         {
-            slowTimeInterval = 0.000125f;
+            slowTimeInterval = 0.00125f;
         }
 
         float newTimeScale = Time.timeScale - slowTimeInterval;

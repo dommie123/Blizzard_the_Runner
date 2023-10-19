@@ -54,7 +54,7 @@ public class GrappleScript : MonoBehaviour
 
     private void UpdatePlayerInputs()
     {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && grappleCooldown <= 0f && !player.IsGrounded())
+        if (Input.GetKeyDown(KeyCode.Mouse0) && grappleCooldown <= 0f && !player.IsGrounded() && !player.GetPlayerPausedGame())
         {
             grappleSwapper.SwitchToClip(0);
             grappleSFX.Play();

@@ -56,7 +56,6 @@ public class PlayerController : MonoBehaviour
     private int distanceTravelled;
     private int hitCounter;
     private int activePowerupIndex;        // Tells which powerup is currently active, -1 for none
-    private int scorePenalty;              // Added when player goes off-screen
     private int hitFrames;                 // How many frames the player has been "hit" for
     private int maxHitFrames;              // How many frames the player is allowed to stay "hit" before they die (this gives them a chance to recover from getting stuck on a wall)
     private int combo;
@@ -119,7 +118,6 @@ public class PlayerController : MonoBehaviour
         hitCounter = 0;
         playerPausedGame = false;
         activePowerupIndex = -1;
-        scorePenalty = 0;
         lastPos = transform.position;
         hitFrames = 0;
         maxHitFrames = 4;
