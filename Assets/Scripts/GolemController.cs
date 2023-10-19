@@ -22,13 +22,14 @@ public class GolemController : MonoBehaviour
     [SerializeField] private float footstepInterval;
     [SerializeField] private bool isInCutscene;
     [SerializeField] private GolemState state;
+    [SerializeField] private float minPlayerDistance;
 
     private float extraSpeed;
     private float footstepTimer;
-    // private float currentHeight;
 
     [SerializeField] private LayerMask groundMask;
     [SerializeField] private LayerMask wallMask;
+    [SerializeField] private GameObject player;
 
     private Rigidbody2D body;
     private Animator anim;
@@ -40,8 +41,6 @@ public class GolemController : MonoBehaviour
     private AudioSource sfx;
     private ParticleSystem dustParticles;
     private Scene currentScene;
-    public GameObject player;
-    public float minPlayerDistance;
 
     // Animation Variables
     [SerializeField] private float jumpPrepTime;
@@ -70,8 +69,7 @@ public class GolemController : MonoBehaviour
         openingSequenceStarted = false;
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         RaycastHit2D groundAheadHit, groundHit;
         footstepTimer += Time.deltaTime;

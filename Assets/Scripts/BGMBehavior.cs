@@ -15,14 +15,13 @@ public class BGMBehavior : MonoBehaviour
 
     private AudioClip currentClip;
 
-    void Start() 
+    private void Awake() 
     {
         currentClip = currentOpening;
         audioToggle = 0;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (AudioSettings.dspTime > goalTime - 0.5)
         {

@@ -16,16 +16,14 @@ public class CameraShakeSystem : MonoBehaviour
     private float shakeTimer;
     private bool isShaking;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         x = 0f;
         shakeTimer = -1f;
         isShaking = false;
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         if (isShaking && (x < shakeTimer || shakeRate == ShakeRate.CONTINUOUS))
         {

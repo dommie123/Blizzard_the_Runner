@@ -8,8 +8,7 @@ public class ClipSwapper : MonoBehaviour
 
     private AudioSource audio;
 
-    // Start is called before the first frame update
-    void Awake()
+    private void Awake()
     {
         audio = GetComponent<AudioSource>();
         audio.clip = clips[0];

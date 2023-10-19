@@ -9,19 +9,12 @@ public class GameOverBehavior : MonoBehaviour
 {
     [SerializeField] private TMP_Text scoreAndCoinsText;
     [SerializeField] private TMP_Text totalScoreText;
-    public Button btnRetry;
-    public Button btnMainMenu;
-    public GameBehavior game;
 
     private AudioSource menuSFX;
 
-    void Awake()
+    private void Awake()
     {
         menuSFX = GameObject.Find("Menu SFX").GetComponent<AudioSource>();
-
-        // Give buttons event listeners and add methods to each.
-        btnRetry.onClick.AddListener(Retry);
-        btnMainMenu.onClick.AddListener(GoToMainMenu);
 
         // Update final score
         int distCovered = ScoreManager.instance.GetScore();
@@ -32,13 +25,13 @@ public class GameOverBehavior : MonoBehaviour
         totalScoreText.text = $"Total Score: {finalScore}";
     }
 
-    private void Retry()
+    public void Retry()
     {
         menuSFX.Play();
         SceneManager.LoadSceneAsync("Main");
     }
 
-    private void GoToMainMenu()
+    public void GoToMainMenu()
     {
         menuSFX.Play();
         SceneManager.LoadSceneAsync("Title");

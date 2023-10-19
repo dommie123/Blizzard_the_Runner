@@ -7,7 +7,7 @@ public class ObstacleBehavior : MonoBehaviour
     [SerializeField] private ParticleSystem hitParticles;
     [SerializeField] private SpriteRenderer sprite;
     private Collider2D collider;
-    private void Start() 
+    private void Awake() 
     {
         collider = GetComponent<Collider2D>();
     }

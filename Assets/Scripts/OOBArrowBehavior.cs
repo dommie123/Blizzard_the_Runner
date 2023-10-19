@@ -8,11 +8,10 @@ public class OOBArrowBehavior : MonoBehaviour
 {
     [SerializeField] private PlayerController player;
     private Image oobArrow;
-    // private TMP_Text oobDistText;   // How far off-screen is the player?
+    
     private void Awake()
     {
         oobArrow = GameObject.Find("OOB Arrow").GetComponent<Image>();
-        // oobDistText = GameObject.Find("OOB Distance Text").GetComponent<TMP_Text>();   
     }
 
     private void FixedUpdate()
@@ -22,14 +21,11 @@ public class OOBArrowBehavior : MonoBehaviour
 
         if (playerOffScreenHeight > 1f)
         {
-            // oobDistText.text = $"{Mathf.Round(playerOffScreenHeight)}M";
-
             Color arrowColor = new Color(255, 255, 255, (0.1f * playerOffScreenHeight));
             oobArrow.color = arrowColor;
         }
         else
         {
-            // oobDistText.text = "";
             oobArrow.color = new Color(0, 0, 0, 0);
         }
     }
