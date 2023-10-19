@@ -87,7 +87,6 @@ public class GolemController : MonoBehaviour
                 if (pController.PlayerHasStartedGame()) 
                 { 
                     if (!openingSequenceStarted) { 
-                        Debug.Log("Opening sequence started");
                         PlayOpeningSequence(); 
                     }
 
