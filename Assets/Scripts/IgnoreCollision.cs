@@ -4,11 +4,11 @@ using System.Collections.Generic;
 
 public class IgnoreCollision : MonoBehaviour
 {
-    [SerializeField] private List<string> layersToIgnore; // Specify the layer(s) to ignore collisions with
+    [SerializeField] private List<string> layersToIgnore;   // Specify the layer(s) to ignore collisions with
 
-    private List<int> layerToIgnoreIndices; // Stores a list of layer indices to ignore collisions with
+    private List<int> layerToIgnoreIndices;                 // Stores a list of layer indices to ignore collisions with
 
-    private void Start()
+    private void Awake()
     {
         if (layersToIgnore.Count == 0) {
             return;
@@ -32,12 +32,5 @@ public class IgnoreCollision : MonoBehaviour
             // If the layer exists, ignore collisions with it and the entity
             Physics2D.IgnoreLayerCollision(gameObject.layer, layerIndex, true);
         }
-    }
-
-    // Optionally, you can add a method to re-enable collisions if needed
-    public void EnableCollisionWithLayer(string layerName)
-    {
-        int layerIndex = LayerMask.NameToLayer(layerName);
-        Physics2D.IgnoreLayerCollision(gameObject.layer, layerIndex, false);
     }
 }

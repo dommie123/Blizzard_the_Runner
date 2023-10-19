@@ -12,34 +12,31 @@ public class NewCameraController : MonoBehaviour
     private float cameraShakeOffset;
 
     [Tooltip("How far left/right the camera is set from the player")]
-    public float offsetX;
+    [SerializeField] private float offsetX;
     [Tooltip("How far up/down the camera is to the player")]
-    public float offsetY;
+    [SerializeField] private  float offsetY;
 
     [Tooltip("Lock the camera to its X axis")]
-    public bool lockX;
+    [SerializeField] private bool lockX;
     [Tooltip("Lock the camera to its Y axis")]
-    public bool lockY;
+    [SerializeField] private bool lockY;
 
     [Tooltip("Enable minimum and maximum X position for camera")]
-    public bool limitX;
+    [SerializeField] private bool limitX;
     [Tooltip("Enable minimum and maximum Y position for camera")]
-    public bool limitY;
+    [SerializeField] private bool limitY;
 
     [Tooltip("Minimum and maximum values for cameras X distance")]
-    public Vector2 xMinMax;
+    [SerializeField] private Vector2 xMinMax;
     [Tooltip("Minimum and maximum values for cameras Y distance")]
-    public Vector2 yMinMax;
+    [SerializeField] private Vector2 yMinMax;
 
-    // Start is called before the first frame update
     private void Awake()
     {
-        // offset = new Vector2(offsetX, offsetY);
         cameraShake = GameObject.Find("Camera Shake System").GetComponent<CameraShakeSystem>();
         initialPosition = transform.position;
     }
 
-    // Update is called once per frame
     private void Update()
     {
         float cameraShakeOffset = cameraShake.GetCameraShakeOffset();
@@ -54,8 +51,6 @@ public class NewCameraController : MonoBehaviour
                 offset = new Vector2(offsetX, offsetY + cameraShakeOffset);
                 break;
         }
-
-        // offset = new Vector2(offsetX, offsetY);
         
         if (lockX || lockY)
         {
@@ -69,13 +64,6 @@ public class NewCameraController : MonoBehaviour
                 transform.position = new Vector3(initialPosition.x + offset.x, player.transform.position.y + offset.y, -10);
             }
         }
-
-        /*
-        if (!lockX && !lockY)
-        {
-            transform.position = new Vector3(player.transform.position.x + offset.x, player.transform.position.y + offset.y, -10);
-        }
-        */
 
         if (limitX || limitY)
         {

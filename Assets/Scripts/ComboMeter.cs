@@ -5,17 +5,19 @@ using TMPro;
 
 public class ComboMeter : MonoBehaviour
 {
-    public PlayerController player;
+    [SerializeField] private PlayerController player;
     private TMP_Text text;
 
-    void Awake()
+    private void Awake()
     {
         text = GetComponent<TMP_Text>();
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-        text.enabled = (player.combo >= 2); //slightly more efficient than an if statement
-        text.text = "x" + Mathf.Clamp(player.combo,1,player.comboCap).ToString();
+        string currentCombo = Mathf.Clamp(player.GetCombo(), 1, player.GetComboCap()).ToString();
+
+        text.enabled = (player.GetCombo() >= 2);     // slightly more efficient than an if statement
+        text.text = $"x{currentCombo}";
     }
 }

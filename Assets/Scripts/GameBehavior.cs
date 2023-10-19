@@ -50,8 +50,7 @@ public class GameBehavior : MonoBehaviour
     private AudioSource menuSFX;
     private BGMBehavior bgm;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         gameStarted = MainSceneIsActive();
         gameOverScreen.SetActive(false);
@@ -79,8 +78,7 @@ public class GameBehavior : MonoBehaviour
         bgm = GameObject.Find("BGM").GetComponent<BGMBehavior>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         CheckGameStarted();
 
@@ -124,6 +122,12 @@ public class GameBehavior : MonoBehaviour
         Application.Quit();
     }
 
+    public void SkipCutscene()
+    {
+        menuSFX.Play();
+        SceneManager.LoadScene("Main");
+    }
+
     private void CheckGameStarted() 
     {
         if (!gameOverSequenceStarted)
@@ -148,12 +152,6 @@ public class GameBehavior : MonoBehaviour
         }
     }
 
-    public void SkipCutscene()
-    {
-        menuSFX.Play();
-        SceneManager.LoadScene("Main");
-    }
-
     private void CheckPlayerDied() 
     {
         if (player.IsDead())
@@ -167,7 +165,7 @@ public class GameBehavior : MonoBehaviour
 
     private void CheckGamePaused()
     {
-        gamePaused = player.playerPausedGame;
+        gamePaused = player.GetPlayerPausedGame();
 
         if (gamePaused && gameStarted)
         {

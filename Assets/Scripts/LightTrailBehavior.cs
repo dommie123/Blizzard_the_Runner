@@ -27,7 +27,7 @@ public class LightTrailBehavior : MonoBehaviour
         trailParticles =  transform.Find("Light Trail").GetComponent<ParticleSystem>();
         initTrailParticlesColor = trailParticles.startColor;
 
-        currentMaterial = speedTrailMaterial;   // Speed trail is default trail.
+        currentMaterial = speedTrailMaterial;    // Speed trail is default trail.
         lightTrailRenderer.material = currentMaterial;
     }
 

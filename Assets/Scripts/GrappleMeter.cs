@@ -6,17 +6,14 @@ using UnityEngine.UI;
 public class GrappleMeter : MonoBehaviour
 {
     [SerializeField] private Image image;
-    public GrappleScript grappleScript;
+    [SerializeField] private GrappleScript grappleScript;
 
-
-    // Start is called before the first frame update
-    void Awake()
+    private void Awake()
     {
         image = GetComponent<Image>();
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         image.fillAmount = grappleScript.grappleCooldown/2;
     }

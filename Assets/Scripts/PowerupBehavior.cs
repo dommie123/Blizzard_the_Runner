@@ -11,7 +11,7 @@ public class PowerupBehavior : ObjectBehavior
     // Other Variables
     [SerializeField] private Sprite openChestSprite;
 
-    private void Start() 
+    private void Awake() 
     {
         sprite = GetComponent<SpriteRenderer>();
     }

@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     public float JumpHeight { get; set; }
     public int Coins { get; set; }
 
-    public bool playerPausedGame;
+    private bool playerPausedGame;
 
     private Rigidbody2D body;
     private Animator anim;
@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
     private bool hitTimerIsSet;
     private bool canLand;
 
-    public bool canCombo = false;
+    private bool canCombo;
 
     [SerializeField] private bool autoRun; //player will automaticallt run to the right and left key is ignored
 
@@ -59,9 +59,8 @@ public class PlayerController : MonoBehaviour
     private int scorePenalty;              // Added when player goes off-screen
     private int hitFrames;                 // How many frames the player has been "hit" for
     private int maxHitFrames;              // How many frames the player is allowed to stay "hit" before they die (this gives them a chance to recover from getting stuck on a wall)
-
-    public int combo = 0;
-    public int comboCap = 10;
+    private int combo;
+    private int comboCap;
 
     private CapsuleCollider2D collider;
 
@@ -82,7 +81,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 coinPowerupPosition;
     private int lastCoinDistanceTravelled;
 
-    void Awake()
+    private void Awake()
     {
         Speed = initialSpeed;
         JumpHeight = initialJumpHeight;
@@ -90,6 +89,9 @@ public class PlayerController : MonoBehaviour
 
         instance = this;
         pwrupTimerIsSet = false;
+        canCombo = false;
+        combo = 0;
+        comboCap = 10;
         body = GetComponent<Rigidbody2D>();
         collider = GetComponent<CapsuleCollider2D>();
         anim = GetComponent<Animator>();
@@ -143,8 +145,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (isInCutscene)
         {
@@ -169,11 +170,7 @@ public class PlayerController : MonoBehaviour
         UpdateHitTimer();
         UpdateCombo();
 
-        if (transform.position.y < -6f)
-        {
-            body.velocity = Vector2.zero;
-            KillPlayer(true);
-        }
+        CheckPlayerFell();
 
     }
 
@@ -251,6 +248,41 @@ public class PlayerController : MonoBehaviour
         return body;
     }
 
+    public bool GetPlayerPausedGame()
+    {
+        return playerPausedGame;
+    }
+
+    public void SetPlayerPausedGame(bool playerPausedGame)
+    {
+        this.playerPausedGame = playerPausedGame;
+    }
+
+    public bool GetCanCombo()
+    {
+        return canCombo;
+    }
+
+    public void SetCanCombo(bool canCombo)
+    {
+        this.canCombo = canCombo;
+    }
+
+    public int GetCombo()
+    {
+        return combo;
+    }
+
+    public void SetCombo(int combo)
+    {
+        this.combo = combo;
+    }
+
+    public int GetComboCap()
+    {
+        return comboCap;
+    }
+
     private void PlayOpeningSequence()
     {
         if (playerStartedGame && !hasHitCutsceneTrigger && transitionTimer < startAfterSeconds)
@@ -296,9 +328,7 @@ public class PlayerController : MonoBehaviour
 
     private void CheckForWall()
     {
-        // RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right, 1.5f, wallMask);
         RaycastHit2D hit = Physics2D.CircleCast(transform.position, 0.5f, transform.right, 1.0f, wallMask);
-        // Debug.DrawLine(transform.position, transform.position + transform.right + new Vector3(1.5f, 0, 0), Color.red);
         Vector3 currentSpeed = Vector3.zero;
 
         if (lastPos != transform.position) 
@@ -307,8 +337,6 @@ public class PlayerController : MonoBehaviour
             currentSpeed /= Time.deltaTime;
             lastPos = transform.position;
         }
-
-        // Debug.Log($"{hit.transform}, {currentSpeed.magnitude}units/s");
 
         if (hit.transform && currentSpeed.magnitude < 0.5f)
         {
@@ -447,13 +475,6 @@ public class PlayerController : MonoBehaviour
     {
         if (distanceTravelled < transform.position.x && mainCamera != null)
         {
-            // Vector3 objectViewportPosition = mainCamera.WorldToViewportPoint(transform.position);
-
-            // if (objectViewportPosition.y > 1f)
-            // {
-            //     scorePenalty += (int) transform.position.x - distanceTravelled;
-            // }
-
             distanceTravelled = (int) transform.position.x;
         }
 
@@ -565,6 +586,15 @@ public class PlayerController : MonoBehaviour
         else if (!IsGrounded() && !canLand)
         {
             canLand = true;
+        }
+    }
+
+    private void CheckPlayerFell()
+    {
+        if (transform.position.y < -6f)
+        {
+            body.velocity = Vector2.zero;
+            KillPlayer(true);
         }
     }
 }

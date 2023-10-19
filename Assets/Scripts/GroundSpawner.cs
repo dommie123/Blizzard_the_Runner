@@ -6,7 +6,7 @@ public class GroundSpawner : MonoBehaviour
 {
     private GameObject groundPiece;
     private Collider2D collider;
-    public List<GameObject> groundPieces;
+    [SerializeField] private List<GameObject> groundPieces;
     [SerializeField] private Vector3 spawnOffset;
     [SerializeField] private int tilesToSpawn;
     [SerializeField] private float destroyInSeconds;
@@ -17,8 +17,6 @@ public class GroundSpawner : MonoBehaviour
         int rng = Random.Range(0, groundPieces.Count);
         groundPiece = groundPieces[rng];
     }
-
-
 
     private void OnTriggerEnter2D(Collider2D other) 
     {
@@ -40,8 +38,6 @@ public class GroundSpawner : MonoBehaviour
             this.transform.parent.transform.position.y, 
             this.transform.parent.transform.position.z
         );
-        // Debug.Log(groundPiece);
         GameObject temp = Instantiate(groundPiece, spawnPos, Quaternion.identity);
-
     }
 }

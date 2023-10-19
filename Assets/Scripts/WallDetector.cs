@@ -9,7 +9,7 @@ public class WallDetector : MonoBehaviour
 
     private PlayerController player;
 
-    void Start() 
+    private void Awake() 
     {
         player = transform.parent.GetComponent<PlayerController>();
     }
